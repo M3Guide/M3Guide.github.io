@@ -30,6 +30,11 @@
             margin-top: 0; /* Remove default margin */
             font-size: 32px;
         }
+        .table-container {
+		    overflow-x: auto;
+		    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+		    max-width: 100%; /* Ensure the container fills the available width */
+		}
         table {
             width: 100%;
             border-collapse: collapse;
@@ -75,6 +80,7 @@
             outline: none;
             border-color: #aaa; /* Change border color when focused */
         }
+
     </style>
 </head>
 <body>
@@ -84,17 +90,18 @@
     <h1>MGG Stats</h1>
 
     <input type="text" id="filterInput" placeholder="Filter table...">
-
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <!-- Headers will be inserted here dynamically -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data rows will be inserted here dynamically -->
-        </tbody>
-    </table>
+	<div class="table-container">
+	    <table id="dataTable">
+	        <thead>
+	            <tr>
+	                <!-- Headers will be inserted here dynamically -->
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <!-- Data rows will be inserted here dynamically -->
+	        </tbody>
+	    </table>
+	</div>
 
 </div>
 <!--https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv-->
