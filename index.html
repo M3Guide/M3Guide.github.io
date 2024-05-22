@@ -124,17 +124,26 @@
                 });
 
                 // Insert table rows
-                const fragment = document.createDocumentFragment();
-                rows.forEach(rowData => {
-                    const tr = document.createElement('tr');
-                    columns.forEach(column => {
-                        const td = document.createElement('td');
-                        td.innerText = rowData[column];
-                        tr.appendChild(td);
-                    });
-                    fragment.appendChild(tr);
-                });
-                tbody.appendChild(fragment);
+                var genes = {'':'',"Cyber":'a',"Necro":'b',"Saber":'c',"Zoomorph":'d',"Galactic":'e',"Mythic":'f'}
+				const fragment = document.createDocumentFragment();
+				rows.forEach(rowData => {
+				    const rowContent = [];
+				    const tr = document.createElement('tr');
+				    columns.forEach(column => {
+				        const td = document.createElement('td');
+				        const cellContent = rowData[column];
+				        td.innerText = cellContent;
+				        rowContent.push(cellContent); // Store cell content in the array
+				        tr.appendChild(td);
+				    });
+				    tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
+				    fragment.appendChild(tr);
+				    var trail = ((rowContent[13].length < 2) ? '0' : '') + rowContent[13];
+				    var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowContent[3]]+genes[rowContent[4]]+"_"+trail+".png";
+				   	alert(link);
+				});
+				tbody.appendChild(fragment);
+
 
                 // Filter functionality
                 filterInput.addEventListener('keyup', function () {
