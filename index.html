@@ -138,36 +138,35 @@
 				rows.forEach(rowData => {
 				    const rowContent = [];
 				    const tr = document.createElement('tr');
-				    
-				    // Create the first column
-				    const firstColumn = document.createElement('td');
-				    firstColumn.innerText = rowData[columns[0]];
-				    rowContent.push(rowData[columns[0]]);
-				    tr.appendChild(firstColumn);
-				    
+				
 				    // Fill row content for the rest of the columns starting from the second column
-				    for (let i = 1; i < columns.length; i++) {
+				    for (let i = 0; i < columns.length; i++) {
 				        const td = document.createElement('td');
-				        td.innerText = rowData[columns[i]];
-				        rowContent.push(rowData[columns[i]]);
-				        tr.appendChild(td);
-				    }
-				    var trail = ((rowContent[13].length < 2) ? '0' : '') + rowContent[13];
-					var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowContent[3]]+genes[rowContent[4]]+"_"+trail+".png";
-				    // Create the Icon column after filling the row content
-				    const iconColumn = document.createElement('td');
-				    const iconLink = document.createElement('a');
-				    iconLink.href = link; // Assuming 'Icon' is the key for the image URLs in your data
-				    iconLink.target = "_blank";
-				    const iconImage = document.createElement('img');
-				    iconImage.src = link; // Assuming 'Icon' is the key for the image URLs in your data
-				    iconImage.alt = "Icon";
-				    iconImage.style.maxWidth = "50px"; // Set a maximum width for the image
-				    iconLink.appendChild(iconImage);
-				    iconColumn.appendChild(iconLink);
+				        if (i == 1){
+				        	var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+							var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowData[columns[4]]]+genes[rowData[columns[5]]]+"_"+trail+".png";
+							// Create the Icon column after filling the row content
+						    const iconColumn = document.createElement('td');
+						    const iconLink = document.createElement('a');
+						    iconLink.href = link; // Assuming 'Icon' is the key for the image URLs in your data
+						    iconLink.target = "_blank";
+						    const iconImage = document.createElement('img');
+						    iconImage.src = link; // Assuming 'Icon' is the key for the image URLs in your data
+						    iconImage.alt = "Icon";
+						    iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
+						    iconLink.appendChild(iconImage);
+						    iconColumn.appendChild(iconLink);
 				    
-				    // Append the Icon column to the row
-				    tr.appendChild(iconColumn);
+						    // Append the Icon column to the row
+						    tr.appendChild(iconColumn);
+				        }else{
+				        	td.innerText = rowData[columns[i]];
+					        rowContent.push(rowData[columns[i]]);
+					        tr.appendChild(td);
+				        }
+				        
+				    }
+				    
 				    
 				    tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
 				    fragment.appendChild(tr);
