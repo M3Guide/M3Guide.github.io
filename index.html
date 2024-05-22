@@ -128,6 +128,7 @@
                 var genes = {'':'',"Cyber":'a',"Necro":'b',"Saber":'c',"Zoomorph":'d',"Galactic":'e',"Mythic":'f'}
 
                 // Insert table rows
+                // Insert table rows
 				const fragment = document.createDocumentFragment();
 				rows.forEach(rowData => {
 				    const rowContent = [];
@@ -138,14 +139,6 @@
 				    firstColumn.innerText = rowData[columns[0]];
 				    rowContent.push(rowData[columns[0]]);
 				    tr.appendChild(firstColumn);
-				    
-				    // Fill row content for the rest of the columns starting from the second column
-				    for (let i = 1; i < columns.length; i++) {
-				        const td = document.createElement('td');
-				        td.innerText = rowData[columns[i]];
-				        rowContent.push(rowData[columns[i]]);
-				        tr.appendChild(td);
-				    }
 				    var trail = ((rowContent[13].length < 2) ? '0' : '') + rowContent[13];
 				    var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowContent[3]]+genes[rowContent[4]]+"_"+trail+".png";
 				    // Create the Icon column after the first column
@@ -159,12 +152,23 @@
 				    iconImage.style.maxWidth = "50px"; // Set a maximum width for the image
 				    iconLink.appendChild(iconImage);
 				    iconColumn.appendChild(iconLink);
+				    
+				    // Append the Icon column to the row
 				    tr.appendChild(iconColumn);
+				    
+				    // Fill row content for the rest of the columns starting from the second column
+				    for (let i = 1; i < columns.length; i++) {
+				        const td = document.createElement('td');
+				        td.innerText = rowData[columns[i]];
+				        rowContent.push(rowData[columns[i]]);
+				        tr.appendChild(td);
+				    }
 				    
 				    tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
 				    fragment.appendChild(tr);
 				});
 				tbody.appendChild(fragment);
+
 
                 // Filter functionality
                 filterInput.addEventListener('keyup', function () {
