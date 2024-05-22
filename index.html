@@ -144,7 +144,13 @@
 				        const td = document.createElement('td');
 				        if (i == 1){
 				        	var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
-							var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowData[columns[4]]]+genes[rowData[columns[5]]]+"_"+trail+".png";
+							var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowData[columns[4]]]+genes[rowData[columns[5]]]+"_"+trail;
+							if(rowData[columns[5]] == "Yes" || rowData[columns[5]] == "If owned"){
+								link += "_platinum";
+							}else if(rowData[columns[5]] == "No" && rowData[columns[3]] == "Zodiac"){
+								link += "_silver";
+							}
+							link += ".png";
 							// Create the Icon column after filling the row content
 						    const iconColumn = document.createElement('td');
 						    const iconLink = document.createElement('a');
