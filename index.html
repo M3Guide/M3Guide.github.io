@@ -14,10 +14,13 @@
             padding: 0;
         }
         #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto; /* Center the container horizontally */
             width: 80%; /* Set a width for the container */
             max-width: 800px; /* Limit maximum width of the container */
-            text-align: left; /* Reset text alignment for child elements */
             background-color: #333; /* Greyish background color for the container */
             padding: 20px;
             border-radius: 10px;
@@ -35,7 +38,7 @@
         th, td {
             padding: 10px;
             border: 1px solid #ddd;
-            text-align: left;
+            text-align: center; /* Center align the content */
         }
         th {
             cursor: pointer;
@@ -107,6 +110,7 @@
                 const rows = results.data;
                 const table = document.getElementById('dataTable');
                 const filterInput = document.getElementById('filterInput');
+                const tbody = table.querySelector('tbody');
 
                 // Insert table headers
                 const headers = table.querySelector('thead tr');
@@ -119,16 +123,17 @@
                 });
 
                 // Insert table rows
-                const tbody = table.querySelector('tbody');
-                rows.forEach(row => {
+                const fragment = document.createDocumentFragment();
+                rows.forEach(rowData => {
                     const tr = document.createElement('tr');
                     columns.forEach(column => {
                         const td = document.createElement('td');
-                        td.innerText = row[column];
+                        td.innerText = rowData[column];
                         tr.appendChild(td);
                     });
-                    tbody.appendChild(tr);
+                    fragment.appendChild(tr);
                 });
+                tbody.appendChild(fragment);
 
                 // Filter functionality
                 filterInput.addEventListener('keyup', function () {
@@ -149,11 +154,13 @@
             const rows = Array.from(tbody.rows);
             const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
             rows.sort((a, b) => {
-                const aValue = type === 'number' ? parseFloat(a.cells[n].innerText) : a.cells[n].innerText;
+                const aValue = type === 'number' ? parseFloat(a.cells[n].innerText)                        : a.cells[n].innerText;
                 const bValue = type === 'number' ? parseFloat(b.cells[n].innerText) : b.cells[n].innerText;
                 return asc ? aValue - bValue : bValue - aValue;
             });
-            rows.forEach(row => tbody.appendChild(row));
+            const fragment = document.createDocumentFragment();
+            rows.forEach(row => fragment.appendChild(row));
+            tbody.appendChild(fragment);
             table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
             table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
         }
@@ -162,3 +169,4 @@
 
 </body>
 </html>
+
