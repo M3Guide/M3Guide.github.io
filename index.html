@@ -124,26 +124,47 @@
                 });
 
                 // Insert table rows
+
                 var genes = {'':'',"Cyber":'a',"Necro":'b',"Saber":'c',"Zoomorph":'d',"Galactic":'e',"Mythic":'f'}
+
+                // Insert table rows
 				const fragment = document.createDocumentFragment();
 				rows.forEach(rowData => {
 				    const rowContent = [];
 				    const tr = document.createElement('tr');
-				    columns.forEach(column => {
+				    
+				    // Create the first column
+				    const firstColumn = document.createElement('td');
+				    firstColumn.innerText = rowData[columns[0]];
+				    rowContent.push(rowData[columns[0]]);
+				    tr.appendChild(firstColumn);
+				    
+				    // Fill row content for the rest of the columns starting from the second column
+				    for (let i = 1; i < columns.length; i++) {
 				        const td = document.createElement('td');
-				        const cellContent = rowData[column];
-				        td.innerText = cellContent;
-				        rowContent.push(cellContent); // Store cell content in the array
+				        td.innerText = rowData[columns[i]];
+				        rowContent.push(rowData[columns[i]]);
 				        tr.appendChild(td);
-				    });
-				    tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
-				    fragment.appendChild(tr);
+				    }
 				    var trail = ((rowContent[13].length < 2) ? '0' : '') + rowContent[13];
 				    var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_"+genes[rowContent[3]]+genes[rowContent[4]]+"_"+trail+".png";
-				   	alert(link);
+				    // Create the Icon column after the first column
+				    const iconColumn = document.createElement('td');
+				    const iconLink = document.createElement('a');
+				    iconLink.href = link; // Assuming 'Icon' is the key for the image URLs in your data
+				    iconLink.target = "_blank";
+				    const iconImage = document.createElement('img');
+				    iconImage.src = rowData['Icon']; // Assuming 'Icon' is the key for the image URLs in your data
+				    iconImage.alt = "Icon";
+				    iconImage.style.maxWidth = "50px"; // Set a maximum width for the image
+				    iconLink.appendChild(iconImage);
+				    iconColumn.appendChild(iconLink);
+				    tr.appendChild(iconColumn);
+				    
+				    tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
+				    fragment.appendChild(tr);
 				});
 				tbody.appendChild(fragment);
-
 
                 // Filter functionality
                 filterInput.addEventListener('keyup', function () {
