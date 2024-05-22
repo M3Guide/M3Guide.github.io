@@ -154,9 +154,9 @@
 		    const rows = Array.from(tbody.rows);
 		    const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
 		    rows.sort((a, b) => {
-		        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText) || 0 : a.cells[n].innerText.toLowerCase();
-		        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText) || 0 : b.cells[n].innerText.toLowerCase();
-		        if (type === 'number') {
+		        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
+		        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
+		        if (!isNaN(aValue) && !isNaN(bValue)) {
 		            return asc ? aValue - bValue : bValue - aValue;
 		        } else {
 		            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
@@ -168,6 +168,7 @@
 		    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
 		    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
 		}
+
 
     });
 </script>
