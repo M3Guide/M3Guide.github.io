@@ -1,213 +1,117 @@
-<html>
-<style>
-body{
-	font-family: Maven Pro, sans-serif;
-}
-#mutant2{
-position: absolute;
-right: 0px;
-}
-#mp2{
-position: absolute;
-right: 0px;
-}
-#mgene1{
-	position: absolute;
-	left: 0px;
-}
-#mgene2{
-	position: absolute;
-	right: 0px;
-}
-#breedButton{
-	position: absolute;
-    right: 50%;
-}
-#output{
-	text-align: center;
-	color: white;
-}
-#testImage{
-	text-align: center;
-	cursor:pointer;
-	display: block;
-  	margin-left: auto;
-  	margin-right: auto;
-	width: 23%;
-}
-input[type="rinput"]::placeholder {
-text-align: right;
-}
-html{
-	background-color: #080f13;
-	color: white;
-}
-table{
-	margin-left: auto;
-	margin-right: auto;
-}
 
-</style>
-<select id="mutant1" type="input" onChange="mutantGenes1(this);" >
-</select>
-<select id="mutant2" type="input" onChange="mutantGenes2(this);" >
-</select><br>
-<body onload="mutantGenes1('loaded'); mutantGenes2('loaded');"> 
-<a id="mp1">Mutant Parent 1</a>
-<a id="mp2">Mutant Parent 2</a>
-<div id = "mgene1">
-<img id = "mg11" />
-<img id = "mg12" />
-</div>
-<div id = "mgene2">
-<img id = "mg21"/>
-<img id = "mg22"/>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<img id = "testImage" src="https://i.imgur.com/ZnLurJw.png" onclick="breed()"/>
-<br>
-<br>
-<table id = "output" class="center">
-	<tbody id="tableBody"></tbody>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortable and Filterable Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+        }
+        th.sort-asc::after {
+            content: " \25B2";
+        }
+        th.sort-desc::after {
+            content: " \25BC";
+        }
+        input[type="text"] {
+            margin: 10px 0;
+            padding: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Sortable and Filterable Table</h1>
+
+<input type="text" id="filterInput" placeholder="Filter table...">
+
+<table id="dataTable">
+    <thead>
+        <tr>
+            <!-- Headers will be inserted here dynamically -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will be inserted here dynamically -->
+    </tbody>
 </table>
 
 <script>
-	var mutants = ["A00-C0R3-C0NTR0L","A027441","Abraham Lincoln","Absolem","Abyssal Terror","Achernar","Acheron","Akai-Bot","Akuso Monk","Alfie","Algid Exocelestial","Alien","Altaris","Amarok","Ammonia Atlantica","Android","Andromeda","Angry Pork","Anteros","Anubis","Apex","Apophis","Aquapunzel","Arachno","Aran","Archangel","Arelvam","Asaylan","Asimov","Astro Magician","Astro Surfer","Aubraea Mutantula","Autonorush","Awakened Missy","Azog","Azuria","Bahamut","Baloonies","Banker","Barbarian","Baron Lundi","Basilisc&Tarragon","Battle Simulacrum","Battle Toad","Bazzinger","Beast","Beetle Bot","Behemoth","Big Bo$$","Big Santa","Bio-Hedgehog","Blade Banshee","Blender","Blood Berry","Bones 'n' Roses","Boreal Helix","Bounda","Bounty Bug","Bounty Hunter","Brawler","Breaver","Bregbeam","Brick McGole","Britany","Buck Maurice","Buffalor","Bug's King","Bulldozer","Buranka","Bushi","C'thlig","Cabloid","Calaca","Caliburn EX","Cancernia","Caprika","Capsulator MTZ-004","Captain Achabe","Captain Bag 'O' Bones","Captain Eagle","Captain Gorn","Captain Patriot","Captain Peace","Captain Turk E.","Captain Wrenchfury","Carcinus Gigas","Centaurus","Cerberus","Ceres","Cernunnos","Cézanne","Challengeer","Chantecler","Charon","Chocolem","Chun-Lei","Cobrakai","Colossus","Commander Ender","Commodore Le Shark","Cooktouille","Cosmo Kong","Cosmopandas","Cr€$u$","Cranequin","Crawlorax","Crow","Crusher","Cryonos","Crypt Wraith","Ctopy","Cupid","Cursed Rider","Cyber Croc","Cyber Punk","CyberSlug","D'Arathomis","Dandy Bones","Darwin","Data Snail","Deadbot","Deadnosaur","Deathcon 1","Demon","Desecrated Cleric","Deus Machina","Dezinger","Diablo","Dilophoraptor","Dimentio","Dire Despot","Dissension","Divastator","Doctor Blaw","Dr. Frost","Dr. Nucleus","Draco Mage","Dracus Nobilis","Dragons' Mother","Drall","Dreadnought","Dream Defender","Dreaming Anthroborg","Drei, Space Corgi","Drudge Zombie","Drusella","Dug Dario","Easter Gunny","ED-404","El Gringo","El Veneno","Enforcer","Engineer","Enviro Mk III","Ethereal Cybermancer","Eva's Replication","Excavalypse","Exo Cookie","Exo Fish","Extra Terrorcycle","Fennec Plus Ultra","Firestorm","Fix-o-Drone LLK-215","Flying Jordson","FootBot","Frankendwarf","Frankenhuahua","Fuel Wasp","Gakarian","Galactic Emperor","Galactic Guardian","Gamallia","Gandolphus","GAR, Zombie Sovereign","Gargantus","Garlog","Garuda","Geminium","General Chaos","Generalissimo Chocoleon IV","Genimal","Genshiryoku","Geomega","George Washington","Gerard Steelgarden","Gestalt Asteroid","Ghost Killer","Ghostmonaut","Glubber","Golemagnus","Goliath","Gorthaur the Cruel","Gozer","Grannyvore","Great Tunnelworm","Grim Reapress","Grumpy Claus","Gwenn","H.U.M.A.N.","H.U.N.T.3.R","H0ud1dn1","Hadeath","Haggis","Halbeard","Harebrained Underminer","Hatching Mechararachnidian","Hawkeye","Heimdall","Helidrone KxT-271","Hellmaw","Hellsaw","Hephaestus","Hercules","High Gravelord","Hippopotank","Hog the Ripper","Honey Bunny","Horax","Horus","Howlosaurus","Humongous","Ichorous Slime","Inheritor of the 5 rings","Interceptrix","Invadron","Iron Eagle","Irreality Animus","Ishi no Ōkami","Ivory Hanzo","Jack Ice","Jack O'Lantern","Jane Saw","Kaiju Kitty","Kal Wayne","Kameo","Kangaboo","King Lulu","King Steven","Kitty Perry","Kitty Ranger","Kolossus","Kontiki","Kraken","Krampus","Krunk","Kudamono","Kung Chow","Lady Harpy","Lady Liberty","Lama Sensei","Lancelot","Lara","Leech Lord","Leohart","Leonidas","Lepidoptech","Leprechaun","Leviathan","Libraro","Lichlock","Lily","Liquidator","Lord Dragon","Louis XVI","Mad Mike","Mage Ryzafredd","Maiden of Twilight","Majin Zam","Makino","Mandor","Mantidroid","Marship Mallow","Martian Marauder","Marv","Master Oida","Master Paw","Master Shinzo","Master Splitter","Medusa","Megastral","Mekali","Men'ki Guard","Mephisto","Mexihcatl","Micky Krueger","Midas","Mimi Timebender","Mister T-ger","Mix0-Logist","Mon-Key Crew","Monkey King","Monocerus","Monolith","Mr Marvelous","Muddypeat","Mur'Ghoul","Mushbark","Myrmidus.exe","Namaste","Nameless King","Naraxis","Nebulon","Nebulus","Necroparasyte","Neo-Urban XIII","Nezarim","Nightmare Aberration","Nimrod","Nordic Knightmare","Noren","Nyrlatoth","Oculys","Omikami","Optimus Zord","Oriax","Orion","Oryctolagus Alienicus","Ossembly","Overkill","Owlock","Paramic","Parasite Queen","Peekaboo","Perfitrouille","Phileas Derocas","Phoenix","Pierrot","Pit Lord","Piwisher","Plague Witch","Planet Cleaner","Polaris","Prince Scorpion","Project 3V3","Project X27","Psycho Chainsawer","Psychoboar","Pugnisher","Puppetron","Pyrothrope","Queen Sylvidra","Quetzalcoatl","R0B-H4N Sentinel","RA-DK-Bot","Ragefang","Ragnar","Rakk 'n' Ruin","Rakkti Queen","Rakshasa","Rammerhead","Regulo&Juzya","Reptoïd","Retribution","Rhino Squadron","Rhinotaure","Roadmaster","Robo Fuerte","Robot","Rocky Botboa","Rox McRain","Runt and Cerebro","S-K-Venger","Saber","Sagittaurius","Sanik","Santactopus","Santagonist","Sasquatch","Satyr Shaman","Sawmetrodon","Scaramouche","Scare Bear","Scarlett","Seiyatsu","Selendis","Sentry","Seraphic Core","Sergeant Dusk","Sgt. Pandamonium","Shadow Shaman","Shell Shock","Shieldcalibur","Shin Hakuho","Shinigami Painter","Sidereal Explorer","Simurgh","Singularity Wizard","Sir Bannog","Sir Puggington","Sirenia","Slashog","Snowmage","Solar Lampyrion","Son of the Storm","Sorceress","Soul Coalescence","Soul Eater","Sound Killah","Space Hunter","Space Princess","Space Surfer","Spada","Spartac","Spectre","Spin Fury","Star Trooper","Starfarer Medic","Stargazer","Starminator","Starscream","Stealth Bot","Steam Warlord","Stellarian Lithominer","Summoner","Sun-Duke","Supernovus","Supraman X","T-3rr0r","Taurider","Techno Taoïst","Tenacity","Tengu","Terracotta General","Terrordoll","Tezcatlipoca","Thanaconda","The An0maly","The Boogey Girl","The Chimera","The Collector","The Darkseer","The Devourer","The Experiment","The Fates","The Flaying, MD","The Forgotten One","The Glutton","The Keymaster","The King of Mimphys","The Lantern Doctor","The Mutiny","The Phosphorescent","The Plumber","The Primal","The Reef","The Skeleton King","The Undertaker","Thor","Thrann","Thunderstruck","Timeless Archivist","Tinker Blade","Tri-Klops","TriAD","Tricera Tank","Triple-B","True Hero Reed","Tsar Bomba","Tutti Gooey","Uncle Sam","Undead Dragon","Undead Soldier","Unstabot","Urgan","Väinämöinen","Valkyrie","Van Helsing","Veren Kaeesu","Viper","Virgon","Vivaldi","Wampara","Warrior","Waryena","Wicked Witch","Wind Spirit","Wrath","Wynn","X'astuth","Xeleroth","Xenarach","Xenos","Xinomas","Yelda","Yggdrasil","Yokozuna","Z-0","Zena","Zenguru","Zeus","Zigmo","Zombat","Zombie","Zomborg"];
-	var breedable = ["No","If owned","No","Yes","If owned","If owned","No","No","If owned","If owned","No","Yes","If owned","If owned","If owned","Yes","If owned","If owned","No","Yes","If owned","If owned","No","If owned","If owned","No","If owned","If owned","If owned","If owned","Yes","If owned","If owned","No","If owned","If owned","If owned","If owned","No","If owned","Yes","No","No","If owned","If owned","Yes","Yes","If owned","No","No","If owned","Yes","If owned","Yes","If owned","No","If owned","Yes","If owned","No","If owned","If owned","If owned","If owned","Yes","If owned","If owned","If owned","If owned","Yes","Yes","If owned","No","No","No","No","No","No","Yes","No","If owned","If owned","No","If owned","Yes","If owned","If owned","Yes","If owned","If owned","If owned","If owned","If owned","No","No","If owned","Yes","Yes","If owned","Yes","If owned","Yes","If owned","If owned","If owned","If owned","No","No","No","If owned","No","No","Yes","If owned","If owned","Yes","If owned","If owned","No","If owned","Yes","If owned","If owned","Yes","If owned","Yes","Yes","No","If owned","If owned","Yes","If owned","If owned","If owned","If owned","No","If owned","Yes","If owned","If owned","No","No","If owned","If owned","If owned","If owned","If owned","No","If owned","If owned","If owned","Yes","If owned","If owned","If owned","No","If owned","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","No","Yes","If owned","Yes","If owned","No","No","No","No","If owned","No","No","If owned","No","No","If owned","If owned","If owned","Yes","If owned","If owned","No","No","If owned","If owned","No","Yes","No","If owned","Yes","If owned","If owned","If owned","If owned","If owned","No","No","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","No","Yes","If owned","Yes","If owned","If owned","If owned","If owned","Yes","Yes","If owned","No","If owned","No","No","No","If owned","Yes","If owned","If owned","If owned","If owned","If owned","If owned","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","No","If owned","If owned","No","Yes","No","If owned","If owned","No","If owned","No","If owned","No","If owned","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","Yes","If owned","Yes","If owned","Yes","No","If owned","If owned","Yes","If owned","If owned","If owned","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","Yes","If owned","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","Yes","No","If owned","No","If owned","If owned","If owned","Yes","No","If owned","If owned","If owned","If owned","No","If owned","No","If owned","If owned","If owned","If owned","Yes","If owned","No","If owned","If owned","If owned","Yes","No","If owned","Yes","No","No","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","Yes","No","If owned","Yes","No","No","Yes","If owned","If owned","If owned","If owned","No","Yes","If owned","If owned","If owned","If owned","No","No","If owned","No","No","If owned","If owned","If owned","If owned","Yes","No","No","If owned","Yes","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","No","If owned","If owned","If owned","If owned","No","No","If owned","If owned","No","If owned","No","If owned","If owned","No","If owned","No","If owned","If owned","Yes","If owned","If owned","If owned","If owned","Yes","If owned","If owned","If owned","No","If owned","No","If owned","No","Yes","If owned","If owned","If owned","Yes","No","If owned","If owned","If owned","If owned","If owned","Yes","Yes","If owned","If owned","If owned","No","If owned","If owned","If owned","No","If owned","If owned","No","No","No","If owned","No","Yes","If owned","If owned","If owned","If owned","If owned","If owned","If owned","Yes","No","If owned","Yes","No","Yes","If owned","If owned","If owned","If owned","Yes","If owned","No","If owned","No","No","Yes","Yes","If owned","If owned","If owned","If owned","If owned","If owned","If owned","If owned","Yes","No","No","If owned","If owned","If owned","If owned","If owned","No","If owned","If owned","Yes","Yes"];
-	var gene1 = ["Cyber","Cyber","Cyber","Zoomorph","Zoomorph","Galactic","Necro","Cyber","Saber","Cyber","Mythic","Galactic","Saber","Mythic","Galactic","Cyber","Cyber","Galactic","Saber","Mythic","Saber","Necro","Galactic","Zoomorph","Saber","Mythic","Saber","Zoomorph","Cyber","Mythic","Galactic","Galactic","Cyber","Saber","Saber","Mythic","Mythic","Zoomorph","Mythic","Saber","Necro","Zoomorph","Cyber","Saber","Mythic","Zoomorph","Cyber","Galactic","Saber","Saber","Cyber","Saber","Cyber","Mythic","Mythic","Mythic","Cyber","Galactic","Cyber","Zoomorph","Zoomorph","Mythic","Galactic","Necro","Saber","Zoomorph","Mythic","Necro","Mythic","Saber","Mythic","Cyber","Necro","Saber","Necro","Necro","Cyber","Saber","Necro","Saber","Galactic","Galactic","Mythic","Zoomorph","Cyber","Cyber","Cyber","Zoomorph","Galactic","Zoomorph","Zoomorph","Saber","Zoomorph","Necro","Zoomorph","Saber","Zoomorph","Cyber","Cyber","Necro","Necro","Zoomorph","Zoomorph","Necro","Saber","Galactic","Necro","Cyber","Saber","Necro","Galactic","Saber","Necro","Cyber","Cyber","Cyber","Saber","Necro","Zoomorph","Zoomorph","Cyber","Zoomorph","Cyber","Mythic","Necro","Cyber","Cyber","Galactic","Zoomorph","Galactic","Necro","Saber","Galactic","Necro","Mythic","Galactic","Mythic","Zoomorph","Zoomorph","Saber","Galactic","Cyber","Zoomorph","Zoomorph","Necro","Cyber","Necro","Zoomorph","Cyber","Saber","Cyber","Saber","Mythic","Cyber","Mythic","Cyber","Necro","Zoomorph","Galactic","Galactic","Zoomorph","Mythic","Galactic","Galactic","Mythic","Saber","Necro","Cyber","Galactic","Necro","Saber","Galactic","Mythic","Necro","Zoomorph","Galactic","Cyber","Saber","Saber","Mythic","Zoomorph","Zoomorph","Mythic","Necro","Mythic","Galactic","Galactic","Necro","Mythic","Galactic","Cyber","Mythic","Mythic","Zoomorph","Zoomorph","Mythic","Cyber","Zoomorph","Cyber","Cyber","Cyber","Mythic","Saber","Cyber","Zoomorph","Cyber","Zoomorph","Cyber","Cyber","Necro","Necro","Mythic","Cyber","Cyber","Cyber","Saber","Saber","Zoomorph","Mythic","Zoomorph","Necro","Necro","Saber","Saber","Cyber","Saber","Galactic","Mythic","Mythic","Saber","Necro","Saber","Zoomorph","Galactic","Zoomorph","Zoomorph","Necro","Galactic","Galactic","Cyber","Saber","Zoomorph","Galactic","Zoomorph","Galactic","Mythic","Mythic","Necro","Galactic","Zoomorph","Saber","Saber","Necro","Zoomorph","Saber","Cyber","Mythic","Zoomorph","Cyber","Necro","Mythic","Mythic","Zoomorph","Zoomorph","Zoomorph","Galactic","Mythic","Mythic","Saber","Galactic","Zoomorph","Galactic","Saber","Cyber","Galactic","Mythic","Zoomorph","Zoomorph","Mythic","Galactic","Mythic","Saber","Galactic","Mythic","Necro","Mythic","Mythic","Zoomorph","Cyber","Saber","Zoomorph","Cyber","Mythic","Galactic","Necro","Necro","Necro","Cyber","Mythic","Saber","Necro","Galactic","Mythic","Necro","Cyber","Necro","Mythic","Mythic","Saber","Zoomorph","Necro","Necro","Mythic","Cyber","Mythic","Mythic","Zoomorph","Necro","Necro","Galactic","Galactic","Zoomorph","Necro","Necro","Cyber","Mythic","Mythic","Mythic","Zoomorph","Necro","Galactic","Galactic","Mythic","Cyber","Saber","Necro","Zoomorph","Zoomorph","Mythic","Necro","Galactic","Zoomorph","Cyber","Saber","Necro","Saber","Galactic","Galactic","Zoomorph","Necro","Saber","Zoomorph","Mythic","Zoomorph","Zoomorph","Necro","Cyber","Cyber","Saber","Galactic","Necro","Cyber","Zoomorph","Saber","Zoomorph","Galactic","Saber","Zoomorph","Zoomorph","Zoomorph","Saber","Necro","Saber","Galactic","Galactic","Galactic","Mythic","Cyber","Galactic","Mythic","Galactic","Galactic","Saber","Mythic","Galactic","Mythic","Galactic","Saber","Saber","Galactic","Zoomorph","Mythic","Zoomorph","Saber","Mythic","Necro","Necro","Zoomorph","Galactic","Mythic","Galactic","Zoomorph","Saber","Galactic","Cyber","Galactic","Galactic","Galactic","Galactic","Galactic","Cyber","Cyber","Galactic","Mythic","Saber","Galactic","Cyber","Necro","Cyber","Mythic","Cyber","Necro","Saber","Necro","Mythic","Necro","Zoomorph","Necro","Zoomorph","Necro","Cyber","Galactic","Necro","Mythic","Necro","Necro","Necro","Saber","Necro","Necro","Saber","Necro","Cyber","Necro","Saber","Saber","Necro","Saber","Necro","Cyber","Mythic","Saber","Cyber","Cyber","Zoomorph","Necro","Saber","Saber","Galactic","Saber","Necro","Galactic","Cyber","Saber","Mythic","Saber","Necro","Galactic","Cyber","Cyber","Mythic","Galactic","Saber","Necro","Mythic","Mythic","Saber","Saber","Galactic","Mythic","Cyber","Galactic","Galactic","Mythic","Mythic","Saber","Necro","Saber","Mythic","Galactic","Zoomorph","Zoomorph","Necro","Necro"];
-	var gene2 = ["Cyber","Mythic","Mythic","Mythic","Zoomorph","Mythic","Mythic","Galactic","Mythic","Galactic","Galactic","","Cyber","Saber","Zoomorph","Cyber","Galactic","Zoomorph","Cyber","Necro","Galactic","Galactic","Mythic","Cyber","Galactic","Cyber","Mythic","Cyber","","Galactic","Galactic","Necro","Mythic","Cyber","Mythic","Galactic","Galactic","Zoomorph","Cyber","","Mythic","Mythic","Necro","Zoomorph","Cyber","","Zoomorph","Saber","Cyber","Mythic","Zoomorph","Necro","Saber","Mythic","Necro","Cyber","Mythic","Saber","","Necro","Necro","Mythic","Cyber","Mythic","Saber","Necro","Galactic","Zoomorph","Zoomorph","Necro","Galactic","Cyber","Mythic","Mythic","Zoomorph","Galactic","Saber","Galactic","Saber","Zoomorph","Cyber","Cyber","Saber","Galactic","Saber","Zoomorph","Galactic","Necro","","Zoomorph","Saber","Cyber","Mythic","Saber","Mythic","Galactic","Necro","Galactic","Necro","Galactic","Zoomorph","Galactic","Galactic","Cyber","Necro","Zoomorph","","Necro","","Necro","Zoomorph","Necro","Necro","Zoomorph","Saber","Galactic","","Saber","Galactic","Cyber","Necro","Necro","Zoomorph","","Mythic","Mythic","Saber","Necro","Zoomorph","Mythic","Saber","Necro","Mythic","Cyber","Cyber","Necro","Zoomorph","Mythic","Mythic","Zoomorph","Cyber","Mythic","Cyber","Galactic","","Necro","Galactic","","Cyber","Saber","Mythic","Cyber","Galactic","Necro","Cyber","Mythic","Cyber","Galactic","Cyber","Galactic","Cyber","Mythic","Cyber","Galactic","Cyber","Necro","Necro","Zoomorph","Necro","Mythic","Galactic","Saber","Saber","","Saber","Necro","","Galactic","Cyber","Saber","Mythic","Galactic","Mythic","Saber","Mythic","Galactic","Necro","Galactic","Mythic","Galactic","Cyber","Saber","Necro","Saber","Necro","Necro","Necro","Mythic","Cyber","Cyber","Mythic","Necro","Zoomorph","Mythic","Saber","Zoomorph","Cyber","Mythic","Galactic","Zoomorph","Cyber","Saber","Cyber","Necro","Zoomorph","Zoomorph","Zoomorph","Necro","Zoomorph","","Galactic","Galactic","Mythic","Cyber","Galactic","Galactic","Galactic","Zoomorph","Zoomorph","Zoomorph","","Necro","Zoomorph","Mythic","Zoomorph","Zoomorph","Saber","Cyber","Zoomorph","Zoomorph","Galactic","Mythic","Mythic","Saber","Cyber","Saber","Zoomorph","Zoomorph","Cyber","Zoomorph","Saber","Saber","Necro","Saber","Necro","Zoomorph","","Galactic","Galactic","Mythic","Cyber","Mythic","Necro","Necro","Galactic","Mythic","Necro","Galactic","Cyber","Mythic","Cyber","Galactic","Galactic","Galactic","Galactic","Zoomorph","Saber","Zoomorph","Zoomorph","Galactic","Cyber","Zoomorph","Mythic","Saber","Saber","Saber","Cyber","Zoomorph","Galactic","Zoomorph","Saber","Zoomorph","Mythic","Mythic","Saber","Zoomorph","Mythic","Zoomorph","Mythic","Galactic","Cyber","Mythic","Galactic","Necro","Necro","Galactic","Necro","Saber","Saber","Saber","Galactic","Galactic","Zoomorph","Saber","Saber","Cyber","Galactic","","Galactic","Zoomorph","Zoomorph","Galactic","Cyber","Saber","Saber","Zoomorph","Galactic","Mythic","Necro","Necro","Cyber","Galactic","Necro","Cyber","Cyber","Saber","Zoomorph","Cyber","Galactic","Galactic","Necro","Mythic","Cyber","Cyber","Saber","Necro","Zoomorph","Galactic","Saber","Mythic","Galactic","Cyber","Mythic","Cyber","Zoomorph","Cyber","Saber","","Cyber","Zoomorph","Zoomorph","Necro","Mythic","Zoomorph","Saber","Saber","Saber","","Mythic","Saber","Saber","Zoomorph","Necro","Mythic","Galactic","Cyber","Galactic","Saber","Zoomorph","Cyber","Zoomorph","Saber","Saber","Zoomorph","","Zoomorph","Mythic","Zoomorph","Zoomorph","Necro","Galactic","","Zoomorph","Mythic","Necro","Mythic","Necro","Cyber","Saber","Galactic","Cyber","Saber","Saber","Saber","Saber","Saber","Necro","","Necro","Saber","Saber","Mythic","Saber","","Galactic","Galactic","Galactic","Necro","Zoomorph","Cyber","Galactic","Zoomorph","Cyber","Cyber","Zoomorph","Zoomorph","Cyber","Necro","Mythic","Saber","Necro","Necro","Cyber","Necro","Saber","Necro","Necro","Mythic","Mythic","Necro","Necro","Necro","Saber","Zoomorph","Cyber","Necro","Mythic","Mythic","Saber","Cyber","Mythic","Mythic","Cyber","Cyber","Cyber","Cyber","Mythic","Galactic","Necro","Mythic","Zoomorph","Necro","Necro","Saber","","Mythic","Mythic","Saber","Saber","Mythic","Galactic","Zoomorph","","Zoomorph","Necro","Saber","Necro","Mythic","Mythic","Galactic","Necro","Zoomorph","Necro","Saber","Necro","Saber","Cyber","Saber","Cyber","Saber","Galactic","Necro","","Cyber"];
-	var category = ["Exclusive","Legendary","Seasonal","Legendary","Legendary","Legendary","Exclusive","Exclusive","Legendary","Legendary","Exclusive","Common","Heroic","Legendary","Legendary","Common","Heroic","Legendary","Seasonal","Legendary","Legendary","Legendary","Zodiac","PvP","Heroic","Exclusive","Legendary","Heroic","Heroic","Legendary","Common","Legendary","Legendary","Exclusive","Legendary","PvP","Legendary","Legendary","Exclusive","Legendary","Common","Reactor","Exclusive","Legendary","Legendary","Common","Common","PvP","Exclusive","Seasonal","Legendary","Common","Legendary","Legendary","Legendary","Seasonal","Heroic","Common","Legendary","Video Game","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Secret","Common","Legendary","Exclusive","Exclusive","Zodiac","Zodiac","Exclusive","Exclusive","Secret","Exclusive","Legendary","Legendary","Exclusive","Legendary","Secret","Legendary","Legendary","Common","Legendary","Legendary","Legendary","Legendary","Heroic","Seasonal","Exclusive","Legendary","Legendary","Common","Legendary","Secret","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Seasonal","Exclusive","Seasonal","PvP","Exclusive","Seasonal","Legendary","Legendary","Legendary","Secret","Heroic","Legendary","Exclusive","Legendary","Common","Legendary","Legendary","Common","Legendary","Common","Legendary","Exclusive","PvP","Legendary","Common","Legendary","Legendary","Legendary","Legendary","Exclusive","Legendary","Common","Legendary","Legendary","Exclusive","Exclusive","Legendary","Legendary","Legendary","Legendary","Legendary","Seasonal","Legendary","PvP","Legendary","Common","Legendary","Legendary","Legendary","Exclusive","Legendary","Legendary","Zodiac","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Reactor","Legendary","Legendary","Common","Heroic","Reactor","Reactor","Seasonal","Zodiac","PvP","Exclusive","Exclusive","Legendary","Exclusive","Seasonal","Heroic","Legendary","Legendary","Common","Legendary","Legendary","Exclusive","Reactor","Legendary","Legendary","Exclusive","Common","Seasonal","Legendary","Legendary","Legendary","Legendary","Legendary","PvP","Legendary","Seasonal","Exclusive","Legendary","Exclusive","Legendary","Legendary","Legendary","Legendary","PvP","Legendary","Legendary","Exclusive","Common","Legendary","Secret","Legendary","PvP","Legendary","Heroic","Secret","Legendary","Legendary","Exclusive","PvP","Reactor","Exclusive","Seasonal","Legendary","Common","Legendary","Legendary","PvP","Heroic","Legendary","Legendary","Legendary","Exclusive","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Seasonal","Legendary","Legendary","Video Game","Common","Zodiac","Legendary","Legendary","Seasonal","Legendary","Zodiac","PvP","Reactor","Legendary","Heroic","Seasonal","Heroic","Legendary","Heroic","Legendary","Legendary","Legendary","Secret","Legendary","Common","Legendary","Legendary","Exclusive","Legendary","PvP","Common","Legendary","PvP","Legendary","Legendary","Exclusive","Legendary","Legendary","Legendary","PvP","Legendary","Legendary","Legendary","Legendary","Legendary","Reactor","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Common","Zodiac","Legendary","Reactor","Legendary","Legendary","Legendary","Common","Exclusive","Legendary","Legendary","Legendary","Legendary","Exclusive","Heroic","Seasonal","Legendary","Legendary","Legendary","Legendary","Common","Legendary","Seasonal","Heroic","Heroic","Heroic","Common","Exclusive","Legendary","Common","Exclusive","Zodiac","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Legendary","Heroic","Legendary","Legendary","Legendary","Legendary","Legendary","Exclusive","Legendary","Common","Zodiac","Seasonal","Common","PvP","Legendary","Legendary","Legendary","Reactor","Common","Legendary","Legendary","Legendary","Legendary","Exclusive","Zodiac","Legendary","Seasonal","Exclusive","Heroic","PvP","Legendary","Legendary","Legendary","Exclusive","Exclusive","PvP","Legendary","Legendary","Heroic","Legendary","Legendary","PvP","Legendary","PvP","Legendary","Legendary","Legendary","Exclusive","Legendary","Legendary","PvP","PvP","Seasonal","Exclusive","Legendary","Legendary","Seasonal","PvP","Reactor","Legendary","Legendary","Exclusive","Legendary","Exclusive","Heroic","Heroic","Legendary","PvP","Heroic","Legendary","Legendary","Common","Heroic","Legendary","Legendary","Reactor","PvP","Video Game","Legendary","Zodiac","Common","Legendary","Legendary","Legendary","Secret","Exclusive","Legendary","Legendary","Legendary","Legendary","Legendary","Secret","Secret","Legendary","Legendary","Legendary","Exclusive","PvP","Legendary","Legendary","Exclusive","Legendary","Legendary","Video Game","Reactor","Reactor","Heroic","Reactor","Legendary","Legendary","PvP","Heroic","Legendary","Legendary","Legendary","Legendary","Legendary","Exclusive","Legendary","Common","Seasonal","Common","Legendary","Legendary","Legendary","Heroic","Common","Legendary","Exclusive","Heroic","Zodiac","Exclusive","Legendary","Common","Legendary","Legendary","Heroic","Legendary","Legendary","Heroic","Legendary","PvP","Common","Exclusive","Video Game","Heroic","PvP","Legendary","Legendary","Legendary","Reactor","Legendary","PvP","Common","Common"];
-	var checkBreed = {};
-	var checkGene1 = {};
-	var checkGene2 = {}; 
-	var checkCategory = {};
-	var select1 = document.getElementById("mutant1");
-	var select2 = document.getElementById("mutant2");
-	var imageLink = {"Cyber":"GUzr9iE", "Necro":"P1zIT2Y","Saber":"qB7749t","Zoomorph":"1cNLd5H","Galactic":"B4JPeJH","Mythic":"EocqsCd","":"vZNPsjw"};
-	for(var i = 0; i < mutants.length;i++){
-		var curr = mutants[i];
-		checkBreed[curr] = breedable[i];
-		checkGene1[curr] = gene1[i];
-		checkGene2[curr] = gene2[i];
-		checkCategory[curr] = category[i];
-		var el = document.createElement("option");
-		el.textContent = curr;
-		el.value = curr;
-		var el2 = document.createElement("option");
-		el2.textContent = curr;
-		el2.value = curr;
-		select1.appendChild(el);
-		select2.appendChild(el2);
-	}
-	function mutantGenes1(data) {
-		var curr = "A00-C0R3-C0NTR0L";
-		if(data != "loaded"){
-			var curr = data.value;
-		}
-		var gene1 = checkGene1[curr];
-		var gene2 = checkGene2[curr];
-		document.querySelector("#mg11").src = "https://i.imgur.com/" +imageLink[gene1] +".png";
-	  	document.querySelector("#mg12").src = "https://i.imgur.com/" +imageLink[gene2] +".png";
-		
-	}
-	function mutantGenes2(data) {
-		var curr = "A00-C0R3-C0NTR0L";
-		if(data != "loaded"){
-			var curr = data.value;
-		}
-		var gene1 = checkGene1[curr];
-		var gene2 = checkGene2[curr];
-  		document.querySelector("#mg21").src = "https://i.imgur.com/" +imageLink[gene1] +".png";
-  		document.querySelector("#mg22").src = "https://i.imgur.com/" +imageLink[gene2] +".png";
-	}
-	function secret(curr){
-		var secretRecipe = {"Bushi": [["Stealth Bot","Zomborg"],["Martian Marauder","Tutti Gooey"]],
-							"Captain Bag 'O' Bones": [["Captain Wrenchfury","The Darkseer"],["Nordic Knightmare","Undead Dragon"]],
-							"Captain Wrenchfury": [["Android","Martian Marauder"],["Bushi","Terrordoll"]],
-							"Commodore Le Shark": [["Blade Banshee","Martian Marauder"],["Captain Bag 'O' Bones","The Devourer"]],
-							"CyberSlug": [["Colossus","C'thlig"],["Commodore Le Shark","The Darkseer"]],
-							"Horus": [["C'thlig","Xenos"],["Dracus Nobilis","Pit Lord"]],
-							"Interceptrix": [["Captain Bag 'O' Bones","Terrordoll"],["Deus Machina","Gandolphus"]],
-							"Mantidroid": [["Horus","Interceptrix"],["Rakshasa","Stealth Bot"]],
-							"Terrordoll": [["Bushi","Stealth Bot"],["Reptoid","Undead Dragon"]],
-							"The Darkseer": [["Bushi","Captain Wrenchfury"],["Deus Machina","Grim Reapress"]],
-							"The Devourer": [["Astro Magician","Terrordoll"],["Planet Cleaner","Zomborg"]]
-							};
-		var p1 = select1.value;
-		var p2 = select2.value;
-		for(var i = 0; i < 2; i++){
-			if((secretRecipe[curr][i][0] == p1 && secretRecipe[curr][i][1] == p2) || (secretRecipe[curr][i][1] == p1 && secretRecipe[curr][i][0] == p2)){
-				return true;
-				break;
-			}
-		}
-		return false;
-	}
-	function populateTable(data){
-		var table = document.getElementById("output");
-		var row = table.insertRow(-1);
-		var name = row.insertCell(0);
-		var gene1 = row.insertCell(1);
-		var gene2 = row.insertCell(2);
-		name.innerHTML = data[0];
-    	if(data[0] != "Mutants"){
-    		var gene1src = "https://i.imgur.com/" + imageLink[data[1]]+".png";
-	    	var gene2src = "https://i.imgur.com/" + imageLink[data[2]]+".png";
-		    gene1.innerHTML="<img src='"+gene1src+"' alt='"+data[1]+"' width = \"75%\" height=\"75%\"/>";
-		    gene2.innerHTML="<img src='"+gene2src+"' alt='"+data[2]+"' width = \"75%\" height=\"75%\"/>";
-    	}else{
-    		gene1.innerHTML = data[1];
-    		gene2.innerHTML = data[2];
-    	}
-      	return 0;
-	}
-	function breed(){
-		var output = "";
-		var results = [];
-		var p1 = select1.value;
-		var p2 = select2.value;
-		var p1genes = [checkGene1[p1],checkGene2[p1]];
-		var p2genes = [checkGene1[p2],checkGene2[p2]];
-		for(var i = 0; i < mutants.length;i++){
-			var curr = mutants[i];
-			var toPush = [curr,checkGene1[curr],checkGene2[curr]];
-			if(checkGene2[curr] == ""){ //For Mono genes. 
-				if(!p1genes.includes(checkGene1[curr]) || !p2genes.includes(checkGene1[curr])){
-					continue; // Both parents must have the gene of the mutant
-				}
-				if(p1genes[1] != "" && p2genes[1] != ""){
-					continue; // At least 1 parent must have a mono gene
-				}
-			}
-			if(checkCategory[curr] == "Secret"){ //
-				if(secret(curr)){
-					results.push(toPush);
-				}
-				continue;
-			}
-			if(checkBreed[curr] == "Yes" || checkBreed[curr] == "If owned"){
-				if((p1genes.includes(checkGene1[curr]) && (p2genes.includes(checkGene2[curr]))) || (p2genes.includes(checkGene1[curr]) && (p1genes.includes(checkGene2[curr])))){
-					// Check combinations of genes
-					if(checkBreed[curr] == "Yes"){
-						results.push(toPush);
-					}
-					else if (checkBreed[curr] == "If owned" && (p1 == curr || p2 == curr)){
-						results.push(toPush);
-					}
-				}
-			}
-		}
-		var table = document.getElementById("output");
-		table.innerHTML = "";
-		populateTable(["Mutants","Gene 1","Gene 2"]);
-		for(var i = 0; i < results.length;i++){
-			populateTable(results[i]);
-		}
-	}
+    document.addEventListener('DOMContentLoaded', function () {
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';  // Replace with your published CSV URL
+
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n').map(row => row.split(','));
+                const table = document.getElementById('dataTable');
+                const filterInput = document.getElementById('filterInput');
+
+                // Insert table headers
+                const headers = table.querySelector('thead tr');
+                const columns = rows[0];
+                columns.forEach((header, index) => {
+                    const th = document.createElement('th');
+                    th.innerText = header;
+                    th.addEventListener('click', () => sortTable(index));
+                    headers.appendChild(th);
+                });
+
+                // Insert table rows
+                const tbody = table.querySelector('tbody');
+                rows.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.innerText = cell;
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+
+                // Filter functionality
+                filterInput.addEventListener('keyup', function () {
+                    const filter = filterInput.value.toLowerCase();
+                    const trs = tbody.querySelectorAll('tr');
+                    trs.forEach(tr => {
+                        const cells = Array.from(tr.children);
+                        const matches = cells.some(td => td.innerText.toLowerCase().includes(filter));
+                        tr.style.display = matches ? '' : 'none';
+                    });
+                });
+            });
+
+        function sortTable(n) {
+            const table = document.getElementById('dataTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.rows);
+            const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
+            rows.sort((a, b) => {
+                const aText = a.cells[n].innerText;
+                const bText = b.cells[n].innerText;
+                return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+            });
+            rows.forEach(row => tbody.appendChild(row));
+            table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+            table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
+        }
+    });
 </script>
+
+</body>
 </html>
