@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sortable and Filterable Table</title>
+    <title>Mutants Stats</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,20 +50,22 @@
     </tbody>
 </table>
 
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';  // Replace with your published CSV URL
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/YOUR_SHEET_ID/pub?output=csv';  // Replace with your published CSV URL
 
-        fetch(csvUrl)
-            .then(response => response.text())
-            .then(data => {
-                const rows = data.split('\n').map(row => row.split(','));
+        Papa.parse(csvUrl, {
+            download: true,
+            header: true,
+            complete: function(results) {
+                const rows = results.data;
                 const table = document.getElementById('dataTable');
                 const filterInput = document.getElementById('filterInput');
 
                 // Insert table headers
                 const headers = table.querySelector('thead tr');
-                const columns = rows[0];
+                const columns = Object.keys(rows[0]);
                 columns.forEach((header, index) => {
                     const th = document.createElement('th');
                     th.innerText = header;
@@ -74,11 +75,11 @@
 
                 // Insert table rows
                 const tbody = table.querySelector('tbody');
-                rows.slice(1).forEach(row => {
+                rows.forEach(row => {
                     const tr = document.createElement('tr');
-                    row.forEach(cell => {
+                    columns.forEach(column => {
                         const td = document.createElement('td');
-                        td.innerText = cell;
+                        td.innerText = row[column];
                         tr.appendChild(td);
                     });
                     tbody.appendChild(tr);
@@ -94,7 +95,8 @@
                         tr.style.display = matches ? '' : 'none';
                     });
                 });
-            });
+            }
+        });
 
         function sortTable(n) {
             const table = document.getElementById('dataTable');
