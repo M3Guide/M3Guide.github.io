@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mutants Stats</title>
+    <title>MGG Stats</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center; /* Center align all content */
+            background-color: #1f1f1f; /* Dark background color */
+            color: #fff; /* Text color */
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            margin: 0 auto; /* Center the container horizontally */
+            width: 80%; /* Set a width for the container */
+            max-width: 800px; /* Limit maximum width of the container */
+            text-align: left; /* Reset text alignment for child elements */
+            background-color: #333; /* Greyish background color for the container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+        }
+        h1 {
+            margin-top: 0; /* Remove default margin */
+            font-size: 32px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px; /* Add some space above the table */
         }
         th, td {
             padding: 10px;
@@ -19,36 +39,61 @@
         }
         th {
             cursor: pointer;
+            background-color: #555; /* Darker background color for header */
+        }
+        th:hover {
+            background-color: #777; /* Light up when hovered */
+        }
+        th.sort-asc::after,
+        th.sort-desc::after {
+            display: inline-block;
+            vertical-align: middle;
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
         }
         th.sort-asc::after {
-            content: " \25B2";
+            border-bottom: 5px solid #fff; /* Display arrow pointing up for ascending sort */
         }
         th.sort-desc::after {
-            content: " \25BC";
+            border-top: 5px solid #fff; /* Display arrow pointing down for descending sort */
         }
         input[type="text"] {
             margin: 10px 0;
             padding: 5px;
             width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff; /* Light background color for input */
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #aaa; /* Change border color when focused */
         }
     </style>
 </head>
 <body>
 
-<h1>Sortable and Filterable Table</h1>
+<div id="container">
 
-<input type="text" id="filterInput" placeholder="Filter table...">
+    <h1>MGG Stats</h1>
 
-<table id="dataTable">
-    <thead>
-        <tr>
-            <!-- Headers will be inserted here dynamically -->
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Data rows will be inserted here dynamically -->
-    </tbody>
-</table>
+    <input type="text" id="filterInput" placeholder="Filter table...">
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <!-- Headers will be inserted here dynamically -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
 <script>
@@ -69,7 +114,7 @@
                 columns.forEach((header, index) => {
                     const th = document.createElement('th');
                     th.innerText = header;
-                    th.addEventListener('click', () => sortTable(index));
+                    th.addEventListener('click', () => sortTable(index, header));
                     headers.appendChild(th);
                 });
 
@@ -98,15 +143,15 @@
             }
         });
 
-        function sortTable(n) {
+        function sortTable(n, type) {
             const table = document.getElementById('dataTable');
             const tbody = table.querySelector('tbody');
             const rows = Array.from(tbody.rows);
             const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
             rows.sort((a, b) => {
-                const aText = a.cells[n].innerText;
-                const bText = b.cells[n].innerText;
-                return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+                const aValue = type === 'number' ? parseFloat(a.cells[n].innerText) : a.cells[n].innerText;
+                const bValue = type === 'number' ? parseFloat(b.cells[n].innerText) : b.cells[n].innerText;
+                return asc ? aValue - bValue : bValue - aValue;
             });
             rows.forEach(row => tbody.appendChild(row));
             table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
