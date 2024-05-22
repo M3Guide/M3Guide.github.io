@@ -97,11 +97,11 @@
     </table>
 
 </div>
-
+<!--https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv-->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';  // Replace with your published CSV URL
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/YOUR_SHEET_ID/pub?output=csv';  // Replace with your published CSV URL
 
         Papa.parse(csvUrl, {
             download: true,
@@ -111,6 +111,7 @@
                 const table = document.getElementById('dataTable');
                 const filterInput = document.getElementById('filterInput');
                 const tbody = table.querySelector('tbody');
+                const originalRows = [...rows]; // Store the original rows for filtering
 
                 // Insert table headers
                 const headers = table.querySelector('thead tr');
@@ -135,22 +136,33 @@
                 });
                 tbody.appendChild(fragment);
 
-                // Filter functionality with debounce
-                let timeout;
+                // Filter functionality
                 filterInput.addEventListener('keyup', function () {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => {
-                        const filter = filterInput.value.toLowerCase();
-                        const trs = tbody.querySelectorAll('tr');
-                        trs.forEach(tr => {
-                            const cells = Array.from(tr.children);
-                            const matches = cells.some(td => td.innerText.toLowerCase().includes(filter));
-                            tr.style.display = matches ? '' : 'none';
-                        });
-                    }, 300); // Adjust the debounce delay (in milliseconds) as needed
+                    const filter = filterInput.value.toLowerCase();
+                    const filteredRows = originalRows.filter(row => {
+                        return columns.some(column => row[column].toLowerCase().includes(filter));
+                    });
+                    renderRows(filteredRows);
                 });
             }
         });
+
+        function renderRows(rows) {
+            const table = document.getElementById('dataTable');
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = ''; // Clear existing tbody content
+            const fragment = document.createDocumentFragment();
+            rows.forEach(rowData => {
+                const tr = document.createElement('tr');
+                Object.values(rowData).forEach(value => {
+                    const td = document.createElement('td');
+                    td.innerText = value;
+                    tr.appendChild(td);
+                });
+                fragment.appendChild(tr);
+            });
+            tbody.appendChild(fragment);
+        }
 
         function sortTable(n, type) {
             const table = document.getElementById('dataTable');
@@ -174,6 +186,7 @@
         }
     });
 </script>
+
 
 
 </body>
