@@ -149,21 +149,26 @@
         });
 
         function sortTable(n, type) {
-            const table = document.getElementById('dataTable');
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.rows);
-            const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
-            rows.sort((a, b) => {
-                const aValue = type === 'number' ? parseFloat(a.cells[n].innerText) || 0 : a.cells[n].innerText;
-                const bValue = type === 'number' ? parseFloat(b.cells[n].innerText) || 0 : b.cells[n].innerText;
-                return asc ? aValue - bValue : bValue - aValue;
-            });
-            const fragment = document.createDocumentFragment();
-            rows.forEach(row => fragment.appendChild(row));
-            tbody.appendChild(fragment);
-            table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-            table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
-        }
+		    const table = document.getElementById('dataTable');
+		    const tbody = table.querySelector('tbody');
+		    const rows = Array.from(tbody.rows);
+		    const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
+		    rows.sort((a, b) => {
+		        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText) || 0 : a.cells[n].innerText.toLowerCase();
+		        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText) || 0 : b.cells[n].innerText.toLowerCase();
+		        if (type === 'number') {
+		            return asc ? aValue - bValue : bValue - aValue;
+		        } else {
+		            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+		        }
+		    });
+		    const fragment = document.createDocumentFragment();
+		    rows.forEach(row => fragment.appendChild(row));
+		    tbody.appendChild(fragment);
+		    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+		    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
+		}
+
     });
 </script>
 
