@@ -155,10 +155,10 @@
                                 // Create the Icon column after filling the row content
                                 const iconColumn = document.createElement('td');
                                 const iconLink = document.createElement('a');
-                                iconLink.href = link; // Assuming 'Icon' is the key for the image URLs in your data
+                                iconLink.href = link;
                                 iconLink.target = "_blank";
                                 const iconImage = document.createElement('img');
-                                iconImage.src = link; // Assuming 'Icon' is the key for the image URLs in your data
+                                iconImage.src = link;
                                 iconImage.alt = "Icon";
                                 iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
                                 iconLink.appendChild(iconImage);
@@ -196,7 +196,8 @@
                     const table = document.getElementById('dataTable');
                     const tbody = table.querySelector('tbody');
                     const rows = Array.from(tbody.rows);
-                    const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
+                    const th = table.querySelectorAll('th')[n];
+                    const asc = !th.classList.contains('sort-desc') && !th.classList.contains('sort-asc') ? false : th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
                         const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
                         const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
@@ -210,7 +211,7 @@
                     rows.forEach(row => fragment.appendChild(row));
                     tbody.appendChild(fragment);
                     table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
+                    th.classList.add(asc ? 'sort-desc' : 'sort-asc');
                 }
             }
         });
