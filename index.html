@@ -135,8 +135,8 @@
             header: true,
             complete: function(results) {
                 const rows = results.data;
+                const columns = Object.keys(rows[0]);
                 const table = document.getElementById('dataTable');
-                const filterInput = document.getElementById('filterInput');
                 const tbody = table.querySelector('tbody');
                 const originalRows = [...rows]; // Store the original rows for filtering
 
@@ -145,7 +145,6 @@
                 
                 // Insert table headers
                 const headers = table.querySelector('thead tr');
-                const columns = Object.keys(rows[0]);
                 columns.forEach((header, index) => {
                     const th = document.createElement('th');
                     th.innerText = header;
