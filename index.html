@@ -161,24 +161,24 @@
                     columnSelect.appendChild(option);
                 });
 
-                // Populate value select dropdown based on column selection
+                // Populate value select dropdown based on the selected column
+                const valueSelect = document.getElementById('valueSelect');
                 columnSelect.addEventListener('change', function() {
-                    const columnIndex = parseInt(columnSelect.value);
-                    const valueSelect = document.getElementById('valueSelect');
-                    valueSelect.disabled = false;
+                    valueSelect.disabled = columnSelect.value === '';
                     valueSelect.innerHTML = '<option value="">Select Value</option>';
-                    
-                    const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
-                    uniqueValues.forEach(value => {
-                        const option = document.createElement('option');
-                        option.value = value;
-                        option.text = value;
-                        valueSelect.appendChild(option);
-                    });
+                    if (!valueSelect.disabled) {
+                        const columnIndex = parseInt(columnSelect.value);
+                        const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
+                        uniqueValues.forEach(value => {
+                            const option = document.createElement('option');
+                            option.value = value;
+                            option.text = value;
+                            valueSelect.appendChild(option);
+                        });
+                    }
                 });
 
                 // Filter rows based on selected value
-                const valueSelect = document.getElementById('valueSelect');
                 valueSelect.addEventListener('change', function() {
                     const columnIndex = parseInt(columnSelect.value);
                     const filterValue = valueSelect.value;
@@ -186,59 +186,16 @@
                     populateTable(filteredRows);
                 });
 
-                var genes = {'':'',"Cyber":'a',"Necro":'b',"Saber":'c',"Zoomorph":'d',"Galactic":'e',"Mythic":'f'};
+                // Reset table when "Select Column" is selected
+                columnSelect.addEventListener('change', function() {
+                    if (columnSelect.value === '') {
+                        valueSelect.disabled = true;
+                        valueSelect.innerHTML = '<option value="">Select Value</option>';
+                        populateTable(rows);
+                    }
+                });
 
-                // Insert table rows
-                function populateTable(rows) {
-                    tbody.innerHTML = ''; // Clear existing tbody content
-                    const fragment = document.createDocumentFragment();
-                    rows.forEach(rowData => {
-                        const rowContent = [];
-                        const tr = document.createElement('tr');
-
-                        // Fill row content for the rest of the columns starting from the second column
-                        for (let i = 0; i < columns.length; i++) {
-                            const td = document.createElement('td');
-                            if (i == 1) {
-                                var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
-                                var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
-                                if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
-                                    link += "_platinum";
-                                } else if (rowData[columns[13]] == "No" && rowData[columns[3]] == "Zodiac") {
-                                    link += "_silver";
-                                }
-                                link += ".png";
-                                // Create the Icon column after filling the row content
-                                const iconColumn = document.createElement('td');
-                                const iconLink = document.createElement('a');
-                                iconLink.href = link;
-                                iconLink.target = "_blank";
-                                const iconImage = document.createElement('img');
-                                iconImage.src = link;
-                                iconImage.alt = "Icon";
-                                iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
-                                iconLink.appendChild(iconImage);
-                                iconColumn.appendChild(iconLink);
-
-                                // Append the Icon column to the row
-                                tr.appendChild(iconColumn);
-                            } else {
-                                if (i === 2) {
-                                    td.classList.add('bold');
-                                }
-                                td.innerText = rowData[columns[i]];
-                                rowContent.push(rowData[columns[i]]);
-                                tr.appendChild(td);
-                            }
-                        }
-
-                        tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
-                        fragment.appendChild(tr);
-                    });
-                    tbody.appendChild(fragment);
-                }
-
-                // Initial population of the table
+                // Populate the table initially with all rows
                 populateTable(rows);
 
                 // Sort functionality
@@ -249,22 +206,39 @@
                     const th = table.querySelectorAll('th')[n];
                     const asc = !th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
-                        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
-                        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
-                        if (!isNaN(aValue) && !isNaN(bValue)) {
-                            return asc ? aValue - bValue : bValue - aValue;
-                        } else {
-                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-                        }
-                    });
-                    const fragment = document.createDocumentFragment();
-                    rows.forEach(row => fragment.appendChild(row));
-                    tbody.appendChild(fragment);
-                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
-                }
+                rows.sort((a, b) => {
+                    const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
+                    const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
+                    if (!isNaN(aValue) && !isNaN(bValue)) {
+                        return asc ? aValue - bValue : bValue - aValue;
+                    } else {
+                        return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                    }
+                });
+                const fragment = document.createDocumentFragment();
+                rows.forEach(row => fragment.appendChild(row));
+                tbody.appendChild(fragment);
+                table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                th.classList.add(asc ? 'sort-asc' : 'sort-desc');
             }
-        });
+        }
+
+        function populateTable(rows) {
+            const table = document.getElementById('dataTable');
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = ''; // Clear existing tbody content
+            const fragment = document.createDocumentFragment();
+            rows.forEach(rowData => {
+                const tr = document.createElement('tr');
+                Object.values(rowData).forEach(value => {
+                    const td = document.createElement('td');
+                    td.innerText = value;
+                    tr.appendChild(td);
+                });
+                fragment.appendChild(tr);
+            });
+            tbody.appendChild(fragment);
+        }
     });
 </script>
 
