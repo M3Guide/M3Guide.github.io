@@ -161,69 +161,108 @@
                     columnSelect.appendChild(option);
                 });
 
-                // Populate value select dropdown based on the selected column
-                const valueSelect = document.getElementById('valueSelect');
+                // Populate value select dropdown based on column selection
                 columnSelect.addEventListener('change', function() {
-                    valueSelect.disabled = columnSelect.value === '';
+                    const columnIndex = parseInt(columnSelect.value);
+                    const valueSelect = document.getElementById('valueSelect');
+                    valueSelect.disabled = false;
                     valueSelect.innerHTML = '<option value="">Select Value</option>';
-                    if (columnSelect.value !== '') {
-                        const columnIndex = parseInt(columnSelect.value);
-                        const values = new Set(originalRows.map(row => row[columns[columnIndex]]));
-                        values.forEach(value => {
-                            const option = document.createElement('option');
-                            option.value = value;
-                            option.text = value;
-                            valueSelect.appendChild(option);
-                        });
-                    }
-
+                    
+                    const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
+                    uniqueValues.forEach(value => {
+                        const option = document.createElement('option');
+                        option.value = value;
+                        option.text = value;
+                        valueSelect.appendChild(option);
+                    });
                 });
 
-                // Filter functionality
+                // Filter rows based on selected value
+                const valueSelect = document.getElementById('valueSelect');
                 valueSelect.addEventListener('change', function() {
-                    const filterColumnIndex = parseInt(columnSelect.value);
+                    const columnIndex = parseInt(columnSelect.value);
                     const filterValue = valueSelect.value;
-                    const filteredRows = originalRows.filter(row => {
-                        return !filterValue || row[columns[filterColumnIndex]] === filterValue;
-                    });
+                    const filteredRows = originalRows.filter(row => row[columns[columnIndex]] === filterValue);
                     populateTable(filteredRows);
                 });
 
-                // Function to populate table based on filtered rows
+                var genes = {'':'',"Cyber":'a',"Necro":'b',"Saber":'c',"Zoomorph":'d',"Galactic":'e',"Mythic":'f'};
+
+                // Insert table rows
                 function populateTable(rows) {
                     tbody.innerHTML = ''; // Clear existing tbody content
                     const fragment = document.createDocumentFragment();
                     rows.forEach(rowData => {
+                        const rowContent = [];
                         const tr = document.createElement('tr');
-                        columns.forEach((column, index) => {
+
+                        // Fill row content for the rest of the columns starting from the second column
+                        for (let i = 0; i < columns.length; i++) {
                             const td = document.createElement('td');
-                            td.innerText = rowData[column];
-                            if (index === 2) { // Make the 3rd column data bold
-                                td.classList.add('bold');
+                            if (i == 1) {
+                                var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+                                var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
+                                if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
+                                    link += "_platinum";
+                                } else if (rowData[columns[13]] == "No" && rowData[columns[3]] == "Zodiac") {
+                                    link += "_silver";
+                                }
+                                link += ".png";
+                                // Create the Icon column after filling the row content
+                                const iconColumn = document.createElement('td');
+                                const iconLink = document.createElement('a');
+                                iconLink.href = link;
+                                iconLink.target = "_blank";
+                                const iconImage = document.createElement('img');
+                                iconImage.src = link;
+                                iconImage.alt = "Icon";
+                                iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
+                                iconLink.appendChild(iconImage);
+                                iconColumn.appendChild(iconLink);
+
+                                // Append the Icon column to the row
+                                tr.appendChild(iconColumn);
+                            } else {
+                                if (i === 2) {
+                                    td.classList.add('bold');
+                                }
+                                td.innerText = rowData[columns[i]];
+                                rowContent.push(rowData[columns[i]]);
+                                tr.appendChild(td);
                             }
-                            tr.appendChild(td);
-                        });
+                        }
+
+                        tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
                 }
 
-                // Sorting functionality
-                function sortTable(n, header) {
-                    const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
-                    const rows = [...originalRows];
-                    rows.sort((a, b) => {
-                        const aValue = isNaN(parseFloat(a[header])) ? a[header].toLowerCase() : parseFloat(a[header]);
-                        const bValue = isNaN(parseFloat(b[header])) ? b[header].toLowerCase() : parseFloat(b[header]);
-                        return asc ? aValue - bValue : bValue - aValue;
-                    });
-                    populateTable(rows);
-                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
-                }
-
-                // Initialize the table with all rows
+                // Initial population of the table
                 populateTable(rows);
+
+                // Sort functionality
+                function sortTable(n, type) {
+                    const table = document.getElementById('dataTable');
+                    const tbody = table.querySelector('tbody');
+                    const rows = Array.from(tbody.rows);
+                    const th = table.querySelectorAll('th')[n];
+                    const asc = !th.classList.contains('sort-asc');
+                    rows.sort((a, b) => {
+                        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
+                        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
+                        if (!isNaN(aValue) && !isNaN(bValue)) {
+                            return asc ? aValue - bValue : bValue - aValue;
+                        } else {
+                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                        }
+                    });
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(row => fragment.appendChild(row));
+                    tbody.appendChild(fragment);
+                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+                }
             }
         });
     });
