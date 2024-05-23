@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGG Stats</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aero+Matics&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Aero Matics', Arial, sans-serif;
             text-align: center;
             background-color: #1f1f1f;
             color: #fff;
@@ -80,6 +81,9 @@
         input[type="text"]:focus {
             outline: none;
             border-color: #aaa;
+        }
+        .bold {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -167,6 +171,9 @@
                                 // Append the Icon column to the row
                                 tr.appendChild(iconColumn);
                             } else {
+                                if (i === 2) {
+                                    td.classList.add('bold');
+                                }
                                 td.innerText = rowData[columns[i]];
                                 rowContent.push(rowData[columns[i]]);
                                 tr.appendChild(td);
@@ -211,7 +218,7 @@
                     rows.forEach(row => fragment.appendChild(row));
                     tbody.appendChild(fragment);
                     table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                    th.classList.add(asc ? 'sort-desc' : 'sort-asc');
+                    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-desc' : 'sort-asc');
                 }
             }
         });
