@@ -141,7 +141,7 @@
                 const originalRows = [...rows]; // Store the original rows for filtering
 
                 // Columns to filter by
-                const filterColumns = [3, 4, 5, 6, -3, -2, -1];
+                const filterColumns = [3, 4, 5, 6, columns.length - 3, columns.length - 2, columns.length - 1];
                 
                 // Insert table headers
                 const headers = table.querySelector('thead tr');
@@ -248,7 +248,7 @@
                     const tbody = table.querySelector('tbody');
                     const rows = Array.from(tbody.rows);
                     const th = table.querySelectorAll('th')[n];
-                    const asc = !th.classList.contains('sort-desc');
+                    const asc = !th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
                         const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
                         const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
