@@ -165,11 +165,12 @@
                 const valueSelect = document.getElementById('valueSelect');
                 columnSelect.addEventListener('change', function() {
                     valueSelect.disabled = columnSelect.value === '';
-                    valueSelect.innerHTML = '<option value="">Select Value</option>';
-                    if (!valueSelect.disabled) {
+                    valueSelect.innerHTML = '<option value="">
+                        valueSelect.innerHTML = '<option value="">Select Value</option>';
+                    if (columnSelect.value !== '') {
                         const columnIndex = parseInt(columnSelect.value);
-                        const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
-                        uniqueValues.forEach(value => {
+                        const values = new Set(originalRows.map(row => row[columns[columnIndex]]));
+                        values.forEach(value => {
                             const option = document.createElement('option');
                             option.value = value;
                             option.text = value;
@@ -178,53 +179,26 @@
                     }
                 });
 
-                // Reset table when "Select Column" is selected
-                columnSelect.addEventListener('change', function() {
-                    if (columnSelect.value === '') {
-                        valueSelect.disabled = true;
-                        valueSelect.innerHTML = '<option value="">Select Value</option>';
-                        populateTable(rows);
-                    }
+                // Filter functionality
+                valueSelect.addEventListener('change', function() {
+                    const filterColumnIndex = parseInt(columnSelect.value);
+                    const filterValue = valueSelect.value;
+                    const filteredRows = originalRows.filter(row => {
+                        return !filterValue || row[columns[filterColumnIndex]] === filterValue;
+                    });
+                    populateTable(filteredRows);
                 });
 
-                // Populate the table initially with all rows
-                populateTable(rows);
-
-                // Sort functionality
-                function sortTable(n, type) {
-                    const table = document.getElementById('dataTable');
-                    const tbody = table.querySelector('tbody');
-                    const rows = Array.from(tbody.rows);
-                    const th = table.querySelectorAll('th')[n];
-                    const asc = !th.classList.contains('sort-asc');
-                    rows.sort((a, b) => {
-                        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
-                        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
-                        if (!isNaN(aValue) && !isNaN(bValue)) {
-                            return asc ? aValue - bValue : bValue - aValue;
-                        } else {
-                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-                        }
-                    });
-                    const fragment = document.createDocumentFragment();
-                    rows.forEach(row => fragment.appendChild(row));
-                    tbody.appendChild(fragment);
-                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
-                }
-
+                // Function to populate table based on filtered rows
                 function populateTable(rows) {
-                    const table = document.getElementById('dataTable');
-                    const tbody = table.querySelector('tbody');
                     tbody.innerHTML = ''; // Clear existing tbody content
                     const fragment = document.createDocumentFragment();
                     rows.forEach(rowData => {
                         const tr = document.createElement('tr');
-                        Object.values(rowData).forEach((value, index) => {
+                        columns.forEach((column, index) => {
                             const td = document.createElement('td');
-                            td.innerText = value;
-                            // Make the 3rd column data bold
-                            if (index === 2) {
+                            td.innerText = rowData[column];
+                            if (index === 2) { // Make the 3rd column data bold
                                 td.classList.add('bold');
                             }
                             tr.appendChild(td);
@@ -233,6 +207,23 @@
                     });
                     tbody.appendChild(fragment);
                 }
+
+                // Sorting functionality
+                function sortTable(n, header) {
+                    const asc = !table.querySelectorAll('th')[n].classList.contains('sort-asc');
+                    const rows = [...originalRows];
+                    rows.sort((a, b) => {
+                        const aValue = isNaN(parseFloat(a[header])) ? a[header].toLowerCase() : parseFloat(a[header]);
+                        const bValue = isNaN(parseFloat(b[header])) ? b[header].toLowerCase() : parseFloat(b[header]);
+                        return asc ? aValue - bValue : bValue - aValue;
+                    });
+                    populateTable(rows);
+                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                    table.querySelectorAll('th')[n].classList.add(asc ? 'sort-asc' : 'sort-desc');
+                }
+
+                // Initialize the table with all rows
+                populateTable(rows);
             }
         });
     });
