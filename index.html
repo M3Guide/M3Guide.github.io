@@ -178,14 +178,6 @@
                     }
                 });
 
-                // Filter rows based on selected value
-                valueSelect.addEventListener('change', function() {
-                    const columnIndex = parseInt(columnSelect.value);
-                    const filterValue = valueSelect.value;
-                    const filteredRows = originalRows.filter(row => row[columns[columnIndex]] === filterValue);
-                    populateTable(filteredRows);
-                });
-
                 // Reset table when "Select Column" is selected
                 columnSelect.addEventListener('change', function() {
                     if (columnSelect.value === '') {
@@ -206,39 +198,43 @@
                     const th = table.querySelectorAll('th')[n];
                     const asc = !th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
-                rows.sort((a, b) => {
-                    const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
-                    const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
-                    if (!isNaN(aValue) && !isNaN(bValue)) {
-                        return asc ? aValue - bValue : bValue - aValue;
-                    } else {
-                        return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-                    }
-                });
-                const fragment = document.createDocumentFragment();
-                rows.forEach(row => fragment.appendChild(row));
-                tbody.appendChild(fragment);
-                table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
-                th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+                        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
+                        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
+                        if (!isNaN(aValue) && !isNaN(bValue)) {
+                            return asc ? aValue - bValue : bValue - aValue;
+                        } else {
+                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                        }
+                    });
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(row => fragment.appendChild(row));
+                    tbody.appendChild(fragment);
+                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+                }
+
+                function populateTable(rows) {
+                    const table = document.getElementById('dataTable');
+                    const tbody = table.querySelector('tbody');
+                    tbody.innerHTML = ''; // Clear existing tbody content
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(rowData => {
+                        const tr = document.createElement('tr');
+                        Object.values(rowData).forEach((value, index) => {
+                            const td = document.createElement('td');
+                            td.innerText = value;
+                            // Make the 3rd column data bold
+                            if (index === 2) {
+                                td.classList.add('bold');
+                            }
+                            tr.appendChild(td);
+                        });
+                        fragment.appendChild(tr);
+                    });
+                    tbody.appendChild(fragment);
+                }
             }
         });
-
-        function populateTable(rows) {
-            const table = document.getElementById('dataTable');
-            const tbody = table.querySelector('tbody');
-            tbody.innerHTML = ''; // Clear existing tbody content
-            const fragment = document.createDocumentFragment();
-            rows.forEach(rowData => {
-                const tr = document.createElement('tr');
-                Object.values(rowData).forEach(value => {
-                    const td = document.createElement('td');
-                    td.innerText = value;
-                    tr.appendChild(td);
-                });
-                fragment.appendChild(tr);
-            });
-            tbody.appendChild(fragment);
-        }
     });
 </script>
 
