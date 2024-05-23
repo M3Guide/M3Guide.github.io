@@ -165,8 +165,7 @@
                 const valueSelect = document.getElementById('valueSelect');
                 columnSelect.addEventListener('change', function() {
                     valueSelect.disabled = columnSelect.value === '';
-                    valueSelect.innerHTML = '<option value="">;
-                        valueSelect.innerHTML = '<option value="">Select Value</option>';
+                    valueSelect.innerHTML = '<option value="">Select Value</option>';
                     if (columnSelect.value !== '') {
                         const columnIndex = parseInt(columnSelect.value);
                         const values = new Set(originalRows.map(row => row[columns[columnIndex]]));
@@ -177,6 +176,7 @@
                             valueSelect.appendChild(option);
                         });
                     }
+
                 });
 
                 // Filter functionality
