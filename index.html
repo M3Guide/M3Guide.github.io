@@ -221,7 +221,7 @@
                 table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
                 th.classList.add(asc ? 'sort-asc' : 'sort-desc');
             }
-        }
+        });
 
         function populateTable(rows) {
             const table = document.getElementById('dataTable');
