@@ -252,9 +252,9 @@
                         const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
                         const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
                         if (!isNaN(aValue) && !isNaN(bValue)) {
-                            return asc ? aValue - bValue : bValue - aValue;
+                            return asc ? bValue - aValue : aValue - bValue;
                         } else {
-                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                            return asc ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
                         }
                     });
                     const fragment = document.createDocumentFragment();
