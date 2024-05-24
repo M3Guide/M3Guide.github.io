@@ -133,6 +133,16 @@
     document.addEventListener('DOMContentLoaded', function () {
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';
 
+        const genes = {
+            '': '',
+            'Cyber': 'a',
+            'Necro': 'b',
+            'Saber': 'c',
+            'Zoomorph': 'd',
+            'Galactic': 'e',
+            'Mythic': 'f'
+        };
+
         Papa.parse(csvUrl, {
             download: true,
             header: true,
@@ -232,7 +242,6 @@
                                 td.classList.add('hidden-text');
                                 const textContent = rowData[columns[i]] || 'Neutral'; // Default to 'Neutral' if content is blank
                                 td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
-                                rowContent.push(textContent); // Keep text content for filtering
                                 tr.appendChild(td);
                             } else {
                                 if (i === 2) {
