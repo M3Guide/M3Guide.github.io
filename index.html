@@ -217,8 +217,12 @@
 
                             if (i === 4 || i === 5) {
                                 const textContent = rowData[columns[i]] || 'Neutral'; // Default to 'Neutral' if content is blank
-                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
-                            } else if (i === 1) {
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (i === 3){
+                                const textContent = rowData[columns[i]]; // Default to 'Neutral' if content is blank
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/category/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            }
+                            else if (i === 1) {
                                 var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
                                 var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
                                 if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
