@@ -254,12 +254,19 @@
                     const th = table.querySelectorAll('th')[n];
                     const asc = !th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
-                        const aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
-                        const bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
-                        if (!isNaN(aValue) && !isNaN(bValue)) {
-                            return asc ? bValue - aValue : aValue - bValue;
+                        let aValue, bValue;
+                        if (n === 2) { // Specific condition for column 3 (0-based index 2)
+                            aValue = a.cells[n].innerText.toLowerCase();
+                            bValue = b.cells[n].innerText.toLowerCase();
+                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
                         } else {
-                            return asc ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                            aValue = type === 'number' ? parseFloat(a.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : a.cells[n].innerText.toLowerCase();
+                            bValue = type === 'number' ? parseFloat(b.cells[n].innerText.replace(/[^0-9.]/g, '')) || 0 : b.cells[n].innerText.toLowerCase();
+                            if (!isNaN(aValue) && !isNaN(bValue)) {
+                                return asc ? bValue - aValue : aValue - bValue;
+                            } else {
+                                return asc ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
+                            }
                         }
                     });
                     const fragment = document.createDocumentFragment();
