@@ -209,13 +209,16 @@
                     tbody.innerHTML = ''; // Clear existing tbody content
                     const fragment = document.createDocumentFragment();
                     rows.forEach(rowData => {
-                        const rowContent = [];
                         const tr = document.createElement('tr');
 
-                        // Fill row content for the rest of the columns starting from the second column
+                        // Fill row content for each column
                         for (let i = 0; i < columns.length; i++) {
                             const td = document.createElement('td');
-                            if (i == 1) {
+
+                            if (i === 3 || i === 4) {
+                                const textContent = rowData[columns[i]] || 'Neutral'; // Default to 'Neutral' if content is blank
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
+                            } else if (i === 1) {
                                 var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
                                 var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
                                 if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
@@ -224,8 +227,7 @@
                                     link += "_silver";
                                 }
                                 link += ".png";
-                                // Create the Icon column after filling the row content
-                                const iconColumn = document.createElement('td');
+                                // Create the Icon column
                                 const iconLink = document.createElement('a');
                                 iconLink.href = link;
                                 iconLink.target = "_blank";
@@ -234,26 +236,16 @@
                                 iconImage.alt = "Icon";
                                 iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
                                 iconLink.appendChild(iconImage);
-                                iconColumn.appendChild(iconLink);
-
-                                // Append the Icon column to the row
-                                tr.appendChild(iconColumn);
-                            } else if (i === 3 || i === 4) {
-                                td.classList.add('hidden-text');
-                                const textContent = rowData[columns[i]] || 'Neutral'; // Default to 'Neutral' if content is blank
-                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
-                                tr.appendChild(td);
+                                td.appendChild(iconLink);
                             } else {
                                 if (i === 2) {
                                     td.classList.add('bold');
                                 }
                                 td.innerText = rowData[columns[i]];
-                                rowContent.push(rowData[columns[i]]);
-                                tr.appendChild(td);
                             }
+                            tr.appendChild(td);
                         }
 
-                        tr.dataset.rowContent = JSON.stringify(rowContent); // Store row content as JSON string in dataset
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
