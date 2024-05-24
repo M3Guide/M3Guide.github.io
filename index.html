@@ -93,6 +93,9 @@
             background-color: #fff;
             font-family: 'Aero Matics', Arial, sans-serif;
         }
+        .hidden-text {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -227,6 +230,12 @@
 
                                 // Append the Icon column to the row
                                 tr.appendChild(iconColumn);
+                            } else if (i === 3) {
+                                td.classList.add('hidden-text');
+                                const textContent = rowData[columns[i]];
+                                td.innerHTML = textContent + `<img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
+                                rowContent.push(textContent); // Keep text content for filtering
+                                tr.appendChild(td);
                             } else {
                                 if (i === 2) {
                                     td.classList.add('bold');
