@@ -248,116 +248,162 @@
                             valueDropdown.appendChild(option);
                         });
                     } else {
-                        const uniqueValues = [...new Set(rows.map(row => row[columnName]))];
+                        const uniqueValues = [...new Set(originalRows.map(row => row[columnName]))];
                         uniqueValues.forEach(value => {
                             const option = document.createElement('option');
                             option.value = value;
-                            option.text = value;
+                            option.text = value === '' ? 'Neutral' : value;
                             valueDropdown.appendChild(option);
                         });
                     }
                     valueDropdown.disabled = false;
-                    applyFilterBtn.disabled = false;
+                    applyFilterBtn.disabled = true; // Disable until a value is selected
                 }
 
-                function addFilter(columnIndex, value) {
-                    const columnName = columns[columnIndex];
+                function handleValueChange(event) {
+                    applyFilterBtn.disabled = !event.target.value; // Enable if a value is selected
+                }
+
+                function applyFilter() {
+                    const columnIndex = parseInt(columnDropdown.value);
+                    const filterValue = valueDropdown.value;
                     const filterBox = document.createElement('div');
                     filterBox.className = 'filter-box';
-                    const span = document.createElement('span');
-                    span.textContent = `${columnName}: ${value}`;
-                    const removeBtn = document.createElement('button');
-                    removeBtn.className = 'remove-filter';
-                    removeBtn.textContent = 'x';
-                    removeBtn.addEventListener('click', () => {
-                        filtersContainer.removeChild(filterBox);
-                        applyFilters();
-                    });
-                    filterBox.appendChild(span);
-                    filterBox.appendChild(removeBtn);
+                    filterBox.dataset.columnIndex = columnIndex;
+                    filterBox.dataset.filterValue = filterValue;
+                    filterBox.innerHTML = `<span>${columns[columnIndex]}: ${filterValue}</span> <button class="remove-filter">X</button>`;
                     filtersContainer.appendChild(filterBox);
+
+                    columnDropdown.value = '';
+                    valueDropdown.innerHTML = '<option value="">Select Value</option>';
+                    valueDropdown.disabled = true;
+                    applyFilterBtn.disabled = true;
+
+                    const selectedOptions = [...filtersContainer.querySelectorAll('.filter-box')].map(box => box.dataset.columnIndex);
+                    [...columnDropdown.options].forEach(option => {
+                        if (selectedOptions.includes(option.value)) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+
+                    applyFilters();
                 }
 
                 function applyFilters() {
-                    const activeFilters = [];
-                    filtersContainer.querySelectorAll('.filter-box').forEach(box => {
-                        const [columnName, value] = box.querySelector('span').textContent.split(': ');
-                        activeFilters.push({ columnName, value });
+                    const activeFilters = [...filtersContainer.querySelectorAll('.filter-box')].map(box => ({
+                        columnIndex: parseInt(box.dataset.columnIndex),
+                        filterValue: box.dataset.filterValue
+                    }));
+
+                    const filteredRows = originalRows.filter(row => {
+                        return activeFilters.every(filter => row[columns[filter.columnIndex]] === filter.filterValue);
                     });
 
-                    rows.length = 0; // Clear the rows array
-                    originalRows.forEach(row => {
-                        const isMatch = activeFilters.every(filter => row[filter.columnName] === filter.value);
-                        if (isMatch) rows.push(row);
-                    });
-                    renderTable();
+                    populateTable(filteredRows);
                 }
 
-                columnDropdown.addEventListener('change', handleColumnChange);
-
-                applyFilterBtn.addEventListener('click', () => {
-                    const columnIndex = parseInt(columnDropdown.value);
-                    const value = valueDropdown.value;
-                    if (columnIndex && value) {
-                        addFilter(columnIndex, value);
+                filtersContainer.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('remove-filter')) {
+                        const filterBox = event.target.closest('.filter-box');
+                        filterBox.remove();
+                        const columnIndex = filterBox.dataset.columnIndex;
+                        [...columnDropdown.options].forEach(option => {
+                            if (option.value === columnIndex) {
+                                option.disabled = false;
+                            }
+                        });
                         applyFilters();
                     }
                 });
 
-                populateFilterOptions();
-
-                function renderTable() {
-                    tbody.innerHTML = '';
-                    rows.forEach(row => {
+                function populateTable(rows) {
+                    tbody.innerHTML = ''; // Clear existing tbody content
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(rowData => {
                         const tr = document.createElement('tr');
-                        columns.forEach((col, colIndex) => {
+                        columns.forEach((column, index) => {
                             const td = document.createElement('td');
-                            td.textContent = row[col];
-                            // Set text color based on content for the 14th column
-                            if (colIndex === 14) {
-                                switch (row[col].toLowerCase()) {
-                                    case 'yes':
-                                        td.style.color = '#808080';
-                                        break;
-                                    case 'no':
-                                        td.style.color = '#ffd700';
-                                        break;
-                                    default:
-                                        td.style.color = '#ffa500';
+                            if (index === 14) {
+                                const textContent = rowData[column];
+                                td.innerText = textContent;
+                                if (textContent === 'No') {
+                                    td.style.color = 'red';
+                                } else if (textContent === 'Yes') {
+                                    td.style.color = 'green';
+                                } else if (textContent === 'If owned') {
+                                    td.style.color = 'yellow';
                                 }
+                            } else if (index === 4 || index === 5) {
+                                const textContent = rowData[column] || 'Neutral'; // Default to 'Neutral' if content is blank
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 3) {
+                                const textContent = rowData[column];
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/category/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 6) {
+                                const textContent = rowData[column];
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/ability/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 1) {
+                                var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+                                var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
+                                if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
+                                    link += "_platinum";
+                                } else if (rowData[columns[13]] == "No" && rowData[columns[3]] == "Zodiac") {
+                                    link += "_silver";
+                                }
+                                link += ".png";
+                                // Create the Icon column
+                                const iconLink = document.createElement('a');
+                                iconLink.href = link;
+                                iconLink.target = "_blank";
+                                const iconImage = document.createElement('img');
+                                iconImage.src = link;
+                                iconImage.alt = "Icon";
+                                iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
+                                iconLink.appendChild(iconImage);
+                                td.appendChild(iconLink);
+                            } else {
+                                if (index === 2) {
+                                    td.classList.add('bold');
+                                }
+                                td.innerText = rowData[column];
                             }
                             tr.appendChild(td);
                         });
-                        tbody.appendChild(tr);
+                        fragment.appendChild(tr);
                     });
+                    tbody.appendChild(fragment);
                 }
 
-                function sortTable(columnIndex, header) {
-                    const isNumericColumn = !isNaN(rows[0][header]) && rows[0][header].trim() !== '';
-                    const sortedRows = [...rows].sort((a, b) => {
-                        const aValue = a[header].toLowerCase();
-                        const bValue = b[header].toLowerCase();
-                        if (isNumericColumn) {
-                            return parseFloat(aValue) - parseFloat(bValue);
+                function sortTable(columnIndex, columnType) {
+                    const rows = Array.from(tbody.rows);
+                    const th = table.querySelectorAll('th')[columnIndex];
+                    const asc = !th.classList.contains('sort-asc');
+                    rows.sort((a, b) => {
+                        let aValue = a.cells[columnIndex].innerText;
+                        let bValue = b.cells[columnIndex].innerText;
+                        if (['0', '8', '9', '10', '11', '12'].includes(columnIndex.toString())) {
+                            aValue = parseFloat(aValue) || 0;
+                            bValue = parseFloat(bValue) || 0;
+                            return asc ? aValue - bValue : bValue - aValue;
+                        } else {
+                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
                         }
-                        return aValue > bValue ? 1 : -1;
                     });
-
-                    const th = table.querySelector(`th:nth-child(${columnIndex + 1})`);
-                    if (th.classList.contains('sort-asc')) {
-                        sortedRows.reverse();
-                        th.classList.remove('sort-asc');
-                        th.classList.add('sort-desc');
-                    } else {
-                        th.classList.remove('sort-desc');
-                        th.classList.add('sort-asc');
-                    }
-                    rows.length = 0; // Clear the rows array
-                    sortedRows.forEach(row => rows.push(row));
-                    renderTable();
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(row => fragment.appendChild(row));
+                    tbody.appendChild(fragment);
+                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
                 }
 
-                renderTable();
+                columnDropdown.addEventListener('change', handleColumnChange);
+                valueDropdown.addEventListener('change', handleValueChange);
+                applyFilterBtn.addEventListener('click', applyFilter);
+
+                populateFilterOptions();
+                populateTable(rows);
             }
         });
     });
