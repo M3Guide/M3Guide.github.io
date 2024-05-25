@@ -379,14 +379,14 @@
                 function sortTable(columnIndex, columnType) {
                     const rows = Array.from(tbody.rows);
                     const th = table.querySelectorAll('th')[columnIndex];
-                    const asc = th.classList.contains('sort-asc');
+                    const asc = !th.classList.contains('sort-asc');
                     rows.sort((a, b) => {
                         let aValue = a.cells[columnIndex].innerText;
                         let bValue = b.cells[columnIndex].innerText;
-                        if (['0', '8', '9', '10', '11', '12'].includes(columnIndex.toString())) {
-                            aValue = parseFloat(aValue) || 0;
-                            bValue = parseFloat(bValue) || 0;
-                            return asc ? aValue - bValue : bValue - aValue;
+                        if (['1', '8', '9', '10', '11', '12'].includes(columnIndex.toString())) {
+                            aValue = parseFloat(aValue.replace(/[^\d.]/g, '')) || 0;
+                            bValue = parseFloat(bValue.replace(/[^\d.]/g, '')) || 0;
+                            return columnIndex === 1 ? aValue - bValue : asc ? bValue - aValue : aValue - bValue;
                         } else {
                             return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
                         }
@@ -397,6 +397,7 @@
                     table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
                     th.classList.add(asc ? 'sort-asc' : 'sort-desc');
                 }
+
 
                 columnDropdown.addEventListener('change', handleColumnChange);
                 valueDropdown.addEventListener('change', handleValueChange);
