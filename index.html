@@ -317,16 +317,13 @@
                             if (colIndex === 14) {
                                 switch (row[col].toLowerCase()) {
                                     case 'yes':
-                                        td.style.color = '#00ff00'; // Green for "Yes"
+                                        td.style.color = '#808080';
                                         break;
                                     case 'no':
-                                        td.style.color = '#ff0000'; // Red for "No"
-                                        break;
-                                    case 'if owned':
-                                        td.style.color = '#0000ff'; // Blue for "If owned"
+                                        td.style.color = '#ffd700';
                                         break;
                                     default:
-                                        td.style.color = '#fff';
+                                        td.style.color = '#ffa500';
                                 }
                             }
                             tr.appendChild(td);
