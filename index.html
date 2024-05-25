@@ -257,114 +257,157 @@
                         });
                     }
                     valueDropdown.disabled = false;
-                    applyFilterBtn.disabled = true;
+                    applyFilterBtn.disabled = true; // Disable until a value is selected
                 }
 
-                function handleValueChange() {
-                    applyFilterBtn.disabled = valueDropdown.value === '';
+                function handleValueChange(event) {
+                    applyFilterBtn.disabled = !event.target.value; // Enable if a value is selected
                 }
 
                 function applyFilter() {
                     const columnIndex = parseInt(columnDropdown.value);
-                    const columnName = columns[columnIndex];
                     const filterValue = valueDropdown.value;
-                    const filteredRows = rows.filter(row => row[columnName] === filterValue || (filterValue === 'Neutral' && row[columnName] === ''));
-                    populateTable(filteredRows);
-                    addFilterTag(columnName, filterValue);
-                    resetFilterControls();
-                }
-
-                function addFilterTag(columnName, filterValue) {
                     const filterBox = document.createElement('div');
-                    filterBox.classList.add('filter-box');
-                    filterBox.innerHTML = `<span>${columnName}: ${filterValue}</span><button class="remove-filter">X</button>`;
-                    filterBox.querySelector('.remove-filter').addEventListener('click', () => {
-                        filterBox.remove();
-                        const activeFilters = Array.from(filtersContainer.children);
-                        if (activeFilters.length === 0) {
-                            populateTable(originalRows);
-                        } else {
-                            let filteredRows = originalRows;
-                            activeFilters.forEach(filter => {
-                                const [columnName, filterValue] = filter.querySelector('span').innerText.split(': ');
-                                filteredRows = filteredRows.filter(row => row[columnName] === filterValue || (filterValue === 'Neutral' && row[columnName] === ''));
-                            });
-                            populateTable(filteredRows);
-                        }
-                    });
+                    filterBox.className = 'filter-box';
+                    filterBox.dataset.columnIndex = columnIndex;
+                    filterBox.dataset.filterValue = filterValue;
+                    filterBox.innerHTML = `<span>${columns[columnIndex]}: ${filterValue}</span> <button class="remove-filter">X</button>`;
                     filtersContainer.appendChild(filterBox);
-                }
 
-                function resetFilterControls() {
                     columnDropdown.value = '';
-                    valueDropdown.value = '';
+                    valueDropdown.innerHTML = '<option value="">Select Value</option>';
                     valueDropdown.disabled = true;
                     applyFilterBtn.disabled = true;
+
+                    const selectedOptions = [...filtersContainer.querySelectorAll('.filter-box')].map(box => box.dataset.columnIndex);
+                    [...columnDropdown.options].forEach(option => {
+                        if (selectedOptions.includes(option.value)) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+
+                    applyFilters();
+                }
+
+                function applyFilters() {
+                    const activeFilters = [...filtersContainer.querySelectorAll('.filter-box')].map(box => ({
+                        columnIndex: parseInt(box.dataset.columnIndex),
+                        filterValue: box.dataset.filterValue
+                    }));
+
+                    const filteredRows = originalRows.filter(row => {
+                        return activeFilters.every(filter => row[columns[filter.columnIndex]] === filter.filterValue);
+                    });
+
+                    populateTable(filteredRows);
+                }
+
+                filtersContainer.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('remove-filter')) {
+                        const filterBox = event.target.closest('.filter-box');
+                        filterBox.remove();
+                        const columnIndex = filterBox.dataset.columnIndex;
+                        [...columnDropdown.options].forEach(option => {
+                            if (option.value === columnIndex) {
+                                option.disabled = false;
+                            }
+                        });
+                        applyFilters();
+                    }
+                });
+
+                function populateTable(rows) {
+                    tbody.innerHTML = ''; // Clear existing tbody content
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(rowData => {
+                        const tr = document.createElement('tr');
+                        columns.forEach((column, index) => {
+                            const td = document.createElement('td');
+                            if (index === 14) {
+                                const textContent = rowData[column];
+                                td.innerText = textContent;
+                                if (textContent === 'No') {
+                                    td.style.color = 'red';
+                                } else if (textContent === 'Yes') {
+                                    td.style.color = 'green';
+                                } else if (textContent === 'If owned') {
+                                    td.style.color = 'yellow';
+                                }
+                            } else if (index === 4 || index === 5) {
+                                const textContent = rowData[column] || 'Neutral'; // Default to 'Neutral' if content is blank
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 3) {
+                                const textContent = rowData[column];
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/category/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 6) {
+                                const textContent = rowData[column];
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/ability/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
+                            } else if (index === 1) {
+                                var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+                                var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
+                                if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
+                                    link += "_platinum";
+                                } else if (rowData[columns[13]] == "No" && rowData[columns[3]] == "Zodiac") {
+                                    link += "_silver";
+                                }
+                                link += ".png";
+                                // Create the Icon column
+                                const iconLink = document.createElement('a');
+                                iconLink.href = link;
+                                iconLink.target = "_blank";
+                                const iconImage = document.createElement('img');
+                                iconImage.src = link;
+                                iconImage.alt = "Icon";
+                                iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
+                                iconLink.appendChild(iconImage);
+                                td.appendChild(iconLink);
+                            } else {
+                                if (index === 2) {
+                                    td.classList.add('bold');
+                                }
+                                td.innerText = rowData[column];
+                            }
+                            tr.appendChild(td);
+                        });
+                        fragment.appendChild(tr);
+                    });
+                    tbody.appendChild(fragment);
+                }
+
+                function sortTable(columnIndex, columnType) {
+                    const rows = Array.from(tbody.rows);
+                    const th = table.querySelectorAll('th')[columnIndex];
+                    const asc = th.classList.contains('sort-asc');
+                    rows.sort((a, b) => {
+                        let aValue = a.cells[columnIndex].innerText;
+                        let bValue = b.cells[columnIndex].innerText;
+                        if (['0', '8', '9', '10', '11', '12'].includes(columnIndex.toString())) {
+                            aValue = parseFloat(aValue) || 0;
+                            bValue = parseFloat(bValue) || 0;
+                            return asc ? aValue - bValue : bValue - aValue;
+                        } else {
+                            return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                        }
+                    });
+                    const fragment = document.createDocumentFragment();
+                    rows.forEach(row => fragment.appendChild(row));
+                    tbody.appendChild(fragment);
+                    table.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+                    th.classList.add(asc ? 'sort-asc' : 'sort-desc');
                 }
 
                 columnDropdown.addEventListener('change', handleColumnChange);
                 valueDropdown.addEventListener('change', handleValueChange);
                 applyFilterBtn.addEventListener('click', applyFilter);
 
-                function populateTable(data) {
-                    tbody.innerHTML = '';
-                    data.forEach(row => {
-                        const tr = document.createElement('tr');
-                        columns.forEach((col, index) => {
-                            const td = document.createElement('td');
-                            let cellData = row[col];
-                            if (index === 3 || index === 4) {
-                                cellData = cellData.split(';').map(gene => `<span class="bold" style="color: ${genes[gene] || ''};">${gene}</span>`).join(' ');
-                            } else if (index === 2) {
-                                cellData = `<span class="hidden-text">${cellData.replace(/[^\d]/g, '')}</span>${cellData}`;
-                            } else if (index === 1) {
-                                cellData = `<span class="hidden-text">${parseInt(cellData.replace(/[^\d]/g, ''))}</span>${cellData}`;
-                            } else if (index === columns.length - 1 || index === columns.length - 2 || index === columns.length - 3) {
-                                cellData = `<span class="hidden-text">${cellData.replace(/[^\d]/g, '')}</span>${cellData}`;
-                            }
-                            td.innerHTML = cellData;
-                            tr.appendChild(td);
-                        });
-                        tbody.appendChild(tr);
-                    });
-                }
-
-                let sortDirection = {}; // Track sort direction for each column
-                function sortTable(columnIndex, header) {
-                    const isNumeric = columnIndex === 1 || columnIndex >= 8; // Define columns with numeric data
-                    const direction = sortDirection[header] === 'asc' ? 'desc' : 'asc';
-                    sortDirection[header] = direction;
-                    const multiplier = direction === 'asc' ? 1 : -1;
-                    rows.sort((a, b) => {
-                        let aVal = a[columns[columnIndex]];
-                        let bVal = b[columns[columnIndex]];
-                        if (isNumeric) {
-                            aVal = parseFloat(aVal.replace(/[^\d.]/g, '')) || 0;
-                            bVal = parseFloat(bVal.replace(/[^\d.]/g, '')) || 0;
-                        }
-                        if (aVal < bVal) return -1 * multiplier;
-                        if (aVal > bVal) return 1 * multiplier;
-                        return 0;
-                    });
-                    populateTable(rows);
-                    updateSortIndicator(header, direction);
-                }
-
-                function updateSortIndicator(header, direction) {
-                    const headers = Array.from(document.querySelectorAll('th'));
-                    headers.forEach(th => {
-                        th.classList.remove('sort-asc', 'sort-desc');
-                        if (th.innerText === header) {
-                            th.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
-                        }
-                    });
-                }
-
-                populateTable(rows);
                 populateFilterOptions();
+                populateTable(rows);
             }
         });
     });
 </script>
+
 </body>
 </html>
