@@ -175,14 +175,13 @@
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';
 
         const genes = {
-            '': '',
+            '': 'Neutral',
             'Cyber': 'a',
             'Necro': 'b',
             'Saber': 'c',
             'Zoomorph': 'd',
             'Galactic': 'e',
-            'Mythic': 'f',
-            'Neutral': ''
+            'Mythic': 'f'
         };
 
         const filterOptions = {
@@ -383,9 +382,9 @@
                     rows.sort((a, b) => {
                         let aValue = a.cells[columnIndex].innerText;
                         let bValue = b.cells[columnIndex].innerText;
-                        if (columnType === 'number') {
-                            aValue = parseFloat(aValue.replace(/[^0-9.]/g, '')) || 0;
-                            bValue = parseFloat(bValue.replace(/[^0-9.]/g, '')) || 0;
+                        if (['0', '8', '9', '10', '11', '12'].includes(columnIndex.toString())) {
+                            aValue = parseFloat(aValue) || 0;
+                            bValue = parseFloat(bValue) || 0;
                             return asc ? aValue - bValue : bValue - aValue;
                         } else {
                             return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
