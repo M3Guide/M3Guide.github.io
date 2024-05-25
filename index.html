@@ -386,7 +386,7 @@
                         if (['0', '7', '8', '9', '10', '11'].includes(columnIndex.toString())) {
                             aValue = parseFloat(aValue.replace(/[^\d.]/g, '')) || 0;
                             bValue = parseFloat(bValue.replace(/[^\d.]/g, '')) || 0;
-                            return columnIndex === 0 ? aValue - bValue : asc ? bValue - aValue : aValue - bValue;
+                            return asc ? bValue - aValue : aValue - bValue;
                         } else {
                             return asc ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
                         }
