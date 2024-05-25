@@ -96,6 +96,23 @@
         .hidden-text {
             display: none;
         }
+        .filter {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .remove-filter {
+            margin-left: 10px;
+            cursor: pointer;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .remove-filter:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
@@ -104,14 +121,18 @@
 
     <h1>MGG Stats</h1>
 
-    <div>
-        <select id="columnSelect">
-            <option value="">Select Column</option>
-        </select>
-        <select id="valueSelect" disabled>
-            <option value="">Select Value</option>
-        </select>
+    <div id="filters">
+        <div class="filter">
+            <select class="columnSelect">
+                <option value="">Select Column</option>
+            </select>
+            <select class="valueSelect" disabled>
+                <option value="">Select Value</option>
+            </select>
+            <button class="remove-filter" style="display:none;">X</button>
+        </div>
     </div>
+    <button id="addFilter">Add Filter</button>
 
     <div class="table-container">
         <table id="dataTable">
@@ -170,39 +191,94 @@
                     headers.appendChild(th);
                 });
 
-                // Populate column select dropdown
-                const columnSelect = document.getElementById('columnSelect');
-                filterColumns.forEach(index => {
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.text = columns[index];
-                    columnSelect.appendChild(option);
-                });
+                function populateFilterOptions(selectElement) {
+                    filterColumns.forEach(index => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.text = columns[index];
+                        selectElement.appendChild(option);
+                    });
+                }
 
-                // Populate value select dropdown based on column selection
-                columnSelect.addEventListener('change', function() {
-                    const columnIndex = parseInt(columnSelect.value);
-                    const valueSelect = document.getElementById('valueSelect');
+                function handleColumnChange(event) {
+                    const columnIndex = parseInt(event.target.value);
+                    const valueSelect = event.target.nextElementSibling;
+                    const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
                     valueSelect.disabled = false;
                     valueSelect.innerHTML = '<option value="">Select Value</option>';
-                    
-                    const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
                     uniqueValues.forEach(value => {
                         const option = document.createElement('option');
                         option.value = value;
                         option.text = value;
                         valueSelect.appendChild(option);
                     });
-                });
+                    updateAvailableColumns();
+                }
 
-                // Filter rows based on selected value
-                const valueSelect = document.getElementById('valueSelect');
-                valueSelect.addEventListener('change', function() {
-                    const columnIndex = parseInt(columnSelect.value);
-                    const filterValue = valueSelect.value;
-                    const filteredRows = originalRows.filter(row => row[columns[columnIndex]] === filterValue);
+                function handleValueChange() {
+                    applyFilters();
+                }
+
+                function applyFilters() {
+                    const filterDivs = document.querySelectorAll('.filter');
+                    let filteredRows = [...originalRows];
+                    filterDivs.forEach(filterDiv => {
+                        const columnIndex = parseInt(filterDiv.querySelector('.columnSelect').value);
+                        const filterValue = filterDiv.querySelector('.valueSelect').value;
+                        if (filterValue) {
+                            filteredRows = filteredRows.filter(row => row[columns[columnIndex]] === filterValue);
+                        }
+                    });
                     populateTable(filteredRows);
-                });
+                }
+
+                function updateAvailableColumns() {
+                    const selectedColumns = [...document.querySelectorAll('.columnSelect')].map(select => parseInt(select.value));
+                    document.querySelectorAll('.columnSelect').forEach(select => {
+                        const currentValue = parseInt(select.value);
+                        [...select.options].forEach(option => {
+                            if (option.value && parseInt(option.value) !== currentValue && selectedColumns.includes(parseInt(option.value))) {
+                                option.disabled = true;
+                            } else {
+                                option.disabled = false;
+                            }
+                        });
+                    });
+                }
+
+                function addFilter() {
+                    const filterContainer = document.getElementById('filters');
+                    const filterDiv = document.createElement('div');
+                    filterDiv.classList.add('filter');
+                    filterDiv.innerHTML = `
+                        <select class="columnSelect">
+                            <option value="">Select Column</option>
+                        </select>
+                        <select class="valueSelect" disabled>
+                            <option value="">Select Value</option>
+                        </select>
+                        <button class="remove-filter">X</button>
+                    `;
+                    filterContainer.appendChild(filterDiv);
+
+                    const columnSelect = filterDiv.querySelector('.columnSelect');
+                    const valueSelect = filterDiv.querySelector('.valueSelect');
+                    const removeFilterBtn = filterDiv.querySelector('.remove-filter');
+
+                    populateFilterOptions(columnSelect);
+                    columnSelect.addEventListener('change', handleColumnChange);
+                    valueSelect.addEventListener('change', handleValueChange);
+                    removeFilterBtn.addEventListener('click', () => {
+                        filterDiv.remove();
+                        applyFilters();
+                        updateAvailableColumns();
+                    });
+                }
+
+                document.getElementById('addFilter').addEventListener('click', addFilter);
+
+                // Populate initial filter options
+                populateFilterOptions(document.querySelector('.columnSelect'));
 
                 // Insert table rows
                 function populateTable(rows) {
