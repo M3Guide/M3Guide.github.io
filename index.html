@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGG Stats</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aero+Matics&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
     <style>
         body {
             font-family: 'Aero Matics', Arial, sans-serif;
@@ -46,6 +47,8 @@
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 14px; /* Increased font size */
         }
         th {
             cursor: pointer;
@@ -126,7 +129,9 @@
             background-color: darkred;
         }
         .dropdown-container {
-            display: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -137,6 +142,7 @@
     <h1>MGG Stats</h1>
 
     <div class="dropdown-container">
+        <span style="margin-right: 10px;">Filter:</span>
         <select id="columnDropdown">
             <option value="">Select Column</option>
         </select>
@@ -147,7 +153,6 @@
     </div>
 
     <div class="filter-container" id="filters"></div>
-    <button id="addFilter">Add Filter</button>
 
     <div class="table-container">
         <table id="dataTable">
@@ -170,13 +175,23 @@
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSrX65kNGw3u6SEuCXujnHInVDGJLyJL6OrSFBr_bkHQAqu1Ke69tDBiVWCGZ-jHcHV5bWwtp8UtoP7/pub?output=csv';
 
         const genes = {
-            '': '',
+            '': 'Neutral',
             'Cyber': 'a',
             'Necro': 'b',
             'Saber': 'c',
             'Zoomorph': 'd',
             'Galactic': 'e',
             'Mythic': 'f'
+        };
+
+        const filterOptions = {
+            'Category': ['Common', 'Legendary', 'Heroic', 'Secret', 'Exclusive', 'PvP', 'Seasonal', 'Reactor', 'Video Game', 'Zodiac'],
+            'Gene 1': ['Cyber', 'Necro', 'Saber', 'Zoomorph', 'Galactic', 'Mythic'],
+            'Gene 2': ['Neutral', 'Cyber', 'Necro', 'Saber', 'Zoomorph', 'Galactic', 'Mythic'],
+            'Ability': ['Shield', 'Drain', 'Retaliate', 'Wound', 'Boost', 'Curse'],
+            'Atk Type': ['0', '1', '2', '3'],
+            'Breedable?': ['Yes', 'No', 'If owned'],
+            'Bingo': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '99']
         };
 
         Papa.parse(csvUrl, {
@@ -222,59 +237,57 @@
 
                 function handleColumnChange(event) {
                     const columnIndex = parseInt(event.target.value);
-                    const uniqueValues = [...new Set(originalRows.map(row => row[columns[columnIndex]]))];
-                    valueDropdown.disabled = false;
+                    const columnName = columns[columnIndex];
                     valueDropdown.innerHTML = '<option value="">Select Value</option>';
-                    uniqueValues.forEach(value => {
-                        const option = document.createElement('option');
-                        option.value = value;
-                        option.text = value;
-                        valueDropdown.appendChild(option);
-                    });
-                    applyFilterBtn.disabled = true; // Disable apply button until value is selected
+                    if (filterOptions[columnName]) {
+                        filterOptions[columnName].forEach(value => {
+                            const option = document.createElement('option');
+                            option.value = value;
+                            option.text = value;
+                            valueDropdown.appendChild(option);
+                        });
+                    } else {
+                        const uniqueValues = [...new Set(originalRows.map(row => row[columnName]))];
+                        uniqueValues.forEach(value => {
+                            const option = document.createElement('option');
+                            option.value = value;
+                            option.text = value === '' ? 'Neutral' : value;
+                            valueDropdown.appendChild(option);
+                        });
+                    }
+                    valueDropdown.disabled = false;
+                    applyFilterBtn.disabled = true; // Disable until a value is selected
                 }
 
-                function handleValueChange() {
-                    applyFilterBtn.disabled = valueDropdown.value === '';
+                function handleValueChange(event) {
+                    applyFilterBtn.disabled = !event.target.value; // Enable if a value is selected
                 }
 
                 function applyFilter() {
                     const columnIndex = parseInt(columnDropdown.value);
                     const filterValue = valueDropdown.value;
-                    addFilterBox(columnIndex, filterValue);
-                    updateAvailableColumns();
+                    const filterBox = document.createElement('div');
+                    filterBox.className = 'filter-box';
+                    filterBox.dataset.columnIndex = columnIndex;
+                    filterBox.dataset.filterValue = filterValue;
+                    filterBox.innerHTML = `<span>${columns[columnIndex]}: ${filterValue}</span> <button class="remove-filter">X</button>`;
+                    filtersContainer.appendChild(filterBox);
+
                     columnDropdown.value = '';
                     valueDropdown.innerHTML = '<option value="">Select Value</option>';
                     valueDropdown.disabled = true;
                     applyFilterBtn.disabled = true;
-                    applyFilters();
-                }
 
-                function addFilterBox(columnIndex, filterValue) {
-                    const filterBox = document.createElement('div');
-                    filterBox.classList.add('filter-box');
-                    filterBox.innerHTML = `<span>${columns[columnIndex]}: ${filterValue}</span><button class="remove-filter">X</button>`;
-                    filterBox.dataset.columnIndex = columnIndex;
-                    filterBox.dataset.filterValue = filterValue;
-
-                    filterBox.querySelector('.remove-filter').addEventListener('click', () => {
-                        filterBox.remove();
-                        applyFilters();
-                        updateAvailableColumns();
-                    });
-
-                    filtersContainer.appendChild(filterBox);
-                }
-
-                function updateAvailableColumns() {
-                    const selectedColumns = [...filtersContainer.querySelectorAll('.filter-box')].map(box => parseInt(box.dataset.columnIndex));
+                    const selectedOptions = [...filtersContainer.querySelectorAll('.filter-box')].map(box => box.dataset.columnIndex);
                     [...columnDropdown.options].forEach(option => {
-                        if (option.value && selectedColumns.includes(parseInt(option.value))) {
+                        if (selectedOptions.includes(option.value)) {
                             option.disabled = true;
                         } else {
                             option.disabled = false;
                         }
                     });
+
+                    applyFilters();
                 }
 
                 function applyFilters() {
@@ -290,6 +303,20 @@
                     populateTable(filteredRows);
                 }
 
+                filtersContainer.addEventListener('click', function(event) {
+                    if (event.target.classList.contains('remove-filter')) {
+                        const filterBox = event.target.closest('.filter-box');
+                        filterBox.remove();
+                        const columnIndex = filterBox.dataset.columnIndex;
+                        [...columnDropdown.options].forEach(option => {
+                            if (option.value === columnIndex) {
+                                option.disabled = false;
+                            }
+                        });
+                        applyFilters();
+                    }
+                });
+
                 function populateTable(rows) {
                     tbody.innerHTML = ''; // Clear existing tbody content
                     const fragment = document.createDocumentFragment();
@@ -297,8 +324,17 @@
                         const tr = document.createElement('tr');
                         columns.forEach((column, index) => {
                             const td = document.createElement('td');
-
-                            if (index === 4 || index === 5) {
+                            if (index === 14) {
+                                const textContent = rowData[column];
+                                td.innerText = textContent;
+                                if (textContent === 'No') {
+                                    td.style.color = 'red';
+                                } else if (textContent === 'Yes') {
+                                    td.style.color = 'green';
+                                } else if (textContent === 'If owned') {
+                                    td.style.color = 'yellow';
+                                }
+                            } else if (index === 4 || index === 5) {
                                 const textContent = rowData[column] || 'Neutral'; // Default to 'Neutral' if content is blank
                                 td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/genes/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
                             } else if (index === 3) {
@@ -364,9 +400,6 @@
                 columnDropdown.addEventListener('change', handleColumnChange);
                 valueDropdown.addEventListener('change', handleValueChange);
                 applyFilterBtn.addEventListener('click', applyFilter);
-                document.getElementById('addFilter').addEventListener('click', () => {
-                    columnDropdown.parentElement.style.display = 'block';
-                });
 
                 populateFilterOptions();
                 populateTable(rows);
