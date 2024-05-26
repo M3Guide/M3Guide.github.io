@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGG Stats</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aero+Matics&display=swap">
+    <link href="https://db.onlinewebfonts.com/c/26af7133fea192d900d20e8c886a69e8?family=Aero+Matics+Bold" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap">
     <style>
+        @import url(https://db.onlinewebfonts.com/c/26af7133fea192d900d20e8c886a69e8?family=Aero+Matics+Bold);
+        @font-face {
+            font-family: "Aero Matics Bold";
+            src: url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.eot");
+            src: url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.eot?#iefix")format("embedded-opentype"),
+            url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.woff2")format("woff2"),
+            url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.woff")format("woff"),
+            url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.ttf")format("truetype"),
+            url("https://db.onlinewebfonts.com/t/26af7133fea192d900d20e8c886a69e8.svg#Aero Matics Bold")format("svg");
+        }
         body {
-            font-family: 'Aero Matics', Arial, sans-serif;
+            font-family: 'Aero Matics Bold', Arial, sans-serif;
             text-align: center;
             background-color: #1f1f1f;
             color: #fff;
@@ -32,30 +42,36 @@
         h1 {
             margin-top: 0;
             font-size: 32px;
+            text-align: center;
         }
         .table-container {
+            width: 100%;
             max-width: 100%;
         }
         table {
             position: relative;
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 18px;
         }
         th, td {
             border-style : hidden!important;
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
+            font-size: 16px; 
+        }
+        td {
             font-family: 'Rubik', Arial, sans-serif;
-            font-size: 16px; /* Increased font size */
         }
         th {
+            font-family: 'Aero Matics Bold', Arial, sans-serif;
             top: 0;
             z-index: 1;
             position: sticky;
             cursor: pointer;
             background-color: #555;
+            font-size: 20px;
         }
         th:hover {
             background-color: #777;
@@ -135,6 +151,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .cyber {
+          background: linear-gradient(to right, #b26c00, #4b4b4b);
+          color: white;
+        }
+
+        .necro {
+          background: linear-gradient(to right, #738505, #4b4b4b);
+          color: white;
+        }
+        .saber {
+          background: linear-gradient(to right, #8e270f, #4b4b4b);
+          color: white;
+        }
+        .zoomorph {
+          background: linear-gradient(to right, #734924, #4b4b4b);
+          color: white;
+        }
+
+        .galactic {
+          background: linear-gradient(to right, #3a4678, #4b4b4b);
+          color: white;
+        }
+
+        .mythic {
+          background: linear-gradient(to right, #623b79, #4b4b4b);
+          color: white;
         }
     </style>
 </head>
@@ -262,6 +305,7 @@
                     
                     valueDropdown.disabled = columnDropdown.value == '';
                     applyFilterBtn.disabled = true; // Disable until a value is selected
+
                 }
 
                 function handleValueChange(event) {
@@ -293,6 +337,7 @@
                     });
 
                     applyFilters();
+                    applyGradientBasedOnContent('dataTable', 5, contentToGradientMap);
                 }
 
                 function applyFilters() {
@@ -320,6 +365,7 @@
                         });
                         applyFilters();
                     }
+                    applyGradientBasedOnContent('dataTable', 5, contentToGradientMap);
                 });
 
                 function populateTable(rows) {
@@ -409,9 +455,71 @@
 
                 populateFilterOptions();
                 populateTable(rows);
+                applyGradientBasedOnContent('dataTable', 5, contentToGradientMap);
+                insertIconsIntoHeaders('dataTable')
             }
         });
     });
+    // Function to apply gradient based on column content
+    function applyGradientBasedOnContent(tableId, columnNumber, contentToGradientMap) {
+      var table = document.getElementById(tableId);
+      if (table) {
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+          var row = rows[i];
+          var cells = row.getElementsByTagName('td');
+          if (cells.length >= columnNumber) {
+            var content = cells[columnNumber - 1].textContent.trim();
+            if (contentToGradientMap.hasOwnProperty(content)) {
+              row.classList.add(contentToGradientMap[content]);
+            }
+          }
+        }
+      }
+    }
+
+    // Map of content to gradient classes
+    var contentToGradientMap = {
+      'Cyber': 'cyber',
+      'Necro': 'necro',
+      'Saber': 'saber',
+      'Zoomorph': 'zoomorph',
+      'Galactic': 'galactic',
+      'Mythic': 'mythic',
+      // Add more content-gradient mappings as needed
+    };
+
+    // Apply gradients based on content to the table
+    var miscLink = 'https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/'
+    function insertIconsIntoHeaders(dataTable) {
+      var table = document.getElementById(dataTable);
+      if (table) {
+        var headers = table.getElementsByTagName('th');
+        var cols = [2,7,8,9,10,14];
+        for (var i = 0; i < cols.length; i++) {
+          var header = headers[cols[i]];
+          var title = header.innerText;
+          if (title) {
+            if(title == "Breedable?"){
+                title = "Breedable";
+            }
+            var iconPath = miscLink + title + '.png';
+            if(title == "Breedable"){
+                title = "Breedable";
+            }
+            var img = document.createElement('img');
+            img.src = iconPath;
+            img.alt = title;
+            var iconSize = 28;
+            img.style.width = iconSize + 'px'; // Set width
+            img.style.height = iconSize * (title == "Name" ? 0.466 : 1) + 'px'; // Set height
+            header.innerHTML = '';
+            header.appendChild(img);
+          }
+        }
+      }
+    }
+
 </script>
 
 </body>
