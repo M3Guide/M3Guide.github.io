@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGG Stats</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aero+Matics&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap">
     <style>
         body {
             font-family: 'Aero Matics', Arial, sans-serif;
@@ -16,12 +16,12 @@
             padding: 0;
         }
         #container {
-            overflow-x: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
+            height: 100%;
             width: 100%;
             max-width: 100%;
             background-color: #333;
@@ -34,23 +34,26 @@
             font-size: 32px;
         }
         .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
             max-width: 100%;
         }
         table {
+            position: relative;
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
         th, td {
+            border-style : hidden!important;
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
-            font-family: 'Roboto', Arial, sans-serif;
-            font-size: 14px; /* Increased font size */
+            font-family: 'Rubik', Arial, sans-serif;
+            font-size: 16px; /* Increased font size */
         }
         th {
+            top: 0;
+            z-index: 1;
+            position: sticky;
             cursor: pointer;
             background-color: #555;
         }
@@ -256,7 +259,8 @@
                             valueDropdown.appendChild(option);
                         });
                     }
-                    valueDropdown.disabled = false;
+                    
+                    valueDropdown.disabled = columnDropdown.value == '';
                     applyFilterBtn.disabled = true; // Disable until a value is selected
                 }
 
@@ -325,13 +329,13 @@
                         const tr = document.createElement('tr');
                         columns.forEach((column, index) => {
                             const td = document.createElement('td');
-                            if (index === 14) {
+                            if (index === 13) {
                                 const textContent = rowData[column];
                                 td.innerText = textContent;
                                 if (textContent === 'No') {
                                     td.style.color = 'red';
                                 } else if (textContent === 'Yes') {
-                                    td.style.color = 'green';
+                                    td.style.color = 'yellowgreen';
                                 } else if (textContent === 'If owned') {
                                     td.style.color = 'yellow';
                                 }
