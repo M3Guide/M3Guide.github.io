@@ -400,24 +400,8 @@
                                 const textContent = rowData[column];
                                 td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/ability/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
                             } else if (index === 1) {
-                                var trail = ((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
-                                var link = "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_" + genes[rowData[columns[4]]] + genes[rowData[columns[5]]] + "_" + trail;
-                                if (rowData[columns[13]] == "Yes" || rowData[columns[13]] == "If owned") {
-                                    link += "_platinum";
-                                } else if (rowData[columns[13]] == "No" && rowData[columns[3]] == "Zodiac") {
-                                    link += "_silver";
-                                }
-                                link += ".png";
-                                // Create the Icon column
-                                const iconLink = document.createElement('a');
-                                iconLink.href = link;
-                                iconLink.target = "_blank";
-                                const iconImage = document.createElement('img');
-                                iconImage.src = link;
-                                iconImage.alt = "Icon";
-                                iconImage.style.maxWidth = "75px"; // Set a maximum width for the image
-                                iconLink.appendChild(iconImage);
-                                td.appendChild(iconLink);
+                                const textContent = genes[rowData[columns[4]]] + genes[rowData[columns[5]]]+ "_"+((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+                                td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/mutant/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
                             } else {
                                 if (index === 2) {
                                     td.classList.add('bold');
