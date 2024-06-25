@@ -185,11 +185,29 @@
           background: linear-gradient(to right, #623b79, #4b4b4b);
           color: white;
         }
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.75); /* Dark background with transparency */
+            z-index: 9999; /* Ensure it covers everything */
+        }
+        #loading img {
+            width: 100px; /* Adjust the size as needed */
+            height: 100px;
+        }
     </style>
 </head>
 <body>
-
-<div id="container">
+<div id="loading">
+        <img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/loading.gif" alt="Loading...">
+    </div>
+<div id="container" style="display: none;">
 
     <h1>MGG Stats</h1>
     <div class="dropdown-container">
@@ -251,6 +269,7 @@
             header: true,
             complete: function(results) {
                 const rows = results.data;
+                alert(rows.length);
                 const columns = Object.keys(rows[0]);
                 const table = document.getElementById('dataTable');
                 const tbody = table.querySelector('tbody');
@@ -445,7 +464,9 @@
                 populateFilterOptions();
                 populateTable(rows);
                 applyGradientBasedOnContent('dataTable', 5, contentToGradientMap);
-                insertIconsIntoHeaders('dataTable')
+                insertIconsIntoHeaders('dataTable');
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('container').style.display = 'block';
             }
         });
     });
