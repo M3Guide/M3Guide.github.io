@@ -207,7 +207,7 @@
 <div id="loading">
         <img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/loading.gif" alt="Loading...">
     </div>
-<div id="container" style="display: none;">
+<div id="container">
 
     <h1>MGG Stats</h1>
     <div class="dropdown-container">
@@ -223,7 +223,7 @@
 
     <div class="filter-container" id="filters"></div>
 
-    <div class="table-container">
+    <div class="table-container" id="tableCont" style="display: none;">
         <table id="dataTable">
             <thead>
                 <tr>
@@ -269,7 +269,6 @@
             header: true,
             complete: function(results) {
                 const rows = results.data;
-                alert(rows.length);
                 const columns = Object.keys(rows[0]);
                 const table = document.getElementById('dataTable');
                 const tbody = table.querySelector('tbody');
@@ -466,7 +465,7 @@
                 applyGradientBasedOnContent('dataTable', 5, contentToGradientMap);
                 insertIconsIntoHeaders('dataTable');
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('container').style.display = 'block';
+                document.getElementById('tableCont').style.display = 'block';
             }
         });
     });
