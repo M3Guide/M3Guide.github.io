@@ -1,0 +1,505 @@
+Name,Category,Gene 1,Gene 2,Breedable,Bingo,Incubation
+Robot,Common,Cyber,Neutral,Yes,1,5
+Garuda,Seasonal,Cyber,Neutral,No,3,60
+Bounty Hunter,Legendary,Cyber,Neutral,If owned,5,60
+Asimov,Heroic,Cyber,Neutral,If owned,13,90
+Android,Common,Cyber,Cyber,Yes,1,60
+Goliath,Exclusive,Cyber,Cyber,No,2,60
+H.U.M.A.N.,Legendary,Cyber,Cyber,Yes,3,180
+Tri-Klops,Legendary,Cyber,Cyber,If owned,4,60
+Thunderstruck,PvP,Cyber,Cyber,If owned,5,60
+Hercules,PvP,Cyber,Cyber,If owned,6,60
+Project 3V3,Legendary,Cyber,Cyber,If owned,7,60
+R0B-H4N Sentinel,Legendary,Cyber,Cyber,If owned,8,60
+H.U.N.T.3.R,Legendary,Cyber,Cyber,If owned,9,60
+ED-404,Legendary,Cyber,Cyber,If owned,10,60
+TriAD,Legendary,Cyber,Cyber,If owned,11,60
+Cabloid,Legendary,Cyber,Cyber,If owned,12,60
+TCB-8566 Trafficroid,Legendary,Cyber,Cyber,If owned,13,60
+A00-C0R3-C0NTR0L,Exclusive,Cyber,Cyber,No,99,60
+Deadbot,Common,Cyber,Necro,Yes,1,10
+The Darkseer,Secret,Cyber,Necro,Yes,2,360
+Xenarach,PvP,Cyber,Necro,If owned,3,60
+Commander Ender,Legendary,Cyber,Necro,If owned,4,60
+Neo-Urban XIII,Reactor,Cyber,Necro,No,5,60
+Drusella,Legendary,Cyber,Necro,If owned,6,60
+Crusher,Exclusive,Cyber,Necro,No,7,60
+High Gravelord,Legendary,Cyber,Necro,If owned,8,60
+Grumpy Claus,Seasonal,Cyber,Necro,No,9,60
+S-K-Venger,Legendary,Cyber,Necro,If owned,10,60
+Enviro Mk III,Legendary,Cyber,Necro,If owned,11,60
+Unstabot,Legendary,Cyber,Necro,If owned,12,60
+Battle Simulacrum,Exclusive,Cyber,Necro,No,99,60
+Stealth Bot,Common,Cyber,Saber,Yes,1,10
+Captain Wrenchfury,Secret,Cyber,Saber,Yes,2,360
+Dezinger,Legendary,Cyber,Saber,Yes,3,180
+The Plumber,Video Game,Cyber,Saber,No,4,60
+Cyber Punk,Legendary,Cyber,Saber,If owned,5,60
+Viper,Heroic,Cyber,Saber,If owned,6,60
+Robo Fuerte,Reactor,Cyber,Saber,No,7,60
+Blender,Legendary,Cyber,Saber,If owned,8,60
+Optimus Zord,Legendary,Cyber,Saber,If owned,9,60
+Sergeant Dusk,Heroic,Cyber,Saber,If owned,10,60
+Spin Fury,Heroic,Cyber,Saber,If owned,11,60
+Phileas Derocas,Heroic,Cyber,Saber,If owned,12,90
+Capsulator MTZ-004,Exclusive,Cyber,Saber,No,13,60
+Beetle Bot,Common,Cyber,Zoomorph,Yes,1,240
+Monocerus,Legendary,Cyber,Zoomorph,Yes,2,180
+Taurider,Zodiac,Cyber,Zoomorph,No,3,60
+Deathcon 1,Legendary,Cyber,Zoomorph,If owned,4,60
+Cyber Croc,Legendary,Cyber,Zoomorph,If owned,5,60
+Bio-Hedgehog,Legendary,Cyber,Zoomorph,If owned,6,60
+Fuel Wasp,Legendary,Cyber,Zoomorph,If owned,7,60
+Kitty Ranger,Legendary,Cyber,Zoomorph,If owned,8,60
+Carcinus Gigas,Legendary,Cyber,Zoomorph,If owned,9,60
+Hippopotank,Legendary,Cyber,Zoomorph,If owned,10,60
+Hatching Mechararachnidian,Exclusive,Cyber,Zoomorph,No,11,60
+Lepidoptech,Legendary,Cyber,Zoomorph,If owned,12,60
+Myrmidus.exe,Legendary,Cyber,Zoomorph,If owned,13,60
+Colossus,Common,Cyber,Galactic,Yes,1,420
+Libraro,Zodiac,Cyber,Galactic,No,2,60
+Invadron,Legendary,Cyber,Galactic,Yes,3,180
+Supraman X,Video Game,Cyber,Galactic,No,4,60
+CyberSlug,Secret,Cyber,Galactic,Yes,5,360
+Marv,Legendary,Cyber,Galactic,If owned,6,60
+Alfie,Legendary,Cyber,Galactic,If owned,7,60
+Andromeda,Heroic,Cyber,Galactic,If owned,8,60
+Centaurus,Legendary,Cyber,Galactic,If owned,9,60
+Akai-Bot,Exclusive,Cyber,Galactic,No,10,60
+Mix0-Logist,Legendary,Cyber,Galactic,If owned,11,60
+Tenacity,Legendary,Cyber,Galactic,If owned,12,60
+Helidrone KxT-271,Legendary,Cyber,Galactic,If owned,13,60
+Giganto-Moai,Seasonal,Cyber,Galactic,No,14,60
+Deus Machina,Common,Cyber,Mythic,Yes,1,1440
+Virgon,Zodiac,Cyber,Mythic,No,2,60
+Halbeard,Legendary,Cyber,Mythic,If owned,3,60
+Autonorush,Legendary,Cyber,Mythic,If owned,4,60
+Abraham Lincoln,Seasonal,Cyber,Mythic,No,5,60
+Eva's Replication,Exclusive,Cyber,Mythic,No,6,60
+Bounda,Heroic,Cyber,Mythic,If owned,7,60
+H0ud1dn1,Legendary,Cyber,Mythic,If owned,8,60
+Steam Warlord,Heroic,Cyber,Mythic,If owned,9,60
+El Veneno,Legendary,Cyber,Mythic,If owned,10,60
+Heimdall,Exclusive,Cyber,Mythic,No,11,60
+Dream Defender,Exclusive,Cyber,Mythic,No,12,60
+A027441,Legendary,Cyber,Mythic,If owned,99,60
+Zombie,Common,Necro,Neutral,Yes,1,5
+Jack O'Lantern,Seasonal,Necro,Neutral,No,3,60
+Crow,Seasonal,Necro,Neutral,No,4,60
+Drudge Zombie,Legendary,Necro,Neutral,If owned,5,60
+Ossembly,Legendary,Necro,Neutral,If owned,12,60
+"GAR, Zombie Sovereign",Heroic,Necro,Neutral,If owned,13,90
+Zomborg,Common,Necro,Cyber,Yes,1,10
+Terrordoll,Secret,Necro,Cyber,Yes,2,360
+Triple-B,Legendary,Necro,Cyber,Yes,3,180
+The Experiment,Legendary,Necro,Cyber,If owned,4,60
+Doctor Blaw,Legendary,Necro,Cyber,If owned,5,60
+Z-0,Legendary,Necro,Cyber,If owned,6,60
+Peekaboo,Legendary,Necro,Cyber,If owned,7,60
+Naraxis,Legendary,Necro,Cyber,If owned,8,60
+Excavalypse,Legendary,Necro,Cyber,If owned,9,60
+Hellsaw,Legendary,Necro,Cyber,If owned,10,60
+Roadmaster,Legendary,Necro,Cyber,If owned,11,60
+Cr€$u$,Legendary,Necro,Cyber,If owned,12,60
+The Anarchic,Legendary,Necro,Cyber,If owned,13,60
+Leech Lord,Common,Necro,Necro,Yes,1,60
+Crypt Wraith,PvP,Necro,Necro,If owned,2,60
+Cursed Rider,Legendary,Necro,Necro,Yes,3,180
+The Boogey Girl,Legendary,Necro,Necro,If owned,4,60
+Soul Eater,PvP,Necro,Necro,If owned,5,60
+The Glutton,PvP,Necro,Necro,If owned,6,60
+Necroparasyte,Legendary,Necro,Necro,If owned,7,60
+Plague Witch,Legendary,Necro,Necro,If owned,8,60
+Frankenhuahua,Legendary,Necro,Necro,If owned,9,60
+T-3rr0r,Legendary,Necro,Necro,If owned,10,60
+The Forgotten One,Exclusive,Necro,Necro,No,11,60
+The Lantern Doctor,Exclusive,Necro,Necro,No,12,60
+The Phosphorescent,Legendary,Necro,Necro,If owned,13,60
+Dire Despot,Common,Necro,Saber,Yes,1,10
+Captain Bag 'O' Bones,Secret,Necro,Saber,Yes,2,360
+Micky Krueger,Legendary,Necro,Saber,If owned,3,60
+George Washington,Seasonal,Necro,Saber,No,4,60
+Psycho Chainsawer,Legendary,Necro,Saber,If owned,5,60
+Dandy Bones,Legendary,Necro,Saber,If owned,6,60
+Muddypeat,Legendary,Necro,Saber,If owned,7,60
+Thrann,Legendary,Necro,Saber,If owned,8,60
+The Collector,Legendary,Necro,Saber,If owned,9,60
+King Lulu,Heroic,Necro,Saber,If owned,10,60
+Ragefang,Legendary,Necro,Saber,If owned,11,60
+Charon,Seasonal,Necro,Saber,No,12,60
+"The Flaying, MD",Legendary,Necro,Saber,If owned,13,60
+Perfitrouille,Seasonal,Necro,Saber,No,14,60
+Undead Dragon,Common,Necro,Zoomorph,Yes,1,720
+Cancernia,Zodiac,Necro,Zoomorph,No,2,60
+Scare Bear,Legendary,Necro,Zoomorph,Yes,3,180
+Lady Harpy,Legendary,Necro,Zoomorph,If owned,4,60
+Bulldozer,Legendary,Necro,Zoomorph,If owned,5,60
+Mur'Ghoul,Legendary,Necro,Zoomorph,If owned,6,60
+The Primal,Reactor,Necro,Zoomorph,No,7,60
+Runt and Cerebro,Legendary,Necro,Zoomorph,If owned,8,60
+Hellmaw,Legendary,Necro,Zoomorph,If owned,9,60
+Waryena,Legendary,Necro,Zoomorph,If owned,10,60
+Cooktouille,Legendary,Necro,Zoomorph,If owned,11,60
+Thanaconda,Legendary,Necro,Zoomorph,If owned,12,60
+Tengu,Legendary,Necro,Zoomorph,If owned,99,60
+Ghostmonaut,Common,Necro,Galactic,Yes,1,420
+Caprika,Zodiac,Necro,Galactic,No,2,60
+Humongous,PvP,Necro,Galactic,If owned,3,60
+Commodore Le Shark,Secret,Necro,Galactic,Yes,4,360
+Nyrlatoth,Legendary,Necro,Galactic,If owned,5,60
+Apophis,Legendary,Necro,Galactic,If owned,6,60
+Nezarim,Legendary,Necro,Galactic,If owned,7,60
+Dug Dario,Legendary,Necro,Galactic,If owned,8,60
+Pyrothrope,Legendary,Necro,Galactic,If owned,9,60
+Overkill,Legendary,Necro,Galactic,If owned,10,60
+Oculys,Legendary,Necro,Galactic,If owned,11,60
+Ichorous Slime,Legendary,Necro,Galactic,If owned,12,60
+Baron Lundi,Common,Necro,Mythic,Yes,1,600
+Lichlock,PvP,Necro,Mythic,If owned,2,60
+Rammerhead,Zodiac,Necro,Mythic,No,3,60
+Galactic Emperor,Reactor,Necro,Mythic,No,4,60
+Britany,Legendary,Necro,Mythic,If owned,5,60
+The King of Mimphys,Legendary,Necro,Mythic,If owned,6,60
+Mushbark,Legendary,Necro,Mythic,If owned,7,60
+Van Helsing,Legendary,Necro,Mythic,If owned,8,60
+Calaca,Exclusive,Necro,Mythic,No,9,60
+The Undertaker,Reactor,Necro,Mythic,No,10,60
+Acheron,Exclusive,Necro,Mythic,No,11,60
+Desecrated Cleric,Legendary,Necro,Mythic,If owned,12,60
+Soul Coalescence,Seasonal,Necro,Mythic,No,13,60
+Warrior,Common,Saber,Neutral,Yes,1,5
+Cryonos,Seasonal,Saber,Neutral,No,3,60
+Barbarian,Legendary,Saber,Neutral,If owned,5,60
+D'Arathomis,Heroic,Saber,Neutral,If owned,13,90
+Enforcer,Common,Saber,Cyber,Yes,1,10
+Interceptrix,Secret,Saber,Cyber,Yes,2,360
+General Chaos,PvP,Saber,Cyber,If owned,3,60
+Project X27,Legendary,Saber,Cyber,If owned,4,60
+Challengeer,Legendary,Saber,Cyber,If owned,5,60
+RA-DK-Bot,Legendary,Saber,Cyber,If owned,6,60
+Rocky Botboa,Legendary,Saber,Cyber,If owned,7,60
+Makino,Legendary,Saber,Cyber,If owned,8,60
+Big Bo$$,Exclusive,Saber,Cyber,No,9,60
+Altaris,Heroic,Saber,Cyber,If owned,10,60
+The Reef,Reactor,Saber,Cyber,No,11,60
+Terracotta General,Legendary,Saber,Cyber,If owned,12,60
+Anteros,Seasonal,Saber,Cyber,No,13,60
+Awakened Missy,Exclusive,Saber,Cyber,No,99,60
+Blade Banshee,Common,Saber,Necro,Yes,1,10
+Bushi,Secret,Saber,Necro,Yes,2,360
+Ragnar,Legendary,Saber,Necro,Yes,3,180
+Leonidas,Legendary,Saber,Necro,If owned,4,60
+Cupid,Seasonal,Saber,Necro,No,5,60
+Scarlett,Exclusive,Saber,Necro,No,6,60
+The Skeleton King,Heroic,Saber,Necro,If owned,7,60
+Wrath,Legendary,Saber,Necro,If owned,8,60
+Jane Saw,Legendary,Saber,Necro,If owned,9,60
+Frankendwarf,Legendary,Saber,Necro,If owned,10,60
+Dissension,Legendary,Saber,Necro,If owned,11,60
+Cranequin,Legendary,Saber,Necro,If owned,12,60
+The Mutiny,Legendary,Saber,Necro,If owned,13,60
+Fleet Captain Blackbeard,Heroic,Saber,Necro,If owned,14,90
+Nordic Knightmare,Common,Saber,Saber,Yes,1,60
+Buck Maurice,Legendary,Saber,Saber,Yes,2,180
+Zena,Legendary,Saber,Saber,If owned,3,60
+Lara,Video Game,Saber,Saber,No,4,60
+Shin Hakuho,PvP,Saber,Saber,If owned,5,60
+El Gringo,PvP,Saber,Saber,If owned,6,60
+Spartac,Exclusive,Saber,Saber,No,7,60
+Yokozuna,PvP,Saber,Saber,If owned,8,60
+Lancelot,Legendary,Saber,Saber,If owned,9,60
+Urgan,Legendary,Saber,Saber,If owned,10,60
+Santagonist,Exclusive,Saber,Saber,No,11,60
+Scaramouche,Legendary,Saber,Saber,If owned,12,60
+Limitless Friendship,Legendary,Saber,Saber,If owned,13,60
+Honey Bunny,Common,Saber,Zoomorph,Yes,1,240
+Sagittaurius,Zodiac,Saber,Zoomorph,No,2,60
+Haggis,PvP,Saber,Zoomorph,If owned,3,60
+Battle Toad,Legendary,Saber,Zoomorph,If owned,4,60
+Hog the Ripper,Exclusive,Saber,Zoomorph,No,5,60
+Sir Puggington,Legendary,Saber,Zoomorph,If owned,6,60
+Jack Ice,Exclusive,Saber,Zoomorph,No,7,60
+Drall,Legendary,Saber,Zoomorph,If owned,8,60
+Mon-Key Crew,Legendary,Saber,Zoomorph,If owned,9,60
+Men'ki Guard,Legendary,Saber,Zoomorph,If owned,10,60
+Sir Bannog,Legendary,Saber,Zoomorph,If owned,11,60
+Captain Eagle,Exclusive,Saber,Zoomorph,No,12,60
+Bearsikk Siklaest,Legendary,Saber,Zoomorph,If owned,13,60
+Martian Marauder,Common,Saber,Galactic,Yes,1,1260
+Geminium,Zodiac,Saber,Galactic,No,2,60
+Galactic Guardian,Legendary,Saber,Galactic,Yes,3,180
+Apex,Legendary,Saber,Galactic,If owned,4,60
+Sun-Duke,Reactor,Saber,Galactic,No,5,60
+Iron Eagle,Legendary,Saber,Galactic,If owned,6,60
+Aran,Heroic,Saber,Galactic,If owned,7,60
+Nameless King,Legendary,Saber,Galactic,If owned,8,60
+Tsar Bomba,Legendary,Saber,Galactic,If owned,9,60
+Captain Achabe,Exclusive,Saber,Galactic,No,10,60
+Chun-Lei,Legendary,Saber,Galactic,If owned,11,60
+Regulo&Juzya,Seasonal,Saber,Galactic,No,12,60
+Kolossus,Exclusive,Saber,Galactic,No,99,60
+Valkyrie,Common,Saber,Mythic,Yes,1,600
+Thor,Legendary,Saber,Mythic,Yes,2,180
+Tinker Blade,Legendary,Saber,Mythic,If owned,3,60
+Azog,Legendary,Saber,Mythic,If owned,4,60
+Akuso Monk,Legendary,Saber,Mythic,If owned,5,60
+Uncle Sam,Seasonal,Saber,Mythic,No,6,60
+Big Santa,Seasonal,Saber,Mythic,No,7,60
+Wynn,Legendary,Saber,Mythic,If owned,8,60
+The Keymaster,Legendary,Saber,Mythic,If owned,9,60
+Arelvam,Legendary,Saber,Mythic,If owned,10,60
+Caliburn EX,Exclusive,Saber,Mythic,No,11,60
+Inheritor of the 5 rings,Heroic,Saber,Mythic,If owned,12,90
+Son of the Storm,Legendary,Saber,Mythic,If owned,13,60
+True Hero Reed,Exclusive,Saber,Mythic,No,99,60
+Beast,Common,Zoomorph,Neutral,Yes,1,180
+Easter Gunny,Seasonal,Zoomorph,Neutral,No,3,60
+Howlosaurus,Legendary,Zoomorph,Neutral,If owned,12,60
+Sasquatch,Heroic,Zoomorph,Neutral,If owned,13,90
+Reptoïd,Common,Zoomorph,Cyber,Yes,1,720
+Arachno,PvP,Zoomorph,Cyber,If owned,2,60
+Mantidroid,Secret,Zoomorph,Cyber,Yes,3,360
+Rhino Squadron,Legendary,Zoomorph,Cyber,If owned,4,60
+Fennec Plus Ultra,Legendary,Zoomorph,Cyber,If owned,5,60
+Tricera Tank,Legendary,Zoomorph,Cyber,If owned,6,60
+Pugnisher,Legendary,Zoomorph,Cyber,If owned,7,60
+Asaylan,Heroic,Zoomorph,Cyber,If owned,8,60
+Sound Killah,Reactor,Zoomorph,Cyber,No,9,60
+Hawkeye,Legendary,Zoomorph,Cyber,If owned,10,60
+The An0maly,Legendary,Zoomorph,Cyber,If owned,11,60
+Data Snail,Legendary,Zoomorph,Cyber,If owned,12,60
+Dreaming Anthroborg,Legendary,Zoomorph,Cyber,If owned,13,60
+Cerberus,Common,Zoomorph,Necro,Yes,1,240
+Zombat,PvP,Zoomorph,Necro,If owned,2,60
+Cobrakai,Legendary,Zoomorph,Necro,Yes,3,180
+Louis XVI,Seasonal,Zoomorph,Necro,No,4,60
+Brawler,Video Game,Zoomorph,Necro,No,5,60
+Breaver,Legendary,Zoomorph,Necro,If owned,6,60
+Lord Dragon,Heroic,Zoomorph,Necro,If owned,7,60
+Deadnosaur,Legendary,Zoomorph,Necro,If owned,8,60
+Horax,Legendary,Zoomorph,Necro,If owned,9,60
+Buffalor,Legendary,Zoomorph,Necro,If owned,10,60
+Piwisher,Exclusive,Zoomorph,Necro,No,11,60
+Great Tunnelworm,Exclusive,Zoomorph,Necro,No,12,60
+Rakshasa,Common,Zoomorph,Saber,Yes,1,720
+Leohart,Zodiac,Zoomorph,Saber,No,2,60
+Gargantus,Reactor,Zoomorph,Saber,No,3,60
+Cézanne,Legendary,Zoomorph,Saber,If owned,4,60
+Monkey King,Legendary,Zoomorph,Saber,If owned,5,60
+Grannyvore,Legendary,Zoomorph,Saber,If owned,6,60
+Noren,Exclusive,Zoomorph,Saber,No,7,60
+Sanik,Legendary,Zoomorph,Saber,If owned,8,60
+Master Shinzo,Legendary,Zoomorph,Saber,If owned,9,60
+Krampus,Legendary,Zoomorph,Saber,If owned,10,60
+Spada,Legendary,Zoomorph,Saber,If owned,11,60
+Harebrained Underminer,Seasonal,Zoomorph,Saber,No,12,60
+Sawmetrodon,Legendary,Zoomorph,Saber,If owned,13,60
+Jurassic Terror,Exclusive,Zoomorph,Saber,No,14,60
+Kaiju Kitty,Common,Zoomorph,Zoomorph,Yes,1,360
+Master Splitter,PvP,Zoomorph,Zoomorph,If owned,2,60
+Psychoboar,Legendary,Zoomorph,Zoomorph,If owned,3,60
+Cernunnos,Legendary,Zoomorph,Zoomorph,If owned,4,60
+Dilophoraptor,PvP,Zoomorph,Zoomorph,If owned,5,60
+Kangaboo,PvP,Zoomorph,Zoomorph,If owned,6,60
+Baloonies,Legendary,Zoomorph,Zoomorph,If owned,7,60
+Rhinotaure,Legendary,Zoomorph,Zoomorph,If owned,8,60
+Mister T-ger,PvP,Zoomorph,Zoomorph,If owned,9,60
+Kameo,Legendary,Zoomorph,Zoomorph,If owned,10,60
+Abyssal Terror,Legendary,Zoomorph,Zoomorph,If owned,11,60
+Solar Lampyrion,Exclusive,Zoomorph,Zoomorph,No,12,60
+Lama Sensei,Legendary,Zoomorph,Zoomorph,If owned,13,60
+Parasite Queen,Common,Zoomorph,Galactic,Yes,1,540
+Cosmo Kong,Legendary,Zoomorph,Galactic,Yes,2,180
+Slashog,PvP,Zoomorph,Galactic,If owned,3,60
+Genshiryoku,Legendary,Zoomorph,Galactic,If owned,4,60
+Exo Cookie,Legendary,Zoomorph,Galactic,If owned,5,60
+Darwin,Exclusive,Zoomorph,Galactic,No,6,60
+Captain Turk E.,Legendary,Zoomorph,Galactic,If owned,7,60
+Cosmopandas,Legendary,Zoomorph,Galactic,If owned,8,60
+Zigmo,Legendary,Zoomorph,Galactic,If owned,9,60
+Mad Mike,Heroic,Zoomorph,Galactic,If owned,10,60
+"Drei, Space Corgi",Legendary,Zoomorph,Galactic,If owned,11,60
+Leviathan,Legendary,Zoomorph,Galactic,If owned,12,60
+Oryctolagus Alienicus,Seasonal,Zoomorph,Galactic,No,13,60
+Dracus Nobilis,Common,Zoomorph,Mythic,Yes,1,1440
+Satyr Shaman,PvP,Zoomorph,Mythic,If owned,2,60
+Absolem,Legendary,Zoomorph,Mythic,Yes,3,180
+Kontiki,Legendary,Zoomorph,Mythic,If owned,4,60
+Dragons' Mother,Legendary,Zoomorph,Mythic,If owned,5,60
+Saber,Exclusive,Zoomorph,Mythic,No,6,60
+The Chimera,Legendary,Zoomorph,Mythic,If owned,7,60
+Chantecler,Heroic,Zoomorph,Mythic,If owned,8,60
+Quetzalcoatl,Legendary,Zoomorph,Mythic,If owned,9,60
+Gwenn,Legendary,Zoomorph,Mythic,If owned,10,60
+Chocolem,Exclusive,Zoomorph,Mythic,No,11,60
+Basilisc&Tarragon,Reactor,Zoomorph,Mythic,No,12,60
+Genimal,Exclusive,Zoomorph,Mythic,No,99,60
+Alien,Common,Galactic,Neutral,Yes,1,360
+Ceres,Legendary,Galactic,Neutral,If owned,3,60
+Sidereal Explorer,Legendary,Galactic,Neutral,If owned,12,60
+Stargazer,Heroic,Galactic,Neutral,If owned,13,90
+Planet Cleaner,Common,Galactic,Cyber,Yes,1,1260
+Sentry,Legendary,Galactic,Cyber,Yes,2,180
+Exo Fish,Zodiac,Galactic,Cyber,No,3,60
+Brick McGole,Legendary,Galactic,Cyber,If owned,4,60
+King Steven,Legendary,Galactic,Cyber,If owned,5,60
+Krunk,Legendary,Galactic,Cyber,If owned,6,60
+Captain Patriot,Legendary,Galactic,Cyber,If owned,7,60
+Lady Liberty,Seasonal,Galactic,Cyber,No,8,60
+Captain Gorn,Legendary,Galactic,Cyber,If owned,9,60
+Space Surfer,Exclusive,Galactic,Cyber,No,10,60
+Dreadnought,Exclusive,Galactic,Cyber,No,11,60
+Fix-o-Drone LLK-215,Legendary,Galactic,Cyber,If owned,12,60
+Tutti Gooey,Common,Galactic,Necro,Yes,1,1260
+Sirenia,PvP,Galactic,Necro,If owned,2,60
+The Devourer,Secret,Galactic,Necro,Yes,3,360
+Ghost Killer,Legendary,Galactic,Necro,If owned,4,60
+Undead Soldier,Legendary,Galactic,Necro,If owned,5,60
+Garlog,Reactor,Galactic,Necro,No,6,60
+Starminator,Legendary,Galactic,Necro,If owned,7,60
+Dr. Nucleus,Exclusive,Galactic,Necro,No,8,60
+Queen Sylvidra,Heroic,Galactic,Necro,If owned,9,60
+Gakarian,Legendary,Galactic,Necro,If owned,10,60
+Aubraea Mutantula,Legendary,Galactic,Necro,If owned,11,60
+Starfarer Medic,PvP,Galactic,Necro,If owned,12,60
+Xinomas,Exclusive,Galactic,Necro,No,13,60
+Diablo,Exclusive,Galactic,Necro,No,99,60
+Bounty Bug,Common,Galactic,Saber,Yes,1,420
+Behemoth,PvP,Galactic,Saber,If owned,2,60
+Star Trooper,Legendary,Galactic,Saber,Yes,3,180
+Santactopus,Seasonal,Galactic,Saber,No,4,60
+Space Hunter,Legendary,Galactic,Saber,If owned,5,60
+Zeus,Reactor,Galactic,Saber,No,6,60
+Starscream,Legendary,Galactic,Saber,If owned,7,60
+Spectre,Heroic,Galactic,Saber,If owned,8,60
+Shieldcalibur,Legendary,Galactic,Saber,If owned,9,60
+Gamallia,Legendary,Galactic,Saber,If owned,10,60
+Veren Kaeesu,Exclusive,Galactic,Saber,No,11,60
+Stellarian Lithominer,Legendary,Galactic,Saber,If owned,12,60
+Xenos,Common,Galactic,Zoomorph,Yes,1,1440
+Shell Shock,PvP,Galactic,Zoomorph,If owned,2,60
+Wampara,Legendary,Galactic,Zoomorph,Yes,3,180
+Rakk 'n' Ruin,Exclusive,Galactic,Zoomorph,No,4,60
+Crawlorax,Legendary,Galactic,Zoomorph,If owned,5,60
+Kitty Perry,Legendary,Galactic,Zoomorph,If owned,6,60
+Paramic,Legendary,Galactic,Zoomorph,If owned,7,60
+Sgt. Pandamonium,Legendary,Galactic,Zoomorph,If owned,8,60
+Rox McRain,Legendary,Galactic,Zoomorph,If owned,9,60
+Angry Pork,Legendary,Galactic,Zoomorph,If owned,10,60
+Owlock,Legendary,Galactic,Zoomorph,If owned,11,60
+Ammonia Atlantica,Legendary,Galactic,Zoomorph,If owned,12,60
+Ctopy,Exclusive,Galactic,Zoomorph,No,99,60
+Astro Surfer,Common,Galactic,Galactic,Yes,1,720
+Supernovus,PvP,Galactic,Galactic,If owned,2,60
+Master Oida,Legendary,Galactic,Galactic,Yes,3,180
+Flying Jordson,Legendary,Galactic,Galactic,If owned,4,60
+Selendis,PvP,Galactic,Galactic,If owned,5,60
+Rakkti Queen,Legendary,Galactic,Galactic,If owned,6,60
+Marship Mallow,Legendary,Galactic,Galactic,If owned,7,60
+Golemagnus,Legendary,Galactic,Galactic,If owned,8,60
+Megastral,Legendary,Galactic,Galactic,If owned,9,60
+Extra Terrorcycle,Legendary,Galactic,Galactic,If owned,10,60
+Gestalt Asteroid,Legendary,Galactic,Galactic,If owned,11,60
+Polaris,Exclusive,Galactic,Galactic,No,12,60
+Irreality Animus,Exclusive,Galactic,Galactic,No,99,60
+Nebulon,Common,Galactic,Mythic,Yes,1,900
+Mr Marvelous,Reactor,Galactic,Mythic,No,2,60
+Aquapunzel,Zodiac,Galactic,Mythic,No,3,60
+Mephisto,Legendary,Galactic,Mythic,If owned,4,60
+Kraken,Legendary,Galactic,Mythic,If owned,5,60
+Mandor,Legendary,Galactic,Mythic,If owned,6,60
+Kal Wayne,Legendary,Galactic,Mythic,If owned,7,60
+Seiyatsu,Exclusive,Galactic,Mythic,No,8,60
+Mage Ryzafredd,Legendary,Galactic,Mythic,If owned,9,60
+Divastator,Legendary,Galactic,Mythic,If owned,10,60
+Dimentio,Legendary,Galactic,Mythic,If owned,11,60
+X'astuth,Heroic,Galactic,Mythic,If owned,12,90
+Achernar,Legendary,Galactic,Mythic,If owned,13,60
+Singularity Wizard,Exclusive,Galactic,Mythic,No,99,60
+K'yu T'ypaï,Seasonal,Galactic,Mythic,No,14,60
+Demon,Common,Mythic,Neutral,Yes,1,540
+Snowmage,Seasonal,Mythic,Neutral,No,3,60
+Leprechaun,Seasonal,Mythic,Neutral,No,4,60
+Summoner,Legendary,Mythic,Neutral,If owned,12,60
+Väinämöinen,Heroic,Mythic,Neutral,If owned,13,90
+Techno Taoïst,Common,Mythic,Cyber,Yes,1,600
+Mekali,PvP,Mythic,Cyber,If owned,2,60
+Bazzinger,Legendary,Mythic,Cyber,If owned,3,60
+Banker,Exclusive,Mythic,Cyber,No,4,60
+Shadow Shaman,Legendary,Mythic,Cyber,If owned,5,60
+Lily,Reactor,Mythic,Cyber,No,6,60
+Dr. Frost,Legendary,Mythic,Cyber,If owned,7,60
+FootBot,Legendary,Mythic,Cyber,If owned,8,60
+Zenguru,Legendary,Mythic,Cyber,If owned,9,60
+Mimi Timebender,Legendary,Mythic,Cyber,If owned,10,60
+Orion,Heroic,Mythic,Cyber,If owned,11,60
+Ethereal Cybermancer,Legendary,Mythic,Cyber,If owned,12,60
+Boreal Helix,Seasonal,Mythic,Cyber,No,13,60
+Archangel,Exclusive,Mythic,Cyber,No,99,60
+Grim Reapress,Common,Mythic,Necro,Yes,1,1440
+Prince Scorpion,Zodiac,Mythic,Necro,No,2,60
+Anubis,Legendary,Mythic,Necro,Yes,3,180
+Wicked Witch,Legendary,Mythic,Necro,If owned,4,60
+Bones 'n' Roses,Legendary,Mythic,Necro,If owned,5,60
+Sorceress,Legendary,Mythic,Necro,If owned,6,60
+The Fates,Legendary,Mythic,Necro,If owned,7,60
+Gozer,Legendary,Mythic,Necro,If owned,8,60
+Hadeath,Legendary,Mythic,Necro,If owned,9,60
+Yggdrasil,Heroic,Mythic,Necro,If owned,10,60
+Nightmare Aberration,Legendary,Mythic,Necro,If owned,11,60
+Maiden of Twilight,Heroic,Mythic,Necro,If owned,12,90
+Gandolphus,Common,Mythic,Saber,Yes,1,1440
+Captain Peace,Exclusive,Mythic,Saber,No,2,60
+Oriax,Exclusive,Mythic,Saber,No,3,60
+Mexihcatl,Exclusive,Mythic,Saber,No,4,60
+Yelda,Video Game,Mythic,Saber,No,5,60
+Wind Spirit,Heroic,Mythic,Saber,If owned,6,60
+Amarok,Legendary,Mythic,Saber,If owned,7,60
+Kudamono,Legendary,Mythic,Saber,If owned,8,60
+Gorthaur the Cruel,Reactor,Mythic,Saber,No,9,60
+Hephaestus,Legendary,Mythic,Saber,If owned,10,60
+Midas,Legendary,Mythic,Saber,If owned,11,60
+Generalissimo Chocoleon IV,Exclusive,Mythic,Saber,No,12,60
+Avalon King,Legendary,Mythic,Saber,If owned,13,60
+Nimrod,Legendary,Mythic,Saber,If owned,99,60
+Medusa,Common,Mythic,Zoomorph,Yes,1,720
+Horus,Secret,Mythic,Zoomorph,Yes,2,360
+Ivory Hanzo,Reactor,Mythic,Zoomorph,No,3,60
+Buranka,Legendary,Mythic,Zoomorph,If owned,4,60
+Shinigami Painter,Legendary,Mythic,Zoomorph,If owned,5,60
+Kung Chow,Legendary,Mythic,Zoomorph,If owned,6,60
+Phoenix,Heroic,Mythic,Zoomorph,If owned,7,60
+Omikami,Legendary,Mythic,Zoomorph,If owned,8,60
+Draco Mage,Legendary,Mythic,Zoomorph,If owned,9,60
+Master Paw,Exclusive,Mythic,Zoomorph,No,10,60
+Ishi no Ōkami,PvP,Mythic,Zoomorph,If owned,11,60
+Simurgh,Legendary,Mythic,Zoomorph,If owned,12,60
+Tezcatlipoca,Exclusive,Mythic,Zoomorph,No,13,60
+C'thlig,Common,Mythic,Galactic,Yes,1,1440
+Azuria,PvP,Mythic,Galactic,If owned,2,60
+Astro Magician,Legendary,Mythic,Galactic,If owned,3,60
+Space Princess,Legendary,Mythic,Galactic,If owned,4,60
+Nebulus,Zodiac,Mythic,Galactic,No,5,60
+Puppetron,Legendary,Mythic,Galactic,If owned,6,60
+Bug's King,Legendary,Mythic,Galactic,If owned,7,60
+Majin Zam,Legendary,Mythic,Galactic,If owned,8,60
+Xeleroth,Legendary,Mythic,Galactic,If owned,9,60
+Bahamut,Legendary,Mythic,Galactic,If owned,10,60
+Pierrot,Heroic,Mythic,Galactic,If owned,11,60
+Algid Exocelestial,Exclusive,Mythic,Galactic,No,12,60
+Vivaldi,Exclusive,Mythic,Galactic,No,13,60
+Engineer,Legendary,Mythic,Galactic,If owned,99,60
+Seraphic Core,Legendary,Mythic,Galactic,If owned,14,60
+Pit Lord,Common,Mythic,Mythic,Yes,1,1080
+Retribution,PvP,Mythic,Mythic,If owned,2,60
+Blood Berry,Legendary,Mythic,Mythic,Yes,3,180
+Monolith,Legendary,Mythic,Mythic,If owned,4,60
+Glubber,Legendary,Mythic,Mythic,If owned,5,60
+Namaste,Legendary,Mythic,Mythic,If owned,6,60
+Geomega,Exclusive,Mythic,Mythic,No,7,60
+Firestorm,Legendary,Mythic,Mythic,If owned,8,60
+Liquidator,Legendary,Mythic,Mythic,If owned,9,60
+Bregbeam,Legendary,Mythic,Mythic,If owned,10,60
+Gerard Steelgarden,Heroic,Mythic,Mythic,If owned,11,60
+Timeless Archivist,Heroic,Mythic,Mythic,If owned,12,90
+Sakuraboshi,Legendary,Mythic,Mythic,If owned,13,60
