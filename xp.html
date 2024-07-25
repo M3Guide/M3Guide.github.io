@@ -408,7 +408,6 @@
                 let mult = 'XP Multiplier: ' + Math.round(multiplier/100 * 100)/100 + 'x';
                 final += n + mult;
                 if(xpPerFight){
-                    
                     let xpBoosted = Math.floor(xpPerFight * (multiplier / 100));
                     let xpWithBoost = 'XP earned with boosts: ' + xpBoosted.toLocaleString() + ' XP';
                     let fights = Math.ceil(totalXP/xpBoosted);
