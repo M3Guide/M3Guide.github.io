@@ -387,13 +387,19 @@
                 for (let i = 1; i < 4; i++) {
                     multiplier += parseInt(document.getElementById('xp-orbs' + i).getAttribute('data-value'));
                 }
-                
-                var excess = 0;
+                var currExcess = 0;
+                var targetExcess = 0;
+                if(currentLevel > 177){
+                    currExcess = currentLevel - 177;
+                    currentLevel = 177;
+                }
+                var currXP = arr[currentLevel-1] + 81600*currExcess;
                 if(targetLevel > 177){
-                    excess = targetLevel - 177;
+                    targetExcess = targetLevel - 177;
                     targetLevel = 177;
                 }
-                const totalXP = (arr[targetLevel-1] - arr[currentLevel-1] + 81600*excess);
+                var targetXP = arr[targetLevel-1] + 81600*targetExcess;
+                const totalXP = targetXP - currXP;
                 const xpRequired = 'Total XP required: ' + totalXP.toLocaleString() + ' XP';
                 var fights = 0;
                 var output = document.getElementById('modal-text');
