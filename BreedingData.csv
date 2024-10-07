@@ -41,7 +41,7 @@ Blender,Legendary,Cyber,Saber,If owned,8,60
 Optimus Zord,Legendary,Cyber,Saber,If owned,9,60
 Sergeant Dusk,Heroic,Cyber,Saber,If owned,10,60
 Spin Fury,Heroic,Cyber,Saber,If owned,11,60
-Phileas Derocas,Heroic,Cyber,Saber,If owned,12,90
+Phileas Derocas,Heroic,Cyber,Saber,If owned,12,60
 Capsulator MTZ-004,Exclusive,Cyber,Saber,No,13,60
 Beetle Bot,Common,Cyber,Zoomorph,Yes,1,240
 Monocerus,Legendary,Cyber,Zoomorph,Yes,2,180
@@ -198,7 +198,7 @@ Frankendwarf,Legendary,Saber,Necro,If owned,10,60
 Dissension,Legendary,Saber,Necro,If owned,11,60
 Cranequin,Legendary,Saber,Necro,If owned,12,60
 The Mutiny,Legendary,Saber,Necro,If owned,13,60
-Fleet Captain Blackbeard,Heroic,Saber,Necro,If owned,14,90
+Fleet Captain Blackbeard,Heroic,Saber,Necro,If owned,14,60
 Nordic Knightmare,Common,Saber,Saber,Yes,1,60
 Buck Maurice,Legendary,Saber,Saber,Yes,2,180
 Zena,Legendary,Saber,Saber,If owned,3,60
@@ -249,7 +249,7 @@ Wynn,Legendary,Saber,Mythic,If owned,8,60
 The Keymaster,Legendary,Saber,Mythic,If owned,9,60
 Arelvam,Legendary,Saber,Mythic,If owned,10,60
 Caliburn EX,Exclusive,Saber,Mythic,No,11,60
-Inheritor of the 5 rings,Heroic,Saber,Mythic,If owned,12,90
+Inheritor of the 5 rings,Heroic,Saber,Mythic,If owned,12,60
 Son of the Storm,Legendary,Saber,Mythic,If owned,13,60
 True Hero Reed,Exclusive,Saber,Mythic,No,99,60
 Beast,Common,Zoomorph,Neutral,Yes,1,180
@@ -413,7 +413,7 @@ Seiyatsu,Exclusive,Galactic,Mythic,No,8,60
 Mage Ryzafredd,Legendary,Galactic,Mythic,If owned,9,60
 Divastator,Legendary,Galactic,Mythic,If owned,10,60
 Dimentio,Legendary,Galactic,Mythic,If owned,11,60
-X'astuth,Heroic,Galactic,Mythic,If owned,12,90
+X'astuth,Heroic,Galactic,Mythic,If owned,12,60
 Achernar,Legendary,Galactic,Mythic,If owned,13,60
 Singularity Wizard,Exclusive,Galactic,Mythic,No,99,60
 K'yu T'ypaï,Seasonal,Galactic,Mythic,No,14,60
@@ -447,7 +447,7 @@ Gozer,Legendary,Mythic,Necro,If owned,8,60
 Hadeath,Legendary,Mythic,Necro,If owned,9,60
 Yggdrasil,Heroic,Mythic,Necro,If owned,10,60
 Nightmare Aberration,Legendary,Mythic,Necro,If owned,11,60
-Maiden of Twilight,Heroic,Mythic,Necro,If owned,12,90
+Maiden of Twilight,Heroic,Mythic,Necro,If owned,12,60
 Gandolphus,Common,Mythic,Saber,Yes,1,1440
 Captain Peace,Exclusive,Mythic,Saber,No,2,60
 Oriax,Exclusive,Mythic,Saber,No,3,60
@@ -501,5 +501,5 @@ Firestorm,Legendary,Mythic,Mythic,If owned,8,60
 Liquidator,Legendary,Mythic,Mythic,If owned,9,60
 Bregbeam,Legendary,Mythic,Mythic,If owned,10,60
 Gerard Steelgarden,Heroic,Mythic,Mythic,If owned,11,60
-Timeless Archivist,Heroic,Mythic,Mythic,If owned,12,90
+Timeless Archivist,Heroic,Mythic,Mythic,If owned,12,60
 Sakuraboshi,Legendary,Mythic,Mythic,If owned,13,60
