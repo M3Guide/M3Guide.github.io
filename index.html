@@ -440,7 +440,7 @@
                     rows.sort((a, b) => {
                         let aValue = a.cells[columnIndex].innerText;
                         let bValue = b.cells[columnIndex].innerText;
-                        if (['0', '7', '8', '9', '10', '11'].includes(columnIndex.toString())) {
+                        if (['0', '7', '8', '9', '10', '11','15','16'].includes(columnIndex.toString())) {
                             aValue = parseFloat(aValue.replace(/[^\d.]/g, '')) || 0;
                             bValue = parseFloat(bValue.replace(/[^\d.]/g, '')) || 0;
                             return asc ? bValue - aValue : aValue - bValue;
