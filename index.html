@@ -398,7 +398,7 @@
                         const tr = document.createElement('tr');
                         columns.forEach((column, index) => {
                             const td = document.createElement('td');
-                            if (index === 13) {
+                            if (index === 14) {
                                 const textContent = rowData[column];
                                 td.innerText = textContent;
                                 if (textContent === 'No') {
@@ -418,7 +418,7 @@
                                 const textContent = rowData[column];
                                 td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/ability/${textContent}.png" alt="${textContent}" style="max-width: 50px;">`;
                             } else if (index === 1) {
-                                const textContent = genes[rowData[columns[4]]] + genes[rowData[columns[5]]]+ "_"+((rowData[columns[14]].length < 2) ? '0' : '') + rowData[columns[14]];
+                                const textContent = genes[rowData[columns[4]]] + genes[rowData[columns[5]]]+ "_"+((rowData[columns[15]].length < 2) ? '0' : '') + rowData[columns[14]];
                                 td.innerHTML = `<span class="hidden-text">${textContent}</span><img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/mutant/${textContent}.png" alt="${textContent}" style="max-width: 75px;">`;
                             } else {
                                 if (index === 2) {
