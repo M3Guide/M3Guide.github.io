@@ -36,7 +36,6 @@
             justify-content: center;
             margin: 0 auto;
             height: 100%;
-            max-width: 100%;
             background-color: #333;
             padding: 20px;
             border-radius: 10px;
@@ -53,7 +52,7 @@
             text-align: center;
         }
         .table-container {
-            width: 100%;
+            width: auto;
             max-width: 100%;
         }
         table {
@@ -114,6 +113,7 @@
         }
         .bold {
             font-weight: bold;
+            text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black, 1px 1px black, -1px -1px black, -1px 1px black, 1px -1px black;
         }
         select {
             margin: 10px 5px;
@@ -210,7 +210,7 @@
         <img src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/loading.gif" alt="Loading...">
     </div>
 <div id="container">
-    <h1>MGG Stats</h1><br>
+    <h1><img src="https://s-ak.kobojo.com/mutants/assets/mobile/hud/main/deck.png" style="height:51px;width:50px;vertical-align: middle; margin-right: 10px;">MGG Stats</h1><br>
     <h2>Mutant stats are at lvl 25. Click headers to sort. Updated last 02/06/25.</h2>
     <div class="dropdown-container">
         <span style="margin-right: 10px;">Filter:</span>
@@ -265,7 +265,7 @@
             'Breedable?': ['Yes', 'No', 'If owned'],
             'Bingo': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '99']
         };
-
+        // var proxyUrl = 'https://cors-anywhere.herokuapp.com/'; proxyUrl+
         Papa.parse(csvUrl, {
             download: true,
             header: true,
@@ -425,6 +425,7 @@
                             } else {
                                 if (index === 2) {
                                     td.classList.add('bold');
+                                    td.classList.add()
                                 }
                                 td.innerText = rowData[column];
                             }
