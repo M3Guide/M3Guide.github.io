@@ -1,0 +1,102 @@
+/* --- navbar.css --- */
+/* Contains ONLY the styles needed for the site-wide navigation bar. */
+
+/* Root variables used by the navbar */
+:root {
+    --secondary: #333333;
+    --accent-green: #b0ea20;
+    --text: #ffffff;
+    --border: #555555;
+}
+
+/* Helper class for green text in logo */
+.g { 
+    color: var(--accent-green); 
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: var(--secondary);
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;  
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.logo h1 {
+    font-family: 'Oxanium', sans-serif; /* Specify font family here */
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    font-family: 'Oxanium', sans-serif; /* Specify font family here */
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--accent-green);
+}
+
+.nav-links a.active {
+    color: var(--accent-green);
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: 2px;
+    background-color: var(--accent-green);
+}
+
+@media (max-width: 768px) {
+    .nav-container { 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    .nav-links { 
+        width: 100%; 
+        justify-content: center; 
+        flex-wrap: wrap; 
+    }
+}
