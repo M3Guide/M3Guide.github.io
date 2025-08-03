@@ -19,7 +19,6 @@
     background-color: var(--secondary);
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    position: sticky; 
     top: 0;
     z-index: 100;
 }
@@ -99,4 +98,5 @@
         justify-content: center; 
         flex-wrap: wrap; 
     }
+
 }
