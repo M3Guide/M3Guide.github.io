@@ -135,6 +135,10 @@
     color: var(--text);
 }
 
+.navbar .dropdown-toggle.active {
+    color: var(--accent-green);
+}
+
 @media (max-width: 768px) {
     .nav-container {
         flex-wrap: wrap;
@@ -193,4 +197,3 @@
         align-items: center;
     }
 }
-
