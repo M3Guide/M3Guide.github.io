@@ -659,7 +659,7 @@
 
       function updateLeftEvoFromActive() {
         const inp = getActiveEvoInput();
-        const val = parseInt(inp?.value) || 0;
+        const val = parseInt((inp?.value).replace(/[^\d]/g, ""), 10) || 0;
         setDisplay(val);
         positionDigits();
       }
@@ -672,7 +672,7 @@
       ];
 
       function setDisplay(num) {
-        const s = String(num).slice(-3).padStart(3, "0");
+        const s = String(num).replace(/[^\d]/g, "").slice(-3).padStart(3, "0");
 
         digit1.src = `${DIGIT_PATH}Evo${s[0]}.png`;
         digit2.src = `${DIGIT_PATH}Evo${s[1]}.png`;
@@ -704,7 +704,7 @@
       }
 
       function setResultDisplay(num) {
-        const s = String(num).slice(-3).padStart(3, "0");
+        const s = String(num).replace(/[^\d]/g, "").slice(-3).padStart(3, "0");
 
         resultDigit1.src = `${DIGIT_PATH}Evo${s[0]}.png`;
         resultDigit2.src = `${DIGIT_PATH}Evo${s[1]}.png`;
