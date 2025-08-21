@@ -131,6 +131,10 @@
     display: none;
 }
 
+.navbar .dropdown-toggle:hover {
+    color: var(--text);
+}
+
 @media (max-width: 768px) {
     .nav-container {
         flex-wrap: wrap;
@@ -189,3 +193,4 @@
         align-items: center;
     }
 }
+
