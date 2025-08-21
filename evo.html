@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evo Calculator</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Oxanium, sans-serif;
+        background-color: #1f1f1f;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0;
+      }
+      h1 {
+        color: #00ffff;
+      }
+      button {
+        font-family: Oxanium, sans-serif;
+        width: 40%;
+        padding: 10px;
+        background-color: #00ffff;
+        border: none;
+        color: #20232a;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: 600;
+        line-height: 1;
+      }
+      button:hover {
+        background-color: #00cbcb;
+      }
+      footer {
+        text-align: center;
+      }
+      .layout {
+        display: flex;
+        text-align: center;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .template {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: clamp(12px, 2vw, 24px);
+        padding: clamp(12px, 2vw, 24px);
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: min(960px, 100%);
+      }
+      .heading {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 8px 14px;
+        margin: 0 auto;
+        border-radius: 12px;
+        background-color: #20232a;
+        box-shadow: 0 0 10px #00ffff;
+        height: min-content;
+      }
+
+      .heading img {
+        width: 32px;
+        height: auto;
+        display: block;
+      }
+
+      .heading h1 {
+        margin: 0;
+        font-size: clamp(18px, 2.6vw, 28px);
+        color: #00ffff;
+        line-height: 1.1;
+      }
+      .calc {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: clamp(12px, 2.5vw, 32px);
+        align-items: stretch;
+      }
+
+      .inputs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 640px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #00ffff;
+        font-family: Oxanium, sans-serif;
+        background-color: #20232a;
+        padding: clamp(16px, 2vw, 24px);
+        border-radius: 8px;
+        box-shadow: 0 0 10px #00ffff;
+      }
+
+      .results h2 {
+        margin-top: 0;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input[type="number"],
+      .form-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #00ffff;
+        border-radius: 4px;
+        background-color: #282c34;
+        color: #fff;
+        text-align: center;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .warning {
+        color: #ff6347;
+        font-size: 12px;
+      }
+      .evo {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: fit-content;
+        margin-inline: auto;
+        margin-bottom: 8px;
+      }
+      .bg {
+        display: block;
+        width: clamp(96px, 18vw, 150px);
+      }
+
+      .digit {
+        position: absolute;
+        image-rendering: pixelated;
+      }
+
+      .results {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 640px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #00ffff;
+        font-family: Oxanium, sans-serif;
+        background-color: #20232a;
+        padding: clamp(16px, 2vw, 0px);
+        border-radius: 8px;
+        box-shadow: 0 0 10px #00ffff;
+      }
+
+      .results pre {
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.9rem;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 255, 255, 0.12);
+        color: #e6feff;
+        overflow: auto;
+        min-height: 0;
+        height: auto;
+      }
+      .switch {
+        position: relative;
+        display: flex;
+        width: 60px;
+        height: 34px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #00ffff;
+        box-shadow: 0 0 15px #90ffff;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .mode-toggle {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 12px;
+        margin: 4px 0 14px;
+      }
+      .mode-toggle .toggle-label:first-child {
+        justify-self: end;
+        text-align: right;
+        color: #00ffff;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .mode-toggle .toggle-label:last-child {
+        justify-self: start;
+        text-align: left;
+        color: #00ffff;
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .switch {
+        width: 60px;
+        height: 34px;
+        position: relative;
+      }
+      #EvoForm {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 0px;
+      }
+
+      #EvoForm .form-group {
+        margin-bottom: 0;
+      }
+
+      #EvoForm button {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 50%;
+      }
+      #resultText {
+        display: block;
+        margin-top: 1rem;
+        font-family: Oxanium, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-align: center;
+        color: rgb(255, 255, 255);
+        white-space: pre-wrap;
+      }
+      .hidden {
+        display: none !important;
+      }
+      #TargetForm {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 16px;
+        row-gap: 1px;
+        margin-top: 0px;
+      }
+
+      #TargetForm .form-group:last-of-type {
+        grid-column: 1 / -1;
+      }
+      #TargetForm button {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="template">
+      <div class="heading">
+        <img
+          id="evo-icon"
+          src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/evo.png"
+          alt="Evo Icon"
+          height="20%"
+          width="20%"
+        />
+        <h1>Evo Calculator</h1>
+      </div>
+      <div class="mode-toggle">
+        <span class="toggle-label">Regular Evo Calculator</span>
+        <label class="switch">
+          <input type="checkbox" id="modeToggle" />
+          <span class="slider round"></span>
+        </label>
+        <span class="toggle-label">Target Evo Calculator</span>
+      </div>
+      <div class="calc">
+        <div class="inputs">
+          <div class="evo">
+            <img
+              id="evoBg"
+              src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/EvoCenter.png"
+              class="bg"
+              alt="Evo Center Icon"
+            />
+            <img id="digit1" class="digit" />
+            <img id="digit2" class="digit" />
+            <img id="digit3" class="digit" />
+          </div>
+          <form id="EvoForm">
+            <div class="form-group">
+              <label for="current-evo">Current Evo:</label>
+              <input
+                type="text"
+                id="current-evo"
+                name="current-evo"
+                min="1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="discount">Discount %:</label>
+              <input
+                type="number"
+                id="discount"
+                name="discount"
+                min="0"
+                max="100"
+                value="0"
+              />
+            </div>
+            <div class="form-group">
+              <label for="credits">Credits:</label>
+              <input
+                type="text"
+                id="credits"
+                name="credits"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label for="gold">Gold:</label>
+              <input
+                type="text"
+                id="gold"
+                name="gold"
+                inputmode="numeric"
+                autocomplete="off"
+                value="0"
+              />
+            </div>
+            <button type="submit">Calculate</button>
+          </form>
+          <form id="TargetForm" class="hidden">
+            <div class="form-group">
+              <label for="t-current-evo">Current Evo:</label>
+              <input type="text" id="t-current-evo" min="1" required />
+            </div>
+            <div class="form-group">
+              <label for="target-evo">Target Evo:</label>
+              <input type="text" id="target-evo" min="1" required />
+            </div>
+            <div class="form-group">
+              <label for="t-discount">Discount %:</label>
+              <input
+                type="number"
+                id="t-discount"
+                min="0"
+                max="100"
+                value="0"
+              />
+            </div>
+            <button type="submit">Calculate</button>
+          </form>
+        </div>
+
+        <div class="results">
+          <h2>Results</h2>
+
+          <pre id="result">
+            <div class="evo" id="resultEvo">
+            <img
+              src="https://raw.githubusercontent.com/M3Guide/M3Guide.github.io/main/images/misc/EvoCenter.png"
+              class="bg"
+              alt="Evo Center Icon"
+            />
+            <img id="resultDigit1" class="digit" />
+            <img id="resultDigit2" class="digit" />
+            <img id="resultDigit3" class="digit" />
+          </div>
+          <span id="resultText"><h2>Enter values and click calculate</h2></span></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let creditsData = [
+        0, 0, 0, 0, 0, 20000, 30000, 38700, 49000, 100000, 150000, 174000,
+        204000, 237000, 760000, 1100000, 1570000, 2350000, 2620000, 4030000,
+        4450000, 4880000, 5330000, 5810000, 8820000, 9540000, 10300000,
+        11100000, 11900000, 18100000, 19400000, 20600000, 22000000, 23300000,
+        37000000, 39200000, 41400000, 43700000, 46000000, 48400000, 50800000,
+        53300000, 55900000, 58500000, 61200000, 64000000, 66800000, 69700000,
+        72600000, 75600000, 78700000, 81800000, 84900000, 88200000, 91500000,
+        94800000, 98200000, 102000000, 105000000, 109000000, 113000000,
+        116000000, 120000000, 124000000, 128000000, 132000000, 136000000,
+        140000000, 144000000, 148000000, 152000000, 157000000, 161000000,
+        166000000, 170000000, 175000000, 179000000, 184000000, 189000000,
+        194000000, 198000000, 203000000, 208000000, 213000000, 218000000,
+        224000000, 229000000, 234000000, 240000000, 245000000, 250000000,
+        256000000, 262000000, 267000000, 273000000, 279000000, 285000000,
+        290000000, 296000000, 302000000, 308000000, 315000000, 321000000,
+        327000000, 333000000, 340000000, 346000000, 353000000, 359000000,
+        366000000, 373000000, 379000000, 386000000, 393000000, 400000000,
+        407000000, 414000000, 421000000, 428000000, 435000000, 443000000,
+        450000000, 458000000, 465000000, 473000000, 480000000, 488000000,
+        495000000, 503000000, 511000000, 519000000, 527000000, 535000000,
+        543000000, 551000000, 559000000, 568000000, 576000000, 584000000,
+        593000000, 601000000, 610000000, 618000000, 627000000, 636000000,
+        645000000, 653000000, 662000000, 671000000, 680000000, 690000000,
+        699000000, 708000000, 717000000, 727000000, 736000000, 745000000,
+        755000000, 764000000, 774000000, 779000000, 784000000, 789000000,
+        793000000, 798000000, 803000000, 808000000, 813000000, 818000000,
+        823000000, 827000000, 832000000, 837000000, 842000000, 847000000,
+        852000000, 856000000, 861000000, 866000000, 871000000, 876000000,
+        881000000, 885000000, 890000000, 895000000, 900000000, 905000000,
+        910000000, 914000000, 919000000, 924000000, 929000000, 934000000,
+        939000000, 943000000, 948000000, 953000000, 958000000, 963000000,
+        968000000, 973000000, 977000000, 982000000, 987000000, 992000000,
+        997000000, 1000000000, 1010000000, 1010000000, 1020000000, 1020000000,
+        1030000000, 1030000000, 1040000000, 1040000000, 1050000000, 1050000000,
+        1050000000, 1060000000, 1060000000, 1070000000, 1070000000, 1080000000,
+        1080000000, 1090000000, 1090000000, 1100000000, 1100000000, 1110000000,
+        1110000000, 1120000000, 1120000000, 1130000000, 1130000000, 1140000000,
+        1140000000, 1150000000, 1150000000, 1160000000, 1160000000, 1170000000,
+        1170000000, 1180000000, 1180000000, 1190000000, 1190000000, 1200000000,
+        1200000000, 1200000000, 1210000000, 1210000000, 1220000000, 1220000000,
+        1230000000, 1230000000, 1240000000, 1240000000, 1250000000, 1250000000,
+        1260000000, 1260000000, 1270000000, 1270000000, 1280000000, 1280000000,
+        1290000000, 1290000000, 1300000000, 1300000000, 1310000000, 1310000000,
+        1320000000, 1320000000, 1330000000, 1330000000, 1340000000, 1340000000,
+        1350000000, 1350000000, 1350000000, 1360000000, 1360000000, 1370000000,
+        1370000000, 1380000000, 1380000000, 1390000000, 1390000000, 1400000000,
+        1400000000, 1410000000, 1410000000, 1420000000, 1420000000, 1430000000,
+        1430000000, 1440000000, 1440000000, 1450000000, 1450000000, 1460000000,
+        1460000000, 1470000000, 1470000000, 1480000000, 1480000000, 1490000000,
+        1490000000, 1500000000, 1500000000, 1500000000, 1510000000, 1510000000,
+        1520000000, 1520000000, 1530000000, 1530000000, 1540000000, 1540000000,
+        1550000000, 1550000000, 1560000000, 1560000000, 1570000000, 1570000000,
+        1580000000, 1580000000, 159000000,
+      ];
+      let goldData = [
+        0, 0, 0, 0, 0, 5, 8, 10, 12, 25, 38, 44, 51, 59, 190, 275, 393, 588,
+        655, 1008, 1113, 1220, 1333, 1453, 2205, 2385, 2575, 2775, 2975, 3000,
+      ];
+
+      const digitsOnly = (s) => (s || "").replace(/[^\d]/g, "");
+      const clampDiscount = (v) => {
+        let n = parseInt(digitsOnly(v), 10);
+        if (isNaN(n)) n = 0;
+        if (n < 0) n = 0;
+        if (n > 100) n = 100;
+        return n;
+      };
+
+      function attachNumericFormatter(input) {
+        if (!input) return;
+
+        input.addEventListener("input", () => {
+          const raw = digitsOnly(input.value);
+          if (!raw) {
+            input.value = "";
+            return;
+          }
+          input.value = Number(raw).toLocaleString("en-GB");
+        });
+      }
+
+      function lockNumberField(el, onInput) {
+        if (!el) return;
+        el.setAttribute("inputmode", "numeric");
+        el.addEventListener("input", () => {
+          el.value = digitsOnly(el.value);
+          if (onInput) onInput(el);
+        });
+      }
+
+      function doCalculate() {
+        let current_evo =
+          parseInt(
+            document.getElementById("current-evo").value.replace(/,/g, "")
+          ) || 0;
+        let Discount = clampDiscount(document.getElementById("discount").value);
+        let userCreds =
+          parseInt(digitsOnly(document.getElementById("credits").value), 10) ||
+          0;
+        let userGold =
+          parseInt(digitsOnly(document.getElementById("gold").value), 10) || 0;
+
+        let result = 0;
+        let startingEVO = 0;
+
+        let increase = 0;
+        startingEVO = current_evo;
+        current_evo = current_evo;
+
+        if (current_evo >= 328) {
+          result =
+            current_evo +
+            Math.floor(userCreds / (1590000000 * ((100 - Discount) * 0.01)));
+        } else {
+          while (1) {
+            if (current_evo >= 328) {
+              result =
+                current_evo +
+                Math.floor(
+                  userCreds / (1590000000 * ((100 - Discount) * 0.01))
+                );
+              break;
+            }
+            userCreds -= Math.floor(
+              creditsData[current_evo] * ((100 - Discount) * 0.01)
+            );
+            if (userCreds >= 0) {
+              current_evo += 1;
+            } else {
+              result = current_evo;
+              break;
+            }
+          }
+        }
+
+        if (result >= 30) {
+          increase = Math.floor(userGold / (3000 * ((100 - Discount) * 0.01)));
+        } else {
+          while (1) {
+            if (increase + result >= 30) {
+              increase = Math.floor(
+                userGold / (3000 * ((100 - Discount) * 0.01))
+              );
+              break;
+            }
+            userGold -= Math.round(
+              goldData[result + increase] * ((100 - Discount) * 0.01)
+            );
+            if (userGold >= 0) {
+              increase += 1;
+            } else {
+              break;
+            }
+          }
+        }
+
+        result = result + increase;
+        document.getElementById("resultText").textContent =
+          "NEW EVO: " + result + "\nLEVELS SCALED: +" + (result - startingEVO);
+
+        setResultDisplay(result);
+        positionResultDigits();
+      }
+
+      function doTargetCalculate() {
+        const current =
+          parseInt(
+            document.getElementById("t-current-evo").value.replace(/,/g, "")
+          ) || 0;
+        const target =
+          parseInt(
+            document.getElementById("target-evo").value.replace(/,/g, "")
+          ) || 0;
+        const Discount = clampDiscount(
+          document.getElementById("t-discount").value
+        );
+
+        if (!current || !target || target <= current) {
+          document.getElementById("resultText").textContent =
+            "Set a valid Current Evo and a higher Target Evo.";
+          setResultDisplay(0);
+          positionResultDigits();
+          return;
+        }
+
+        const discountFactor = (100 - Discount) * 0.01;
+
+        let creditsNeeded = 0;
+        for (let lvl = current; lvl < target; lvl++) {
+          if (lvl >= 328) {
+            creditsNeeded += Math.floor(1590000000 * discountFactor);
+          } else {
+            creditsNeeded += Math.floor(
+              (creditsData[lvl] || 0) * discountFactor
+            );
+          }
+        }
+
+        let goldNeeded = 0;
+        for (let lvl = current; lvl < target; lvl++) {
+          if (lvl >= 30) {
+            goldNeeded += Math.floor(3000 * discountFactor);
+          } else {
+            goldNeeded += Math.round((goldData[lvl] || 0) * discountFactor);
+          }
+        }
+
+        setResultDisplay(target);
+        positionResultDigits();
+
+        const levels = target - current;
+        document.getElementById("resultText").textContent =
+          "CREDITS NEEDED: " +
+          creditsNeeded.toLocaleString("en-GB") +
+          "\nGOLD NEEDED: " +
+          goldNeeded.toLocaleString("en-GB");
+      }
+
+      function getActiveEvoInput() {
+        const evoForm = document.getElementById("EvoForm");
+        const targetForm = document.getElementById("TargetForm");
+        return targetForm.classList.contains("hidden")
+          ? document.getElementById("current-evo")
+          : document.getElementById("t-current-evo");
+      }
+
+      function updateLeftEvoFromActive() {
+        const inp = getActiveEvoInput();
+        const val = parseInt(inp?.value) || 0;
+        setDisplay(val);
+        positionDigits();
+      }
+
+      const DIGIT_PATH = "images/misc/";
+      const coords = [
+        { x: 155, y: 295 },
+        { x: 188, y: 295 },
+        { x: 223, y: 295 },
+      ];
+
+      function setDisplay(num) {
+        const s = String(num).slice(-3).padStart(3, "0");
+
+        digit1.src = `${DIGIT_PATH}Evo${s[0]}.png`;
+        digit2.src = `${DIGIT_PATH}Evo${s[1]}.png`;
+        digit3.src = `${DIGIT_PATH}Evo${s[2]}.png`;
+      }
+
+      function positionDigits() {
+        const img = document.getElementById("evoBg");
+        const scaleX = img.clientWidth / img.naturalWidth;
+        const scaleY = img.clientHeight / img.naturalHeight;
+
+        [digit1, digit2, digit3].forEach((el, i) => {
+          el.style.left = coords[i].x * scaleX + "px";
+          el.style.top = coords[i].y * scaleY + "px";
+          el.style.height = 50 * scaleY + "px";
+        });
+      }
+
+      function positionResultDigits() {
+        const img = document.querySelector("#resultEvo .bg");
+        const scaleX = img.clientWidth / img.naturalWidth;
+        const scaleY = img.clientHeight / img.naturalHeight;
+
+        [resultDigit1, resultDigit2, resultDigit3].forEach((el, i) => {
+          el.style.left = coords[i].x * scaleX + "px";
+          el.style.top = coords[i].y * scaleY + "px";
+          el.style.height = 50 * scaleY + "px";
+        });
+      }
+
+      function setResultDisplay(num) {
+        const s = String(num).slice(-3).padStart(3, "0");
+
+        resultDigit1.src = `${DIGIT_PATH}Evo${s[0]}.png`;
+        resultDigit2.src = `${DIGIT_PATH}Evo${s[1]}.png`;
+        resultDigit3.src = `${DIGIT_PATH}Evo${s[2]}.png`;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const img = document.getElementById("evoBg");
+        const init = () => {
+          positionDigits();
+          updateLeftEvoFromActive();
+        };
+        img.complete ? init() : img.addEventListener("load", init);
+        window.addEventListener("resize", positionDigits);
+
+        document
+          .getElementById("current-evo")
+          .addEventListener("input", updateLeftEvoFromActive);
+        document
+          .getElementById("t-current-evo")
+          .addEventListener("input", updateLeftEvoFromActive);
+
+        const resImg = document.querySelector("#resultEvo .bg");
+        const initResult = () => {
+          positionResultDigits();
+          setResultDisplay(0);
+        };
+        resImg.complete
+          ? initResult()
+          : resImg.addEventListener("load", initResult);
+        window.addEventListener("resize", positionResultDigits);
+
+        const modeToggle = document.getElementById("modeToggle");
+        const evoForm = document.getElementById("EvoForm");
+        const targetForm = document.getElementById("TargetForm");
+
+        function setMode(isTarget) {
+          evoForm.classList.toggle("hidden", isTarget);
+          targetForm.classList.toggle("hidden", !isTarget);
+
+          document.getElementById("resultText").textContent =
+            "Enter values and click calculate";
+          setResultDisplay(0);
+          positionResultDigits();
+          updateLeftEvoFromActive();
+        }
+
+        setMode(modeToggle.checked);
+
+        modeToggle.addEventListener("change", (e) => {
+          setMode(e.target.checked);
+        });
+
+        attachNumericFormatter(document.getElementById("current-evo"));
+        attachNumericFormatter(document.getElementById("t-current-evo"));
+        attachNumericFormatter(document.getElementById("target-evo"));
+        attachNumericFormatter(document.getElementById("credits"));
+        attachNumericFormatter(document.getElementById("gold"));
+
+        lockNumberField(document.getElementById("discount"), (el) => {
+          el.value = clampDiscount(el.value);
+        });
+        lockNumberField(document.getElementById("t-discount"), (el) => {
+          el.value = clampDiscount(el.value);
+        });
+      });
+
+      document
+        .getElementById("EvoForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          doCalculate();
+        });
+
+      document.getElementById("TargetForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        doTargetCalculate();
+      });
+    </script>
+  </body>
+</html>
