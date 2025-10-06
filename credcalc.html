@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credit Production Calculator</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="navbar.css" />
+    <script src="navbar.js"></script>
+
+    <style>
+      :root {
+        --card: #20232a;
+        --ink: #f1f1f1;
+        --border: rgba(0, 255, 255, 0.12);
+        --shadow: 0 0 10px #fff2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Oxanium, system-ui, Segoe UI, Roboto, Ubuntu,
+          "Helvetica Neue", Arial;
+        background: #1f1f1f;
+        color: #fff;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .template {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: clamp(12px, 2vw, 24px);
+        padding: clamp(12px, 2vw, 24px);
+        width: min(1200px, 100%);
+      }
+      .heading {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto;
+        padding: 10px 18px;
+        border-radius: 12px;
+        background: #20232a;
+        box-shadow: 0 0 10px #ffffff33;
+      }
+      .heading h1 {
+        font-size: 1.4rem;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      .calc {
+        display: grid;
+        grid-template-columns: minmax(320px, 420px) 1fr;
+        gap: clamp(12px, 2.5vw, 28px);
+        align-items: stretch;
+      }
+
+      .panel {
+        background: var(--card);
+        padding: clamp(14px, 2vw, 20px);
+        border-radius: 12px;
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        display: grid;
+        gap: 14px;
+        grid-auto-rows: min-content;
+      }
+      .panel h2 {
+        font-size: 1.05rem;
+        margin: 0.2rem 0 0.6rem;
+        text-align: center;
+      }
+
+      #mutantsPanel {
+        display: grid;
+        grid-template-rows: min-content 1fr;
+      }
+      #mutantsPanel h2 {
+        text-align: center;
+        width: 100%;
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+        border: none;
+        margin: 2px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .mutant {
+        position: relative;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: visible;
+        background: #111b;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .mutant header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 12px 10px 4px;
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .mutant .imgwrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        display: grid;
+        place-items: center;
+        background: #0006;
+        border: 1px solid var(--border);
+        border-radius: 0 0 12px 12px;
+        border-top: 1px solid var(--border);
+        margin-top: 0;
+        transform: translateZ(0);
+      }
+
+      .mutant .imgwrap img {
+        max-width: 95%;
+        max-height: 95%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 6px #000);
+        transition: transform 0.3s ease;
+      }
+      .mutant .imgwrap img:hover {
+        transform: scale(1.05);
+      }
+
+      .mutant .controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 12px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+      .label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        text-align: center;
+      }
+
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #0c1115;
+        color: var(--ink);
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      .results {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #0b0f12;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+      .results .row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .big {
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+
+      footer {
+        background: #111;
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid var(--border);
+      }
+
+      .slider {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        background: #0006;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--border);
+        border-radius: 0 0 12px 12px;
+        border-top: 1px solid var(--border);
+        margin-top: 0;
+        transform: translateZ(0);
+      }
+      .slider .slide {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .slider .slide img {
+        max-width: 85%;
+        max-height: 85%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 6px #000);
+      }
+      .slider .slide.active {
+        opacity: 1;
+      }
+
+      .field.mutantCredits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .field.mutantCredits .label {
+        grid-column: 1/-1;
+      }
+
+      #compoundType {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      .mutant .controls input[type="number"] {
+        width: 100%;
+        height: 150px;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #0c1115;
+        color: var(--ink);
+      }
+
+      #evoLevel {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      #compoundType {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="template">
+        <div class="heading">
+          <img
+            id="credbox-icon"
+            src="images/misc/CredBox.png"
+            alt="Credit Icon"
+            height="44"
+            width="44"
+          />
+          <h1>Credit Production Calculator</h1>
+        </div>
+
+        <section class="calc">
+          <!-- LEFT unified panel -->
+          <section class="panel" id="leftUnifiedPanel">
+            <div class="field">
+              <h2>Enter Values</h2>
+              <label class="label" for="evoLevel"
+                >Current Evo or Level of Mutants</label
+              >
+              <input
+                id="evoLevel"
+                type="number"
+                min="1"
+                max="325100"
+                value="1"
+              />
+            </div>
+
+            <div class="results" id="overallResults">
+              <div class="row">
+                <span>Level multiplier</span><span id="evoLevelOut">1×</span>
+              </div>
+              <div class="row">
+                <span>Total mutants</span><span id="totalMutants">0</span>
+              </div>
+              <div class="row">
+                <span>Compounds required</span
+                ><span id="compoundsRequired">0</span>
+              </div>
+              <div class="row big">
+                <span>Total credits/hour</span><span id="totalPerHour">0</span>
+              </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="stack">
+              <h2>Select your Compound</h2>
+
+              <div class="field">
+                <label class="label" for="compoundType"
+                  >Select the type of compound to see its images</label
+                >
+                <select id="compoundType">
+                  <option value="neutraldeluxe">Neutral Deluxe</option>
+                  <option value="genespecific">Gene-specific Deluxe</option>
+                  <option value="standardmythic">Standard Mythic</option>
+                </select>
+              </div>
+
+              <div
+                id="compoundImageBox"
+                class="slider"
+                style="margin-bottom: 6px"
+              >
+                <div class="slide active">
+                  <img src="images/misc/neutraldeluxe.png" alt="Compound" />
+                </div>
+              </div>
+
+              <div class="field mutantCredits">
+                <label class="label"
+                  >Credits/hour (Mutants in this compound)</label
+                >
+                <label class="label"> Enter your evo above! </label>
+                <select class="mutantCredit">
+                  <option value="42">42/hr</option>
+                  <option value="84">84/hr</option>
+                  <option value="105">105/hr</option>
+                  <option value="210">210/hr</option>
+                  <option value="300">300/hr</option>
+                  <option value="340">340/hr</option>
+                </select>
+                <select class="mutantCredit">
+                  <option value="42">42/hr</option>
+                  <option value="84">84/hr</option>
+                  <option value="105">105/hr</option>
+                  <option value="210">210/hr</option>
+                  <option value="300">300/hr</option>
+                  <option value="340">340/hr</option>
+                </select>
+                <select class="mutantCredit">
+                  <option value="42">42/hr</option>
+                  <option value="84">84/hr</option>
+                  <option value="105">105/hr</option>
+                  <option value="210">210/hr</option>
+                  <option value="300">300/hr</option>
+                  <option value="340">340/hr</option>
+                </select>
+                <select class="mutantCredit">
+                  <option value="42">42/hr</option>
+                  <option value="84">84/hr</option>
+                  <option value="105">105/hr</option>
+                  <option value="210">210/hr</option>
+                  <option value="300">300/hr</option>
+                  <option value="340">340/hr</option>
+                </select>
+              </div>
+
+              <div class="results">
+                <div class="row">
+                  <span>Compound Capacity</span><span id="compoundCap">0</span>
+                </div>
+                <div class="row">
+                  <span>Total credits/hour (this compound)</span
+                  ><span id="compoundTotalHr">0</span>
+                </div>
+                <div class="row big">
+                  <span>Time to Max</span><span id="compoundTime">0h</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT mutants grid -->
+          <section class="panel" id="mutantsPanel">
+            <h2>
+              Enter the number of Mutants below (The total mutants cannot exceed
+              168)
+            </h2>
+            <div class="grid" id="mutantGrid"></div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer><p>Site by CertifiedHabibi. All Rights Reserved ©</p></footer>
+
+    <script>
+      const CONFIG = {
+        multipliers: [8, 7, 5, 2.5, 2, 1],
+        perHourByMultiplier: { 1: 42, 2: 84, 2.5: 105, 5: 210, 7: 300, 8: 340 },
+        defaults: [
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_fb_14.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_ca_09.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_fa_04.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_fc_11.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_ff_99.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_ff_05.png",
+        ],
+      };
+      const SLIDES = {
+        2.5: [
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_fc_11.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_a_05.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_ea_99.png",
+        ],
+        2: [
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_fd_14.png",
+          "https://s-ak.kobojo.com/mutants/assets/thumbnails/specimen_ff_99.png",
+        ],
+
+        1: [
+          "images/genes/Neutral.png",
+          "images/genes/Cyber.png",
+          "images/genes/Necro.png",
+          "images/genes/Saber.png",
+          "images/genes/Zoomorph.png",
+          "images/genes/Galactic.png",
+          "images/genes/Mythic.png",
+        ],
+      };
+      const IMGS = {
+        neutraldeluxe: "images/misc/neutraldeluxe.png",
+        standardmythic: "images/misc/standardmythic.png",
+        cyberdeluxe: "images/misc/cyberdeluxe.png",
+        necrodeluxe: "images/misc/necrodeluxe.png",
+        saberdeluxe: "images/misc/saberdeluxe.png",
+        zoomorphdeluxe: "images/misc/zoomorphdeluxe.png",
+        galacticdeluxe: "images/misc/galacticdeluxe.png",
+        mythicdeluxe: "images/misc/mythicdeluxe.png",
+      };
+      const CAP = {
+        standardmythic: 160000,
+        genespecific: 320000,
+        neutraldeluxe: 400000,
+      };
+
+      let state = {
+        slots: CONFIG.multipliers.map((m, i) => ({
+          multiplier: m,
+          count: 0,
+          url: CONFIG.defaults[i],
+        })),
+        evo: 1,
+      };
+
+      const grid = document.getElementById("mutantGrid");
+      const evoInput = document.getElementById("evoLevel");
+      const evoOut = document.getElementById("evoLevelOut");
+      const totalMutants = document.getElementById("totalMutants");
+      const compReq = document.getElementById("compoundsRequired");
+      const totalHr = document.getElementById("totalPerHour");
+
+      const compoundType = document.getElementById("compoundType");
+      const compoundCap = document.getElementById("compoundCap");
+      const compoundTotalHr = document.getElementById("compoundTotalHr");
+      const compoundTime = document.getElementById("compoundTime");
+      const compoundBox = document.getElementById("compoundImageBox");
+      const mutantCredits = () => [
+        ...document.querySelectorAll(".mutantCredit"),
+      ];
+
+      function perHour(mult) {
+        return CONFIG.perHourByMultiplier[mult] || 0;
+      }
+      function format(n) {
+        return Number(n || 0).toLocaleString();
+      }
+
+      const MAX_TOTAL = 42 * 4; 
+      function setCountCapped(slotIndex, newVal, inputEl) {
+        const others = state.slots.reduce(
+          (a, s, i) => (i === slotIndex ? a : a + (s.count || 0)),
+          0
+        );
+        const allowed = Math.max(0, MAX_TOTAL - others);
+        const capped = Math.max(0, Math.min(newVal, allowed));
+        state.slots[slotIndex].count = capped;
+        if (inputEl && Number(inputEl.value) !== capped) inputEl.value = capped;
+      }
+
+      const carousels = {};
+      function startCarousel(idx, intv = 1500) {
+        const el = document.getElementById(`slider-${idx}`);
+        if (!el) return;
+        const slides = [...el.querySelectorAll(".slide")];
+        if (slides.length <= 1) return;
+        let cur = 0;
+        if (carousels[idx]) clearInterval(carousels[idx]);
+        carousels[idx] = setInterval(() => {
+          slides[cur].classList.remove("active");
+          cur = (cur + 1) % slides.length;
+          slides[cur].classList.add("active");
+        }, intv);
+      }
+
+      function render() {
+        grid.innerHTML = "";
+        state.slots.forEach((s, i) => {
+          const evo = Math.max(1, state.evo || 1);
+          const rate = perHour(s.multiplier) * evo;
+          const has = SLIDES[String(s.multiplier)];
+          const block = has
+            ? `<div class="slider" id="slider-${i}">${SLIDES[
+                String(s.multiplier)
+              ]
+                .map(
+                  (u, k) =>
+                    `<div class="slide ${
+                      k === 0 ? "active" : ""
+                    }"><img src="${u}" alt=""></div>`
+                )
+                .join("")}</div>`
+            : `<div class="imgwrap"><img src="${s.url}" alt=""></div>`;
+          const div = document.createElement("div");
+          div.className = "mutant";
+          div.innerHTML = `
+            <header><span>${s.multiplier}×</span><span id="rate-${i}">${rate}/hr</span></header>
+            ${block}
+            <div class="controls"><label class="label">Count</label><input type="number" id="count-${i}" value="${s.count}" min="0"></div>`;
+          grid.appendChild(div);
+
+          const countInput = div.querySelector(`#count-${i}`);
+          countInput.setAttribute("max", MAX_TOTAL);
+
+          countInput.addEventListener("focus", (e) => {
+            if (e.target.value === "0") e.target.value = "";
+          });
+
+          countInput.addEventListener("blur", (e) => {
+            if (e.target.value === "") e.target.value = "0";
+          });
+
+          countInput.addEventListener("input", (e) => {
+            const val = Math.max(0, Number(e.target.value) || 0);
+            setCountCapped(i, val, e.target);
+            recalc();
+            updateCompound();
+          });
+
+          if (has) startCarousel(i, 1500);
+        });
+      }
+
+      function recalc() {
+        const evo = Math.max(1, Number(state.evo) || 1);
+        const total = state.slots.reduce(
+          (a, s) => a + s.count * (perHour(s.multiplier) * evo),
+          0
+        );
+        const tm = state.slots.reduce((a, s) => a + (s.count || 0), 0);
+        evoOut.textContent = evo + "×";
+        totalMutants.textContent = format(tm);
+        compReq.textContent = Math.ceil(tm / 4);
+        totalHr.textContent = format(total);
+      }
+
+      evoInput.addEventListener("focus", (e) => {
+        if (e.target.value === "1") e.target.value = "";
+      });
+      evoInput.addEventListener("blur", (e) => {
+        if (e.target.value === "") e.target.value = "1";
+      });
+
+      evoInput.addEventListener("input", (e) => {
+        let val = Math.max(1, Number(e.target.value) || 1);
+        if (val > 325100) val = 325100;
+        e.target.value = val;
+        state.evo = val;
+        recalc();
+        updateCompound();
+      });
+
+      let geneTimer = null;
+      function stopGene() {
+        if (geneTimer) clearInterval(geneTimer);
+      }
+
+      function setCompoundBox(type) {
+        if (type === "genespecific") {
+          const arr = [
+            "cyberdeluxe",
+            "necrodeluxe",
+            "saberdeluxe",
+            "zoomorphdeluxe",
+            "galacticdeluxe",
+            "mythicdeluxe",
+          ];
+          compoundBox.innerHTML = arr
+            .map(
+              (n, i) =>
+                `<div class="slide ${i === 0 ? "active" : ""}"><img src="${
+                  IMGS[n]
+                }" alt="${n}"></div>`
+            )
+            .join("");
+          const slides = [...compoundBox.querySelectorAll(".slide")];
+          let cur = 0;
+          stopGene();
+          geneTimer = setInterval(() => {
+            slides[cur].classList.remove("active");
+            cur = (cur + 1) % slides.length;
+            slides[cur].classList.add("active");
+          }, 1500);
+        } else {
+          stopGene();
+          compoundBox.innerHTML = `<div class="slide active"><img src="${IMGS[type]}" alt="${type}"></div>`;
+        }
+      }
+
+      function updateCompound() {
+        const evo = Math.max(1, Number(state.evo) || 1);
+        const type = compoundType.value;
+        const cap = CAP[type] || 0;
+        compoundCap.textContent = format(cap);
+        const totalHrVal =
+          mutantCredits().reduce((a, i) => a + (Number(i.value) || 0), 0) * evo;
+        compoundTotalHr.textContent = format(totalHrVal);
+        if (totalHrVal > 0) {
+          const hrs = cap / totalHrVal;
+          const d = Math.floor(hrs / 24),
+            h = Math.floor(hrs % 24),
+            m = Math.round((hrs - d * 24 - h) * 60);
+          compoundTime.textContent =
+            d > 0 ? `${d}d ${h}h ${m}m` : `${Math.floor(hrs)}h ${m}m`;
+        } else compoundTime.textContent = "0h";
+      }
+
+      compoundType.addEventListener("change", () => {
+        setCompoundBox(compoundType.value);
+        updateCompound();
+      });
+      document.addEventListener("input", (e) => {
+        if (e.target.classList.contains("mutantCredit")) updateCompound();
+      });
+
+      render();
+      recalc();
+      setCompoundBox("neutraldeluxe");
+      updateCompound();
+    </script>
+  </body>
+</html>
