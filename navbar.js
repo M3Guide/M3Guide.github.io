@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="breed.html"><i class="fas fa-dna"></i> Breeding Calculator</a>
                             <a href="xp.html"><i class="fas fa-chart-line"></i> XP Calculator</a>
                             <a href="evocalc.html"><i class="fas fa-angle-double-up"></i> Evo Calculator</a>
+                            <a href="credcalc.html"><i class="fas fa-coins"></i> Credits Calculator</a>
                             <a href="fightsim.html"><i class="fas fa-fist-raised"></i> Fight Simulator</a>
                         </div>
                     </div>
