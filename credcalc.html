@@ -302,6 +302,29 @@
         margin: 0 auto;
         text-align: center;
       }
+      @media (max-width: 768px) {
+        .calc {
+          grid-template-columns: 1fr; /* stack vertically on mobile */
+        }
+
+        .panel {
+          width: 100%;
+        }
+
+        .heading h1 {
+          font-size: 1.1rem;
+        }
+
+        input,
+        select {
+          font-size: 1rem;
+        }
+
+        .mutant .controls input[type="number"] {
+          height: 80px; /* reduce tall inputs on phones */
+          font-size: 1rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -527,7 +550,7 @@
         return Number(n || 0).toLocaleString();
       }
 
-      const MAX_TOTAL = 42 * 4; 
+      const MAX_TOTAL = 42 * 4;
       function setCountCapped(slotIndex, newVal, inputEl) {
         const others = state.slots.reduce(
           (a, s, i) => (i === slotIndex ? a : a + (s.count || 0)),
