@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="evocalc.html"><i class="fas fa-angle-double-up"></i> Evo Calculator</a>
                             <a href="credcalc.html"><i class="fas fa-coins"></i> Credits Calculator</a>
                             <a href="fightsim.html"><i class="fas fa-fist-raised"></i> Fight Simulator</a>
+                            <a href="tierlist.html"><i class="fas fa-trophy"></i> Tier List</a>
                         </div>
                     </div>
 
